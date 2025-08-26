@@ -1,4 +1,16 @@
-# Project Rules and Guidelines
+# Project Rules
+
+Rules for Copilot when working in this repo:
+- One task at a time from @/ai/TASKS.md.
+- After each, show diff + how to test it.
+- Always ask for my approval before moving on.
+- If unsure, propose 2–3 options with pros/cons, then ask me to pick.
+- Prefer small, safe edits over big rewrites.
+- Keep explanations in bullet points, not essays.
+
+
+
+# Project Guidlines
 
 ## Coding Standards
 - Follow consistent naming conventions for variables and functions.
