@@ -15,19 +15,5 @@ ai-project
 └── README.md           # Project documentation
 ```
 
-## Setup Instructions
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd ai-project
-   ```
-3. Install any necessary dependencies (if applicable).
-
 ## Contribution
 Contributions are welcome! Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
