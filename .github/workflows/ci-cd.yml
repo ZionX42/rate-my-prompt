@@ -66,6 +66,7 @@ jobs:
         run: |
           echo "Deploying to staging environment..."
           # npm run deploy:staging
-        env:
-          # Add any necessary deployment secrets/env vars
-          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
+        # Commented out until we have a deployment host
+        # env:
+        #   # Add any necessary deployment secrets/env vars
+        #   DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
