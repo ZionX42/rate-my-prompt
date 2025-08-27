@@ -8,13 +8,13 @@ describe('Navigation', () => {
     // Check for logo/brand
     expect(screen.getByText('Prompt Hub')).toBeInTheDocument();
     
-    // Check for main navigation links
-    expect(screen.getByText('Prompts')).toBeInTheDocument();
-    expect(screen.getByText('Categories')).toBeInTheDocument();
-    expect(screen.getByText('About')).toBeInTheDocument();
+    // Check for main navigation links (these appear in both mobile and desktop views)
+    expect(screen.getAllByText('Prompts').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Categories').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('About').length).toBeGreaterThan(0);
     
     // Check for auth links
-    expect(screen.getByText('Log in')).toBeInTheDocument();
-    expect(screen.getByText('Sign up')).toBeInTheDocument();
+    expect(screen.getAllByText('Log in').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Sign up').length).toBeGreaterThan(0);
   });
 });
