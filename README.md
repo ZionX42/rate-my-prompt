@@ -16,4 +16,4 @@ ai-project
 ```
 
 ## Contribution
-Contributions are welcome! Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.
+Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.

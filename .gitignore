@@ -38,3 +38,5 @@ next-env.d.ts
 .vscode/
 *.swp
 *.swo
+
+/app/generated/prisma
