@@ -7,16 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+  "test": "jest",
+  "mongo:setup": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/mongo-setup.ts",
     "deploy:staging": "echo 'Add deployment script here'"
   },
   "dependencies": {
-    "@prisma/client": "^6.15.0",
+  "@prisma/client": "^6.15.0",
+  "mongodb": "^6.9.0",
     "eslint-plugin-react": "^7.37.5",
     "next": "^14.2.30",
     "prettier": "^3.6.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+  "react-dom": "^18.3.1",
+  "undici": "^6.19.8"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -30,6 +33,7 @@
     "eslint-config-next": "^14.2.30",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+  "ts-node": "^10.9.2",
     "postcss": "^8.5.6",
     "prisma": "^6.15.0",
     "tailwindcss": "^3.4.17",

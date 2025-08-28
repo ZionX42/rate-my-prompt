@@ -3,5 +3,10 @@
   "extends": ["eslint:recommended", "plugin:react/recommended", "next"],
   "rules": {
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "ignorePatterns": [
+    "app/generated/**/*",
+    "prisma/generated/**/*",
+    "**/generated/**/*"
+  ]
 }

@@ -1,0 +1,18 @@
+# Generated files
+app/generated/
+prisma/generated/
+**/generated/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+
+# Environment files
+.env*
+
+# Other
+*.log

@@ -12,7 +12,13 @@ const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (if you have configured them in your Next.js config)
     '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/pages/(.*)$': '<rootDir>/pages/$1',
+    '^@/lib/(.*)$': '<rootDir>/lib/$1',
+    '^@/(.*)$': '<rootDir>/$1',
+  },
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
   },
 };
 

@@ -1,16 +1,32 @@
-# Project Rules
+# Rules for AI agent (this repo)
 
-Rules for Copilot when working in this repo:
-- One task at a time from @/ai/TASKS.md.
-- After each, show diff + how to test it.
+## General Principles:
+- Work on one task at a time from @/ai/TASKS.md.
+- After each, show the diff + how to test the change.
 - Always ask for my approval before moving on.
 - If unsure, propose 2–3 options with pros/cons, then ask me to pick.
 - Prefer small, safe edits over big rewrites.
 - Keep explanations in bullet points, not essays.
 
+## README.md Updates:
+- Only suggest edits to README.md when:
+  1. A new feature is user-facing and requires explanation.
+  2. Setup instructions, commands, or dependencies have changed.
+  3. API endpoints, environment variables, or config options are added/modified.
+  4. There is critical information new contributors need.
+- Never add marketing fluff or duplicate info already in PRD.md or TASKS.md.
+- When a README update is needed:
+  - Summarize in plain language (2–5 lines max).
+  - Place changes in the appropriate section (e.g., "Setup", "Usage").
+  - Ask for approval before writing to README.md.
+
+## Style:
+- Write in clear, scannable English (short sentences, bullets preferred).
+- Always show me the exact diff before applying changes.
 
 
-# Project Guidlines
+
+# Project Best Practice Guidlines
 
 ## Coding Standards
 - Follow consistent naming conventions for variables and functions.
