@@ -1,34 +1,35 @@
 import Link from 'next/link';
 import React from 'react';
+import ThemeToggle from './ui/ThemeToggle';
 
 const Navigation = () => {
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-bg border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo and main navigation */}
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-xl font-bold text-indigo-600">
+              <Link href="/" className="text-xl font-bold text-heading">
                 Prompt Hub
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
                 href="/prompts"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 Prompts
               </Link>
               <Link
                 href="/categories"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 Categories
               </Link>
               <Link
                 href="/about"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 About
               </Link>
@@ -39,23 +40,25 @@ const Navigation = () => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <Link
               href="/login"
-              className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+              className="text-subtext hover:text-heading px-3 py-2 rounded-md text-sm font-medium"
             >
               Log in
             </Link>
             <Link
               href="/signup"
-              className="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+              className="ml-4 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
+              style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
             >
               Sign up
             </Link>
+            <ThemeToggle />
           </div>
           
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-subtext hover:text-heading hover:bg-card focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-indigo"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -81,33 +84,33 @@ const Navigation = () => {
       </div>
       
       {/* Mobile menu, show/hide based on menu state */}
-      <div className="hidden sm:hidden">
+  <div className="hidden sm:hidden">
         <div className="pt-2 pb-3 space-y-1">
           <Link
             href="/prompts"
-            className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+    className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Prompts
           </Link>
           <Link
             href="/categories"
-            className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+    className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Categories
           </Link>
           <Link
             href="/about"
-            className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+    className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             About
           </Link>
         </div>
-        <div className="pt-4 pb-3 border-t border-gray-200">
+    <div className="pt-4 pb-3 border-t border-border">
           <div className="flex items-center px-4">
             <div className="flex-shrink-0">
               <Link
                 href="/login"
-                className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+        className="block px-4 py-2 text-base font-medium text-subtext hover:text-heading hover:bg-card"
               >
                 Log in
               </Link>
@@ -115,7 +118,8 @@ const Navigation = () => {
             <div className="mt-3">
               <Link
                 href="/signup"
-                className="block w-full px-4 py-2 text-base font-medium text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+        className="block w-full px-4 py-2 text-base font-medium text-center text-white rounded-2xl"
+        style={{ backgroundImage: 'linear-gradient(90deg, #4A90E2, #34D399)' }}
               >
                 Sign up
               </Link>

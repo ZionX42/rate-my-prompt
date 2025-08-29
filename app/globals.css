@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		/* Light mode tokens */
+		--color-bg: 255 255 255;          /* #FFFFFF */
+		--color-surface: 245 245 247;     /* #F5F5F7 */
+		--color-card: 240 240 244;        /* #F0F0F4 */
+		--color-border: 225 225 230;
+		--color-heading: 17 17 17;        /* #111111 */
+		--color-subtext: 68 68 68;        /* #444444 */
+	}
+
+	.dark {
+		--color-bg: 12 12 18;             /* #0C0C12 */
+		--color-surface: 16 16 24;         /* #101018 */
+		--color-card: 26 26 36;            /* #1A1A24 */
+		--color-border: 42 42 56;
+		--color-heading: 255 255 255;      /* #FFFFFF */
+		--color-subtext: 160 160 176;      /* #A0A0B0 */
+	}
+
+	html, body { @apply h-full; }
+	body {
+		@apply bg-bg text-subtext font-sans antialiased;
+		background-image: linear-gradient(to bottom, rgb(var(--color-bg)), rgb(var(--color-surface)));
+	}
+}
+
+@layer components {
+	.card { @apply bg-card rounded-2xl border border-border shadow-soft; }
+	.card-hover { @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl; }
+	.cta { @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium; }
+	.cta--pink { background-image: linear-gradient(90deg, #FF4B91, #5F5CFF); @apply text-white; }
+	.cta--blue { background-image: linear-gradient(90deg, #4A90E2, #34D399); @apply text-white; }
+	.hover-glow-yellow:hover { box-shadow: 0 0 28px rgba(255, 210, 31, 0.45); }
+	.hover-glow-blue:hover   { box-shadow: 0 0 28px rgba(74, 144, 226, 0.45); }
+	.hover-glow-pink:hover   { box-shadow: 0 0 28px rgba(255, 75, 145, 0.45); }
+}
+
+@layer utilities {
+	.heading-xl { @apply text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading; }
+	.muted { @apply text-subtext; }
+}

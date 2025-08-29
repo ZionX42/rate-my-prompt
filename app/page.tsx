@@ -1,74 +1,129 @@
-import { Section, Container, Grid } from '@/components/layout';
+import React from 'react';
+import Link from 'next/link';
 
-export default function Home() {
+function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>;
+}
+
+export default function HomePage() {
   return (
-    <>
-      <Section className="bg-indigo-50">
-        <Container>
-          <div className="py-12 md:py-20">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">Prompt Hub</h1>
-            <p className="text-xl md:text-2xl text-center max-w-3xl mx-auto">
-              The premier platform for discovering, sharing, and rating AI prompts
+    <main>
+      {/* Hero */}
+      <Section className="pt-10 md:pt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 className="heading-xl">
+              The AI community
+              <br className="hidden md:block" /> building the future.
+            </h1>
+            <p className="mt-4 text-lg muted max-w-2xl">
+              A platform to discover, rank, and learn from top prompts and agents. Share your work. Level up with the community.
             </p>
-            <div className="mt-8 flex justify-center">
-              <a
-                href="/prompts"
-                className="bg-indigo-600 text-white px-6 py-3 rounded-md font-medium hover:bg-indigo-700 transition"
-              >
-                Browse Prompts
-              </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/prompts" className="cta cta--pink hover-glow-pink">Browse Prompts</Link>
+              <Link href="/prompts/new" className="cta cta--blue hover-glow-blue">Submit Your Prompt</Link>
             </div>
           </div>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container>
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Featured Categories</h2>
-          <Grid cols={{ default: 1, sm: 2, md: 3 }} gap={6}>
-            {['Code Generation', 'Creative Writing', 'Image Prompts', 'Data Analysis'].map((category) => (
-              <div key={category} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                <h3 className="text-lg font-semibold mb-2">{category}</h3>
-                <p className="text-gray-600">Explore the best prompts for {category.toLowerCase()}</p>
+          <div className="card card-hover p-6 lg:p-8">
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="rounded-2xl bg-surface/70 border border-border p-4">
+                <div className="text-heading font-semibold">Trending</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="flex justify-between"><span>Content Generator</span><span className="text-hfYellow">4.8★</span></li>
+                  <li className="flex justify-between"><span>Customer Support</span><span className="text-hfYellow">4.7★</span></li>
+                  <li className="flex justify-between"><span>SEO Optimizer</span><span className="text-hfYellow">4.7★</span></li>
+                </ul>
               </div>
-            ))}
-          </Grid>
-        </Container>
-      </Section>
-
-      <Section className="bg-gray-50">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">How It Works</h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              Prompt Hub makes it easy to discover, share, and use AI prompts
-            </p>
+              <div className="rounded-2xl bg-surface/70 border border-border p-4">
+                <div className="text-heading font-semibold">Latest</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="flex justify-between"><span>Summarizer Pro</span><span className="text-hfYellow">New</span></li>
+                  <li className="flex justify-between"><span>Resume Builder</span><span className="text-hfYellow">New</span></li>
+                  <li className="flex justify-between"><span>Docs QA</span><span className="text-hfYellow">New</span></li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <Grid cols={{ default: 1, md: 3 }} gap={8}>
-            <div className="text-center p-4">
-              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600">1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Discover</h3>
-              <p className="text-gray-600">Browse thousands of prompts rated by the community</p>
-            </div>
-            <div className="text-center p-4">
-              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600">2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Use</h3>
-              <p className="text-gray-600">Copy and use prompts with your favorite AI tools</p>
-            </div>
-            <div className="text-center p-4">
-              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-indigo-600">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Share</h3>
-              <p className="text-gray-600">Submit your own prompts and get feedback</p>
-            </div>
-          </Grid>
-        </Container>
+        </div>
       </Section>
-    </>
+
+      {/* Trending row */}
+      <Section className="pt-0">
+        <h2 className="text-2xl md:text-3xl font-bold text-heading mb-6">Trending this week</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {['OpenAI', 'Community', 'Agents'].map((label, i) => (
+            <div key={label} className="card card-hover p-5 border border-border">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-heading">{label}</span>
+                <span className={i === 0 ? 'text-accent-blue' : i === 1 ? 'text-accent-pink' : 'text-accent-green'}>●</span>
+              </div>
+              <p className="mt-2 text-sm muted">Top {label.toLowerCase()} prompts curated by the community.</p>
+              <div className="mt-4">
+                <Link href="/prompts" className="text-hfYellow underline underline-offset-4">Explore</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Collaboration section */}
+      <Section className="pt-0">
+        <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+          <div className="card p-6">
+            <h3 className="text-xl md:text-2xl font-bold text-heading">The collaboration platform</h3>
+            <p className="mt-2 muted">Share, review, and iterate on prompts with transparent version history.</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li>• Structured reviews (effectiveness, efficiency, clarity)</li>
+              <li>• Versioning and changelogs</li>
+              <li>• Forum discussions per prompt</li>
+            </ul>
+          </div>
+          <div className="card p-0 overflow-hidden">
+            <div className="bg-surface border-b border-border px-4 py-2 text-xs">Example</div>
+            <pre className="p-4 text-sm text-heading/90">
+{`System: You are a marketing assistant.
+Task: Produce a 100-word product description.
+
+Scoring:
+- Specificity: 5
+- Clarity: 5
+- Efficiency: 4`}
+            </pre>
+          </div>
+        </div>
+      </Section>
+
+      {/* Features grid */}
+      <Section className="pt-0">
+        <h3 className="text-xl md:text-2xl font-bold text-heading mb-6">Features</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: 'Ranking', color: 'text-accent-blue' },
+            { label: 'Reviews', color: 'text-accent-pink' },
+            { label: 'Versioning', color: 'text-accent-green' },
+            { label: 'Academy', color: 'text-hfYellow' },
+          ].map((f) => (
+            <div key={f.label} className="card card-hover p-5">
+              <div className={`text-sm ${f.color}`}>●</div>
+              <div className="mt-2 font-semibold text-heading">{f.label}</div>
+              <p className="text-sm mt-1 muted">Built for prompt engineers and AI practitioners.</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Open Source style grid */}
+      <Section className="pt-0 pb-16">
+        <h3 className="text-xl md:text-2xl font-bold text-heading mb-6">Our Open Source</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="card card-hover p-5 border border-border">
+              <div className="text-heading font-semibold">Library {i + 1}</div>
+              <p className="mt-1 text-sm muted">Description placeholder for OSS module.</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+    </main>
   );
 }
