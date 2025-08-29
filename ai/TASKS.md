@@ -97,7 +97,7 @@
    - Verification: Creating new version of prompt preserves original and shows history
    - Dependencies: 3.1.1, 3.1.2
 
-3.1.5. Develop prompt detail view page
+3.1.5. Develop prompt detail view page ✅
    - Verification: Navigate to /prompts/[id] shows complete prompt details
    - Dependencies: 3.1.1
 
