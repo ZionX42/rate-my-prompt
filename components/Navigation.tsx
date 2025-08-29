@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import ThemeToggle from './ui/ThemeToggle';
+import SearchInput from './ui/SearchInput';
 
 const Navigation = () => {
   return (
@@ -37,7 +38,8 @@ const Navigation = () => {
           </div>
           
           {/* Right side navigation items */}
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
+            <SearchInput />
             <Link
               href="/login"
               className="text-subtext hover:text-heading px-3 py-2 rounded-md text-sm font-medium"

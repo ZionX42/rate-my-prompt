@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import Navigation from '@/components/Navigation';
+import { describe, it, expect, jest } from '@jest/globals';
+
+// Mock next/navigation for components using useRouter (e.g., SearchInput inside Navigation)
+const push = jest.fn();
+jest.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 
 describe('Navigation', () => {
-  it('renders the navigation bar with logo and links', () => {
+  it('renders the navigation bar with logo and links', async () => {
+    const { default: Navigation } = await import('@/components/Navigation');
     render(<Navigation />);
     
     // Check for logo/brand

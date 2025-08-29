@@ -52,6 +52,3 @@
 - Use the issue tracker to log bugs, feature requests, and tasks.
 - Assign issues to team members and set deadlines for resolution.
 
-## Meetings
-- Hold regular stand-up meetings to discuss progress and blockers.
-- Schedule sprint planning and retrospective meetings at the end of each sprint.
