@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { PromptModel } from '@/lib/models/prompt';
 import { RatingStats } from '@/lib/models/rating';
 import { StarRating, RatingSubmission } from '@/components/ratings/StarRating';
+import Comments from '@/components/comments/Comments';
 
 type Props = {
   params: { id: string };
@@ -178,12 +179,15 @@ export default async function PromptDetailPage({ params }: Props) {
           />
         </div>
 
-        {/* Actions */}
-        <div className="flex gap-3">
+  {/* Actions */}
+  <div className="flex gap-3">
           <button className="cta cta--outline">
             Copy Content
           </button>
         </div>
+
+  {/* Comments Section */}
+  <Comments promptId={prompt._id!} userId="demo-user" />
       </div>
     </main>
   );

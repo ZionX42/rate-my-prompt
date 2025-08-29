@@ -208,7 +208,7 @@
    - Verification: Users can post, edit, and delete comments via API
    - Dependencies: 6.1.1
 
-6.1.3. Build comment UI component
+6.1.3. Build comment UI component ✅
    - Verification: Comments appear on prompt detail page with threading
    - Dependencies: 6.1.2, 3.1.5
 
