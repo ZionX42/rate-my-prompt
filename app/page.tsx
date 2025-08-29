@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import FeaturedPrompts from '@/components/prompts/FeaturedPrompts';
+import CategoryNavigation from '@/components/prompts/CategoryNavigation';
 import { PromptModel } from '@/lib/models/prompt';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -21,8 +22,25 @@ async function fetchFeaturedPrompts(): Promise<PromptModel[]> {
   }
 }
 
+async function fetchCategoryStats(): Promise<Array<{ category: string; count: number }>> {
+  if (!process.env.MONGODB_URI) {
+    return []; // Storage not configured
+  }
+
+  try {
+    const { getCategoryStats } = await import('@/lib/repos/promptRepo');
+    return await getCategoryStats();
+  } catch (err) {
+    console.error('Error fetching category stats:', err);
+    return [];
+  }
+}
+
 export default async function HomePage() {
-  const featuredPrompts = await fetchFeaturedPrompts();
+  const [featuredPrompts, categoryStats] = await Promise.all([
+    fetchFeaturedPrompts(),
+    fetchCategoryStats(),
+  ]);
   return (
     <main>
       {/* Hero */}
@@ -87,6 +105,12 @@ export default async function HomePage() {
       <Section className="pt-0">
         <h2 className="text-2xl md:text-3xl font-bold text-heading mb-6">Featured Prompts</h2>
         <FeaturedPrompts prompts={featuredPrompts} />
+      </Section>
+
+      {/* Browse by Category */}
+      <Section className="pt-0">
+        <h2 className="text-2xl md:text-3xl font-bold text-heading mb-6">Browse by Category</h2>
+        <CategoryNavigation categories={categoryStats} />
       </Section>
 
       {/* Collaboration section */}

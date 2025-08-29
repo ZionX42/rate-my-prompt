@@ -48,3 +48,28 @@ export async function getFeaturedPrompts(limit = 6): Promise<PromptModel[]> {
     .limit(limit)
     .toArray()) as PromptModel[];
 }
+
+export async function getPromptsByCategory(category: string, limit = 20): Promise<PromptModel[]> {
+  const db = await getDb();
+  const { prompts } = await getCollections(db);
+  return (await prompts
+    .find({ isPublished: true, category })
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .toArray()) as PromptModel[];
+}
+
+export async function getCategoryStats(): Promise<Array<{ category: string; count: number }>> {
+  const db = await getDb();
+  const { prompts } = await getCollections(db);
+  const stats = await prompts.aggregate([
+    { $match: { isPublished: true } },
+    { $group: { _id: '$category', count: { $sum: 1 } } },
+    { $sort: { count: -1 } }
+  ]).toArray();
+  
+  return stats.map(stat => ({
+    category: stat._id || 'general',
+    count: stat.count
+  }));
+}

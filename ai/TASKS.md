@@ -181,7 +181,7 @@
    - Verification: Home page displays grid of featured prompts
    - Dependencies: 3.1.1, 5.1.2
 
-5.2.3. Add category navigation to home page
+5.2.3. Add category navigation to home page ✅
    - Verification: Users can browse prompts by category from home page
    - Dependencies: 3.1.1, 5.2.2
 
@@ -200,7 +200,7 @@
 
 ## 6. Community Features
 ### 6.1. Discussion System
-6.1.1. Create comment data model
+6.1.1. Create comment data model ✅
    - Verification: Unit tests pass for comment model
    - Dependencies: 2.1.3, 3.1.1
 

@@ -31,6 +31,8 @@ export type CommentDoc = {
   parentId?: string | null;
   createdAt: Date;
   updatedAt: Date;
+  isEdited?: boolean;
+  isDeleted?: boolean;
 };
 
 export async function getCollections(db?: Db): Promise<{
