@@ -1,8 +1,8 @@
 /** @jest-environment node */
 
 import { describe, it, expect, jest, afterEach, beforeAll } from '@jest/globals';
-import { GET, POST } from '@/app/api/prompts/[promptId]/comments/route';
-import { PATCH, DELETE } from '@/app/api/prompts/[promptId]/comments/[commentId]/route';
+import { GET, POST } from '@/app/api/prompts/[id]/comments/route';
+import { PATCH, DELETE } from '@/app/api/prompts/[id]/comments/[commentId]/route';
 import { commentRepo } from '@/lib/repos/commentRepo';
 import { Request as UndiciRequest } from 'undici';
 
@@ -17,11 +17,11 @@ describe('Comments API', () => {
     jest.resetAllMocks();
   });
 
-  describe('GET /api/prompts/[promptId]/comments', () => {
+  describe('GET /api/prompts/[id]/comments', () => {
     it('should return threaded comments', async () => {
       jest.spyOn(commentRepo, 'getByPromptId').mockResolvedValue([] as any);
 
-      const response = await GET({} as Request, { params: { promptId: '123' } });
+  const response = await GET({} as Request, { params: { id: '123' } });
       const body = await response.json();
 
       expect(response.status).toBe(200);
@@ -30,7 +30,7 @@ describe('Comments API', () => {
     });
   });
 
-  describe('POST /api/prompts/[promptId]/comments', () => {
+  describe('POST /api/prompts/[id]/comments', () => {
     it('should create a comment and return it', async () => {
       const newComment = { userId: 'user1', content: 'A new comment' };
       jest
@@ -43,7 +43,7 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await POST(request as any, { params: { promptId: '123' } });
+  const response = await POST(request as any, { params: { id: '123' } });
       const body = await response.json();
 
       expect(response.status).toBe(201);
@@ -52,7 +52,7 @@ describe('Comments API', () => {
     });
   });
 
-  describe('PATCH /api/prompts/[promptId]/comments/[commentId]', () => {
+  describe('PATCH /api/prompts/[id]/comments/[commentId]', () => {
     it('should update a comment', async () => {
       const updatePayload = { content: 'Updated content', userId: 'user1' };
       jest
@@ -65,7 +65,7 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await PATCH(request as any, { params: { commentId: 'c1' } });
+  const response = await PATCH(request as any, { params: { id: 'p1', commentId: 'c1' } });
       const body = await response.json();
 
       expect(response.status).toBe(200);
@@ -74,7 +74,7 @@ describe('Comments API', () => {
     });
   });
 
-  describe('DELETE /api/prompts/[promptId]/comments/[commentId]', () => {
+  describe('DELETE /api/prompts/[id]/comments/[commentId]', () => {
     it('should soft delete a comment', async () => {
       jest.spyOn(commentRepo, 'softDelete').mockResolvedValue(true);
 
@@ -84,7 +84,7 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await DELETE(request as any, { params: { commentId: 'c1' } });
+  const response = await DELETE(request as any, { params: { id: 'p1', commentId: 'c1' } });
 
       expect(response.status).toBe(204);
       expect(commentRepo.softDelete).toHaveBeenCalledWith('c1', 'user1');
@@ -99,7 +99,7 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await DELETE(request as any, { params: { commentId: 'c1' } });
+  const response = await DELETE(request as any, { params: { id: 'p1', commentId: 'c1' } });
       const body = await response.json();
 
       expect(response.status).toBe(404);
