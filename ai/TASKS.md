@@ -115,19 +115,19 @@
    - Dependencies: 3.2.1, 3.2.2
 
 ### 3.3. Rating System
-3.3.1. Create rating data model
+3.3.1. Create rating data model ✅
    - Verification: Unit tests pass for rating model
    - Dependencies: 2.1.3, 3.1.1
 
-3.3.2. Implement rating submission API endpoint
+3.3.2. Implement rating submission API endpoint ✅
    - Verification: POST to /api/prompts/[id]/ratings adds rating to database
    - Dependencies: 3.3.1
 
-3.3.3. Develop rating UI component
+3.3.3. Develop rating UI component ✅
    - Verification: Star rating interface allows user to submit rating
    - Dependencies: 3.3.2
 
-3.3.4. Add rating aggregation to prompt detail view
+3.3.4. Add rating aggregation to prompt detail view ✅
    - Verification: Prompt detail page shows average rating and count
    - Dependencies: 3.3.1, 3.3.3, 3.1.5
 
