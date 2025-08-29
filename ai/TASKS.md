@@ -204,7 +204,7 @@
    - Verification: Unit tests pass for comment model
    - Dependencies: 2.1.3, 3.1.1
 
-6.1.2. Implement comment API endpoints
+6.1.2. Implement comment API endpoints ✅
    - Verification: Users can post, edit, and delete comments via API
    - Dependencies: 6.1.1
 
