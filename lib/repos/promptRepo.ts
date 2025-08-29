@@ -73,3 +73,88 @@ export async function getCategoryStats(): Promise<Array<{ category: string; coun
     count: stat.count
   }));
 }
+
+export type SearchParams = {
+  q?: string;
+  category?: string;
+  minRating?: number; // 1..5
+  dateFrom?: Date;
+  dateTo?: Date;
+  limit?: number;
+  sort?: 'relevance' | 'newest' | 'rating';
+};
+
+export type SearchResult = (PromptModel & {
+  avgRating?: number;
+  ratingCount?: number;
+  score?: number;
+})[];
+
+export async function searchPrompts(params: SearchParams): Promise<SearchResult> {
+  const {
+    q,
+    category,
+    minRating,
+    dateFrom,
+    dateTo,
+    limit = 50,
+    sort = 'relevance',
+  } = params;
+
+  const db = await getDb();
+  const { prompts } = await getCollections(db);
+
+  const match: any = { isPublished: true };
+  if (category && category !== 'all') match.category = category;
+  if (dateFrom || dateTo) {
+    match.createdAt = {} as any;
+    if (dateFrom) match.createdAt.$gte = dateFrom;
+    if (dateTo) match.createdAt.$lte = dateTo;
+  }
+
+  const pipeline: any[] = [];
+
+  // Text search when q provided
+  if (q && q.trim().length) {
+    pipeline.push({ $match: { $text: { $search: q.trim() } } });
+    // Include text score for sorting
+    pipeline.push({ $addFields: { score: { $meta: 'textScore' } } });
+  }
+
+  // Apply other filters
+  pipeline.push({ $match: match });
+
+  // Join ratings to compute average
+  pipeline.push(
+    {
+      $lookup: {
+        from: 'ratings',
+        localField: '_id',
+        foreignField: 'promptId',
+        as: 'ratings',
+      },
+    },
+    { $addFields: { avgRating: { $avg: '$ratings.value' }, ratingCount: { $size: '$ratings' } } }
+  );
+
+  if (typeof minRating === 'number') {
+    pipeline.push({ $match: { $or: [ { avgRating: { $gte: minRating } }, { ratingCount: 0 } ] } });
+  }
+
+  // Sorting
+  if (sort === 'newest') {
+    pipeline.push({ $sort: { createdAt: -1 } });
+  } else if (sort === 'rating') {
+    pipeline.push({ $sort: { avgRating: -1, ratingCount: -1, createdAt: -1 } });
+  } else if (q && q.trim().length) {
+    pipeline.push({ $sort: { score: -1 } });
+  } else {
+    pipeline.push({ $sort: { createdAt: -1 } });
+  }
+
+  pipeline.push({ $limit: limit });
+
+  const results = await prompts.aggregate(pipeline).toArray();
+  // Map to PromptModel shape, ensure optional fields are present
+  return results as SearchResult;
+}

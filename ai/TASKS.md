@@ -190,11 +190,11 @@
    - Verification: Search input appears in header and accepts user input
    - Dependencies: 5.1.1
 
-5.3.2. Implement search results page
+5.3.2. Implement search results page ✅
    - Verification: Searching displays results from Elasticsearch
    - Dependencies: 2.3.3, 5.3.1
 
-5.3.3. Add search filters UI
+5.3.3. Add search filters UI ✅
    - Verification: Users can filter search results by rating, date, category
    - Dependencies: 5.3.2
 
