@@ -38,3 +38,13 @@ export async function listPromptsByAuthor(authorId: string, limit = 20): Promise
     .limit(limit)
     .toArray()) as PromptModel[];
 }
+
+export async function getFeaturedPrompts(limit = 6): Promise<PromptModel[]> {
+  const db = await getDb();
+  const { prompts } = await getCollections(db);
+  return (await prompts
+    .find({ isPublished: true })
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .toArray()) as PromptModel[];
+}

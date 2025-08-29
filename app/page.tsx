@@ -1,11 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
+import FeaturedPrompts from '@/components/prompts/FeaturedPrompts';
+import { PromptModel } from '@/lib/models/prompt';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>;
 }
 
-export default function HomePage() {
+async function fetchFeaturedPrompts(): Promise<PromptModel[]> {
+  if (!process.env.MONGODB_URI) {
+    return []; // Storage not configured
+  }
+
+  try {
+    const { getFeaturedPrompts } = await import('@/lib/repos/promptRepo');
+    return await getFeaturedPrompts(6);
+  } catch (err) {
+    console.error('Error fetching featured prompts:', err);
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const featuredPrompts = await fetchFeaturedPrompts();
   return (
     <main>
       {/* Hero */}
@@ -64,6 +81,12 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      {/* Featured Prompts */}
+      <Section className="pt-0">
+        <h2 className="text-2xl md:text-3xl font-bold text-heading mb-6">Featured Prompts</h2>
+        <FeaturedPrompts prompts={featuredPrompts} />
       </Section>
 
       {/* Collaboration section */}
