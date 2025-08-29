@@ -106,7 +106,7 @@
    - Verification: API endpoints return proper status codes and follow RESTful patterns
    - Dependencies: 1.1.2, 2.1.3
 
-3.2.2. Implement rate limiting for API endpoints
+3.2.2. Implement rate limiting for API endpoints ✅
    - Verification: Rapid sequential requests are blocked after threshold
    - Dependencies: 3.2.1
 
@@ -133,7 +133,7 @@
 
 ## 4. User Management
 ### 4.1. User Profiles
-4.1.1. Create user profile page template
+4.1.1. Create user profile page template ✅
    - Verification: Navigate to /users/[id] shows profile layout
    - Dependencies: 2.1.1, 2.2.3
 
