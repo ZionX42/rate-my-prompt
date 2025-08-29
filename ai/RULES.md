@@ -7,8 +7,9 @@
 - If unsure, propose 2–3 options with pros/cons, then ask me to pick.
 - Prefer small, safe edits over big rewrites.
 - Keep explanations in bullet points, not essays.
+- Avoid unnecessary complexity, over‑engineering, or speculative features. Code should follow established best practices for readability, maintainability, and efficiency, including clear naming, modular structure, and adherence to relevant language or framework conventions.
 
-## README.md Updates:
+## README.md Updates Guidelines:
 - Only suggest edits to README.md when:
   1. A new feature is user-facing and requires explanation.
   2. Setup instructions, commands, or dependencies have changed.
@@ -20,7 +21,7 @@
   - Place changes in the appropriate section (e.g., "Setup", "Usage").
   - Ask for approval before writing to README.md.
 
-## Style:
+## Style Guidelines:
 - Write in clear, scannable English (short sentences, bullets preferred).
 - Always show me the exact diff before applying changes.
 

@@ -15,11 +15,9 @@ const customJestConfig = {
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/(.*)$': '<rootDir>/$1',
   },
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(mongodb|bson|undici)/)',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
