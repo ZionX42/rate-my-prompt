@@ -1,12 +1,18 @@
 import { validateNewPrompt } from '@/lib/models/prompt';
+import { NextRequest } from 'next/server';
+import { created as createdResp, badRequest, serviceUnavailable, internalError } from '@/lib/api/responses';
+import { requireJson } from '@/lib/api/middleware';
 
-export async function POST(req: Request): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   let body: any;
   try {
     body = await req.json();
   } catch {
-    return Response.json({ error: 'Invalid JSON body' }, { status: 400 });
+    return badRequest('Invalid JSON body');
   }
+
+  const guard = requireJson(req);
+  if (guard) return guard;
 
   const payload = {
     title: body?.title,
@@ -20,22 +26,22 @@ export async function POST(req: Request): Promise<Response> {
 
   const validation = validateNewPrompt(payload);
   if (!validation.ok) {
-    return Response.json({ error: 'Validation failed', issues: validation.issues }, { status: 400 });
+    return badRequest('Validation failed', validation.issues);
   }
 
   if (!process.env.MONGODB_URI) {
-    return Response.json({ error: 'Storage not configured' }, { status: 503 });
+    return serviceUnavailable('Storage not configured');
   }
 
   try {
     // Defer importing the Mongo-backed repo until we know storage is configured
     const { createPrompt } = await import('@/lib/repos/promptRepo');
-    const created = await createPrompt(payload);
-    return Response.json({ prompt: created }, { status: 201 });
+  const createdPrompt = await createPrompt(payload);
+  return createdResp({ prompt: createdPrompt });
   } catch (err: any) {
     if (err?.issues) {
-      return Response.json({ error: 'Validation failed', issues: err.issues }, { status: 400 });
+      return badRequest('Validation failed', err.issues);
     }
-    return Response.json({ error: 'Internal error' }, { status: 500 });
+    return internalError(err);
   }
 }

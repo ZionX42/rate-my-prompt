@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { ok, badRequest, notFound, serviceUnavailable, internalError } from '@/lib/api/responses';
 
 export async function GET(
   req: NextRequest,
@@ -7,11 +8,11 @@ export async function GET(
   const { id } = params;
 
   if (!id || typeof id !== 'string') {
-    return Response.json({ error: 'Invalid prompt ID' }, { status: 400 });
+    return badRequest('Invalid prompt ID');
   }
 
   if (!process.env.MONGODB_URI) {
-    return Response.json({ error: 'Storage not configured' }, { status: 503 });
+    return serviceUnavailable('Storage not configured');
   }
 
   try {
@@ -20,12 +21,11 @@ export async function GET(
     const prompt = await getPromptById(id);
     
     if (!prompt) {
-      return Response.json({ error: 'Prompt not found' }, { status: 404 });
+      return notFound('Prompt not found');
     }
 
-    return Response.json({ prompt }, { status: 200 });
+    return ok({ prompt });
   } catch (err: any) {
-    console.error('Error fetching prompt:', err);
-    return Response.json({ error: 'Internal error' }, { status: 500 });
+    return internalError(err);
   }
 }

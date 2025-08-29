@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server';
 import { validateCreateRating } from '@/lib/models/rating';
+import { ok, created as createdResp, badRequest, notFound, serviceUnavailable, internalError } from '@/lib/api/responses';
+import { requireJson } from '@/lib/api/middleware';
 
 export async function POST(
   req: NextRequest,
@@ -8,19 +10,19 @@ export async function POST(
   const { id: promptId } = params;
 
   if (!promptId || typeof promptId !== 'string') {
-    return Response.json({ error: 'Invalid prompt ID' }, { status: 400 });
+  return badRequest('Invalid prompt ID');
   }
 
   if (!process.env.MONGODB_URI) {
-    return Response.json({ error: 'Storage not configured' }, { status: 503 });
+  return serviceUnavailable('Storage not configured');
   }
 
   try {
     // Parse request body
-    const body = await req.json().catch(() => null);
-    if (!body) {
-      return Response.json({ error: 'Invalid JSON payload' }, { status: 400 });
-    }
+  const guard = requireJson(req);
+  if (guard) return guard;
+  const body = await req.json().catch(() => null);
+  if (!body) return badRequest('Invalid JSON payload');
 
     // Add promptId to the payload
     const payload = { ...body, promptId };
@@ -33,7 +35,7 @@ export async function POST(
     const prompt = await getPromptById(promptId);
     
     if (!prompt) {
-      return Response.json({ error: 'Prompt not found' }, { status: 404 });
+  return notFound('Prompt not found');
     }
 
     // Check if user already rated this prompt
@@ -50,39 +52,25 @@ export async function POST(
         comment: validatedData.comment,
       });
 
-      if (!updatedRating) {
-        return Response.json({ error: 'Failed to update rating' }, { status: 500 });
-      }
+      if (!updatedRating) return internalError('Failed to update rating');
 
-      return Response.json({ 
-        rating: updatedRating,
-        message: 'Rating updated successfully'
-      }, { status: 200 });
+      return ok({ rating: updatedRating, message: 'Rating updated successfully' });
     } else {
       // Create new rating
       const newRating = await ratingRepo.createRating(validatedData);
-      
-      return Response.json({ 
-        rating: newRating,
-        message: 'Rating created successfully'
-      }, { status: 201 });
+      return createdResp({ rating: newRating, message: 'Rating created successfully' });
     }
 
   } catch (err: any) {
-    console.error('Error processing rating:', err);
-    
     // Handle validation errors
     if (err.name === 'ZodError') {
-      return Response.json({
-        error: 'Validation failed',
-        issues: err.issues?.map((issue: any) => ({
-          path: issue.path.join('.'),
-          message: issue.message,
-        }))
-      }, { status: 400 });
+      const issues = err.issues?.map((issue: any) => ({
+        path: issue.path.join('.'),
+        message: issue.message,
+      }));
+      return badRequest('Validation failed', issues);
     }
-
-    return Response.json({ error: 'Internal error' }, { status: 500 });
+    return internalError(err);
   }
 }
 
@@ -93,11 +81,11 @@ export async function GET(
   const { id: promptId } = params;
 
   if (!promptId || typeof promptId !== 'string') {
-    return Response.json({ error: 'Invalid prompt ID' }, { status: 400 });
+  return badRequest('Invalid prompt ID');
   }
 
   if (!process.env.MONGODB_URI) {
-    return Response.json({ error: 'Storage not configured' }, { status: 503 });
+  return serviceUnavailable('Storage not configured');
   }
 
   try {
@@ -106,7 +94,7 @@ export async function GET(
     const stats = await ratingRepo.getRatingStats(promptId);
     const ratings = await ratingRepo.getRatingsByPromptId(promptId);
     
-    return Response.json({ 
+  return ok({ 
       stats,
       ratings: ratings.map(rating => ({
         _id: rating._id,
@@ -115,10 +103,9 @@ export async function GET(
         userId: rating.userId,
         createdAt: rating.createdAt,
       }))
-    }, { status: 200 });
+  });
 
   } catch (err: any) {
-    console.error('Error fetching ratings:', err);
-    return Response.json({ error: 'Internal error' }, { status: 500 });
+  return internalError(err);
   }
 }

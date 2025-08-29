@@ -44,3 +44,28 @@ ai-project
 
 ## Contribution
 Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.
+
+## API responses and middleware
+
+All API routes use a standardized JSON response contract:
+
+- Success (200/201): Any shape the route defines, e.g. `{ prompt: {...} }`, arrays, etc.
+- No content (204): Empty body.
+- Errors: Always `{ error: string, details?: any }`.
+	- When validation fails with Zod-like errors, `details` is an array of issues and is also mirrored to `issues` for backward compatibility: `{ error: "Validation failed", details: Issue[], issues: Issue[] }`.
+
+Common helpers live in `lib/api/responses.ts`:
+
+- `ok(data)`, `created(data)`, `noContent()`
+- `badRequest(message, details?)`, `unauthorized(message, details?)`, `notFound(message, details?)`, `serviceUnavailable(message, details?)`, `internalError(err)`
+
+Middleware helpers in `lib/api/middleware.ts`:
+
+- `requireJson(req)`: For non-GET methods, enforces `Content-Type: application/json`. Returns a 400 response when violated, or `null` to continue. It's tolerant of mocked requests in tests.
+- `simpleRateLimit(req, limit, windowMs)`: Very light in-memory rate limiter (per IP). Returns a 400 with `Rate limit exceeded` if threshold is exceeded, otherwise `null`. Replace with a real store in production.
+
+Error body examples:
+
+- 400: `{ "error": "Validation failed", "details": [{ "path": "rating", "message": "Must be <= 5" }], "issues": [...] }`
+- 404: `{ "error": "Prompt not found" }`
+- 503: `{ "error": "Storage not configured" }`

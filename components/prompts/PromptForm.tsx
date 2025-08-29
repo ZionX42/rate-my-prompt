@@ -72,14 +72,19 @@ export function PromptForm() {
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        const serverIssues = Array.isArray(data?.details)
+          ? data.details
+          : Array.isArray(data?.issues)
+          ? data.issues
+          : undefined;
         setResult({
           status: 'error',
           message: data?.error || 'Submission failed',
-          issues: data?.issues,
+          issues: serverIssues,
         });
-        if (Array.isArray(data?.issues)) {
+        if (Array.isArray(serverIssues)) {
           const serverErrors: Record<string, string> = {};
-          for (const i of data.issues) serverErrors[i.path] = i.message;
+          for (const i of serverIssues) serverErrors[i.path] = i.message;
           setErrors(serverErrors);
         }
         return;

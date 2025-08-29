@@ -1,20 +1,24 @@
-import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { commentRepo } from '@/lib/repos/commentRepo';
 import { ZodError } from 'zod';
+import { ok, noContent, unauthorized, serviceUnavailable, internalError, badRequest, notFound } from '@/lib/api/responses';
+import { requireJson } from '@/lib/api/middleware';
 
 // PATCH /api/prompts/:id/comments/:commentId
 export async function PATCH(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string; commentId: string } }
 ) {
   try {
     if (!process.env.MONGODB_URI) {
-      return NextResponse.json({ error: 'Storage not configured' }, { status: 503 });
+      return serviceUnavailable('Storage not configured');
     }
+    const guard = requireJson(req);
+    if (guard) return guard;
     const { content, userId } = await req.json();
     // In a real app, userId would come from a session
     if (!userId) {
-      return NextResponse.json({ error: 'userId is required' }, { status: 401 });
+      return unauthorized('userId is required');
     }
 
     const updatedComment = await commentRepo.update(
@@ -24,49 +28,41 @@ export async function PATCH(
     );
 
     if (!updatedComment) {
-      return NextResponse.json(
-        { error: 'Comment not found or user not authorized' },
-        { status: 404 }
-      );
+      return notFound('Comment not found or user not authorized');
     }
 
-    return NextResponse.json(updatedComment);
+    return ok(updatedComment);
   } catch (error) {
     if (error instanceof ZodError) {
-      return NextResponse.json({ error: error.issues }, { status: 400 });
+      return badRequest('Validation failed', error.issues);
     }
-    console.error('Error updating comment:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return internalError(error);
   }
 }
 
 // DELETE /api/prompts/:id/comments/:commentId
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string; commentId: string } }
 ) {
   try {
     if (!process.env.MONGODB_URI) {
-      return NextResponse.json({ error: 'Storage not configured' }, { status: 503 });
+      return serviceUnavailable('Storage not configured');
     }
     // In a real app, userId would come from a session
     const { userId } = await req.json();
     if (!userId) {
-      return NextResponse.json({ error: 'userId is required' }, { status: 401 });
+      return unauthorized('userId is required');
     }
 
     const success = await commentRepo.softDelete(params.commentId, userId);
 
     if (!success) {
-      return NextResponse.json(
-        { error: 'Comment not found or user not authorized' },
-        { status: 404 }
-      );
+      return notFound('Comment not found or user not authorized');
     }
 
-    return new NextResponse(null, { status: 204 }); // No Content
+    return noContent();
   } catch (error) {
-    console.error('Error deleting comment:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return internalError(error);
   }
 }
