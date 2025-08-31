@@ -13,7 +13,8 @@ jest.mock('@/lib/repos/promptRepo', () => ({
 
 describe('GET /api/search', () => {
   beforeAll(() => {
-    process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
+    process.env.APPWRITE_PROJECT_ID = process.env.APPWRITE_PROJECT_ID || 'test-project';
+    process.env.APPWRITE_API_KEY = process.env.APPWRITE_API_KEY || 'test-key';
   });
 
   afterEach(() => { jest.resetAllMocks(); });

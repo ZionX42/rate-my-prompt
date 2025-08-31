@@ -5,7 +5,7 @@ import { simpleRateLimit } from '@/lib/api/middleware';
 
 export async function GET(req: NextRequest) {
   try {
-    if (!process.env.MONGODB_URI) return serviceUnavailable('Storage not configured');
+    if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) return serviceUnavailable('Storage not configured');
 
     const rate = simpleRateLimit(req, 120, 60_000);
     if (rate) return rate;

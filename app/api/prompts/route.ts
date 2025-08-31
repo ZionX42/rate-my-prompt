@@ -29,12 +29,12 @@ export async function POST(req: NextRequest): Promise<Response> {
     return badRequest('Validation failed', validation.issues);
   }
 
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
     return serviceUnavailable('Storage not configured');
   }
 
   try {
-    // Defer importing the Mongo-backed repo until we know storage is configured
+    // Defer importing the Appwrite-backed repo until we know storage is configured
     const { createPrompt } = await import('@/lib/repos/promptRepo');
   const createdPrompt = await createPrompt(payload);
   return createdResp({ prompt: createdPrompt });

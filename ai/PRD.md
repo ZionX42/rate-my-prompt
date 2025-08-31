@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD) - Prompt Hub
 
 ## Project Overview
-Prompt Hub will be the premier destination for discovering, evaluating, and learning about AI prompts and agents. By creating a structured rating system and community platform, we'll solve the growing problem of prompt quality assessment while building a valuable resource for AI practitioners at all levels.
+Prompt Hub will be the premier destination for discovering, evaluating, and learning about AI prompts, agents, and workflows. By creating a structured rating system and community platform, we'll solve the growing problem of quality assessment for AI assets while building a valuable resource for AI practitioners at all levels.
 
 ## Problem Statement & Opportunity
 ### Current Challenges
@@ -37,22 +37,22 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
    - Pain point: Overwhelmed by conflicting prompt advice
 
 ## Features
-1. **Feature 1: Comprehensive Prompt Repository**
-   - Description: A structured database of AI prompts with metadata, versioning, and search capabilities
+1. **Feature 1: Comprehensive Repository**
+   - Description: A structured database of AI prompts, agents, and workflows with metadata, versioning, and search capabilities.
    - Requirements:
-     - Structured submission form with standardized metadata
-     - Categorization system (industry, use case, model compatibility)
+     - Structured submission forms with standardized metadata for prompts, agents, and workflows.
+     - Categorization system (type: prompt/agent/workflow, industry, use case, model compatibility).
      - Version control and revision history
      - Search with multiple filters (rating, recency, popularity)
      - Tagging system for discovery
 
 2. **Feature 2: Multi-dimensional Rating System**
-   - Description: A robust evaluation framework for community assessment of prompt quality
+   - Description: A robust evaluation framework for community assessment of prompt, agent, and workflow quality.
    - Requirements:
      - Overall star rating (1-5)
      - Category-specific ratings (effectiveness, efficiency, creativity)
      - Upvote/downvote functionality for reviews
-     - User verification for ratings (must try prompt to rate)
+     - User verification for ratings (must try prompt, agent, or workflow to rate)
      - Trending and "verified quality" indicators
 
 3. **Feature 3: User Profiles & Community**
@@ -63,6 +63,20 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
      - Following system for prompt engineers
      - Activity feed for personalized recommendations
      - Discussion forums with moderation tools
+
+4. **Feature 4: Informational & Support Pages**
+   - Description: Standard informational, legal, and support pages to ensure user trust and provide help.
+   - Requirements:
+     - Footer navigation linking to key pages.
+     - **Academy Page**: Placeholder page with a "Coming Soon" message, linking to future educational content.
+     - **Forum Page**: Main entry point for community discussions.
+     - **Terms of Service Page**: Outlining user rights and responsibilities.
+     - **Privacy Policy Page**: Detailing data handling and GDPR/CCPA compliance.
+     - **FAQ Page**: Answering common user questions.
+     - **Contact Us Page**: A form for general inquiries.
+     - **Bug Report Page/Form**: A dedicated channel for users to report technical issues.
+     - **Feedback Page/Form**: A channel for users to provide suggestions and feedback.
+
 
 ## Functionalities
 - **Functionality 1: Prompt Academy**

@@ -8,14 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "mongo:setup": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/mongo-setup.ts",
+    "appwrite:setup": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/appwrite-setup.ts",
     "deploy:staging": "echo 'Add deployment script here'"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "eslint-plugin-react": "^7.37.5",
-    "mongodb": "^6.9.0",
     "next": "^14.2.30",
+    "node-appwrite": "^18.0.0",
     "prettier": "^3.6.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -8,7 +8,8 @@ import { Request as UndiciRequest } from 'undici';
 
 // Ensure storage env is present for route handlers
 beforeAll(() => {
-  process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
+  process.env.APPWRITE_PROJECT_ID = process.env.APPWRITE_PROJECT_ID || 'test-project';
+  process.env.APPWRITE_API_KEY = process.env.APPWRITE_API_KEY || 'test-key';
 });
 
 // Use spies on the real exported repo so methods are mockable with correct shapes

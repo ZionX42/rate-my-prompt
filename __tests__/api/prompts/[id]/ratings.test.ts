@@ -2,11 +2,13 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import '@testing-library/jest-dom';
 
 describe('/api/prompts/[id]/ratings', () => {
-  const originalEnv = process.env.MONGODB_URI;
+  const originalProjectId = process.env.APPWRITE_PROJECT_ID;
+  const originalApiKey = process.env.APPWRITE_API_KEY;
 
   beforeEach(() => {
     // Reset environment
-    process.env.MONGODB_URI = originalEnv;
+    process.env.APPWRITE_PROJECT_ID = originalProjectId;
+    process.env.APPWRITE_API_KEY = originalApiKey;
   });
 
   describe('POST endpoint', () => {
@@ -24,7 +26,8 @@ describe('/api/prompts/[id]/ratings', () => {
     });
 
     it('returns 503 when storage not configured', async () => {
-      delete process.env.MONGODB_URI;
+      delete process.env.APPWRITE_PROJECT_ID;
+      delete process.env.APPWRITE_API_KEY;
       
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
       const req = {
@@ -39,7 +42,8 @@ describe('/api/prompts/[id]/ratings', () => {
     });
 
     it('returns 400 for invalid JSON', async () => {
-      process.env.MONGODB_URI = 'mongodb://test';
+      process.env.APPWRITE_PROJECT_ID = 'test-project';
+      process.env.APPWRITE_API_KEY = 'test-key';
       
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
       const req = {
@@ -54,7 +58,8 @@ describe('/api/prompts/[id]/ratings', () => {
     });
 
     it('returns 400 for invalid rating data', async () => {
-      process.env.MONGODB_URI = 'mongodb://test';
+      process.env.APPWRITE_PROJECT_ID = 'test-project';
+      process.env.APPWRITE_API_KEY = 'test-key';
       
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
       const req = {
@@ -86,7 +91,8 @@ describe('/api/prompts/[id]/ratings', () => {
     });
 
     it('returns 503 when storage not configured', async () => {
-      delete process.env.MONGODB_URI;
+      delete process.env.APPWRITE_PROJECT_ID;
+      delete process.env.APPWRITE_API_KEY;
       
       const { GET } = await import('@/app/api/prompts/[id]/ratings/route');
       const req = {} as any;

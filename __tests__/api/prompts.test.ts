@@ -14,11 +14,13 @@ function makeRequest(body: any): NextRequest {
 }
 
 describe('POST /api/prompts', () => {
-  const originalUri = process.env.MONGODB_URI;
+  const originalProjectId = process.env.APPWRITE_PROJECT_ID;
+  const originalApiKey = process.env.APPWRITE_API_KEY;
 
   beforeEach(() => {
     // Reset env override
-    process.env.MONGODB_URI = originalUri;
+    process.env.APPWRITE_PROJECT_ID = originalProjectId;
+    process.env.APPWRITE_API_KEY = originalApiKey;
   });
 
   it('returns 400 for invalid JSON', async () => {
@@ -37,7 +39,8 @@ describe('POST /api/prompts', () => {
   });
 
   it('returns 503 when storage is not configured', async () => {
-    process.env.MONGODB_URI = '';
+    process.env.APPWRITE_PROJECT_ID = '';
+    process.env.APPWRITE_API_KEY = '';
     const req = makeRequest({ title: 'A title', content: 'Some long content goes here', authorId: 'u1' });
     const res = await POST(req);
     expect(res.status).toBe(503);

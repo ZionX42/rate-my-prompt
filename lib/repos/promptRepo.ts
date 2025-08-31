@@ -1,7 +1,37 @@
-import { ObjectId } from 'mongodb';
-import { getDb } from '../mongo/client';
-import { getCollections } from '../mongo/collections';
-import { NewPromptInput, PromptModel, sanitizeNewPrompt, validateNewPrompt } from '../models/prompt';
+import { getCollections, PromptDoc, Query } from '../appwrite/collections';
+import { NewPromptInput, PromptModel, sanitizeNewPrompt, validateNewPrompt, PromptCategory } from '../models/prompt';
+import { ID } from '../appwrite/client';
+
+// Convert Appwrite document to PromptModel format
+function convertToPromptModel(doc: any): PromptModel {
+  return {
+    _id: doc.$id,
+    title: doc.title,
+    content: doc.content,
+    authorId: doc.authorId,
+    description: doc.description,
+    category: doc.category as PromptCategory,
+    tags: doc.tags || [],
+    isPublished: doc.isPublished,
+    createdAt: new Date(doc.createdAt),
+    updatedAt: new Date(doc.updatedAt),
+  };
+}
+
+// Convert PromptModel to Appwrite document format
+function convertToPromptDoc(model: Omit<PromptModel, '_id'>): Omit<PromptDoc, '$id'> {
+  return {
+    title: model.title,
+    content: model.content,
+    authorId: model.authorId,
+    description: model.description || '',
+    category: model.category || 'general',
+    tags: model.tags || [],
+    isPublished: model.isPublished || false,
+    createdAt: model.createdAt.toISOString(),
+    updatedAt: model.updatedAt.toISOString(),
+  };
+}
 
 export async function createPrompt(input: NewPromptInput): Promise<PromptModel> {
   const validation = validateNewPrompt(input);
@@ -10,68 +40,90 @@ export async function createPrompt(input: NewPromptInput): Promise<PromptModel> 
     (err as any).issues = validation.issues;
     throw err;
   }
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
+  
+  const { prompts } = await getCollections();
   const now = new Date();
-  const doc: PromptModel = {
+  const doc: Omit<PromptModel, '_id'> = {
     ...sanitizeNewPrompt(input),
     createdAt: now,
     updatedAt: now,
   };
-  const res = await prompts.insertOne(doc as any);
-  return { ...doc, _id: res.insertedId };
+  
+  const promptDoc = convertToPromptDoc(doc);
+  const result = await prompts.create(promptDoc);
+  return convertToPromptModel(result);
 }
 
 export async function getPromptById(id: string): Promise<PromptModel | null> {
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
-  const _id = new ObjectId(id);
-  return (await prompts.findOne({ _id })) as PromptModel | null;
+  try {
+    const { prompts } = await getCollections();
+    const result = await prompts.get(id);
+    return convertToPromptModel(result);
+  } catch (error: any) {
+    if (error.code === 404) return null;
+    throw error;
+  }
 }
 
 export async function listPromptsByAuthor(authorId: string, limit = 20): Promise<PromptModel[]> {
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
-  return (await prompts
-    .find({ authorId })
-    .sort({ createdAt: -1 })
-    .limit(limit)
-    .toArray()) as PromptModel[];
+  const { prompts } = await getCollections();
+  const queries = [
+    Query.equal('authorId', authorId),
+    Query.orderDesc('createdAt'),
+    Query.limit(limit),
+  ];
+  
+  const result = await prompts.list(queries);
+  return result.documents.map(doc => convertToPromptModel(doc));
 }
 
 export async function getFeaturedPrompts(limit = 6): Promise<PromptModel[]> {
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
-  return (await prompts
-    .find({ isPublished: true })
-    .sort({ createdAt: -1 })
-    .limit(limit)
-    .toArray()) as PromptModel[];
+  const { prompts } = await getCollections();
+  const queries = [
+    Query.equal('isPublished', true),
+    Query.orderDesc('createdAt'),
+    Query.limit(limit),
+  ];
+  
+  const result = await prompts.list(queries);
+  return result.documents.map(doc => convertToPromptModel(doc));
 }
 
 export async function getPromptsByCategory(category: string, limit = 20): Promise<PromptModel[]> {
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
-  return (await prompts
-    .find({ isPublished: true, category })
-    .sort({ createdAt: -1 })
-    .limit(limit)
-    .toArray()) as PromptModel[];
+  const { prompts } = await getCollections();
+  const queries = [
+    Query.equal('isPublished', true),
+    Query.equal('category', category),
+    Query.orderDesc('createdAt'),
+    Query.limit(limit),
+  ];
+  
+  const result = await prompts.list(queries);
+  return result.documents.map(doc => convertToPromptModel(doc));
 }
 
 export async function getCategoryStats(): Promise<Array<{ category: string; count: number }>> {
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
-  const stats = await prompts.aggregate([
-    { $match: { isPublished: true } },
-    { $group: { _id: '$category', count: { $sum: 1 } } },
-    { $sort: { count: -1 } }
-  ]).toArray();
+  // Note: Appwrite doesn't have aggregation pipelines like MongoDB
+  // We need to implement this differently by fetching all published prompts
+  // and grouping them in memory, or using a separate tracking collection
+  const { prompts } = await getCollections();
+  const queries = [
+    Query.equal('isPublished', true),
+    Query.limit(1000), // Adjust based on expected data size
+  ];
   
-  return stats.map(stat => ({
-    category: stat._id || 'general',
-    count: stat.count
-  }));
+  const result = await prompts.list(queries);
+  const categoryCount: Record<string, number> = {};
+  
+  result.documents.forEach(doc => {
+    const promptDoc = doc as any;
+    const category = promptDoc.category || 'general';
+    categoryCount[category] = (categoryCount[category] || 0) + 1;
+  });
+  
+  return Object.entries(categoryCount)
+    .map(([category, count]) => ({ category, count }))
+    .sort((a, b) => b.count - a.count);
 }
 
 export type SearchParams = {
@@ -101,60 +153,78 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
     sort = 'relevance',
   } = params;
 
-  const db = await getDb();
-  const { prompts } = await getCollections(db);
+  const { prompts, ratings } = await getCollections();
+  const queries = [Query.equal('isPublished', true)];
 
-  const match: any = { isPublished: true };
-  if (category && category !== 'all') match.category = category;
-  if (dateFrom || dateTo) {
-    match.createdAt = {} as any;
-    if (dateFrom) match.createdAt.$gte = dateFrom;
-    if (dateTo) match.createdAt.$lte = dateTo;
+  // Add category filter
+  if (category && category !== 'all') {
+    queries.push(Query.equal('category', category));
   }
 
-  const pipeline: any[] = [];
+  // Add date range filters
+  if (dateFrom) {
+    queries.push(Query.greaterThanEqual('createdAt', dateFrom.toISOString()));
+  }
+  if (dateTo) {
+    queries.push(Query.lessThanEqual('createdAt', dateTo.toISOString()));
+  }
 
-  // Text search when q provided
+  // Add text search (Appwrite full-text search)
   if (q && q.trim().length) {
-    pipeline.push({ $match: { $text: { $search: q.trim() } } });
-    // Include text score for sorting
-    pipeline.push({ $addFields: { score: { $meta: 'textScore' } } });
+    queries.push(Query.search('title', q.trim()));
+    // Note: Appwrite search is more limited than MongoDB's $text search
+    // You might need to implement custom search logic or use multiple queries
   }
 
-  // Apply other filters
-  pipeline.push({ $match: match });
-
-  // Join ratings to compute average
-  pipeline.push(
-    {
-      $lookup: {
-        from: 'ratings',
-        localField: '_id',
-        foreignField: 'promptId',
-        as: 'ratings',
-      },
-    },
-    { $addFields: { avgRating: { $avg: '$ratings.value' }, ratingCount: { $size: '$ratings' } } }
-  );
-
-  if (typeof minRating === 'number') {
-    pipeline.push({ $match: { $or: [ { avgRating: { $gte: minRating } }, { ratingCount: 0 } ] } });
-  }
-
-  // Sorting
+  // Add sorting
   if (sort === 'newest') {
-    pipeline.push({ $sort: { createdAt: -1 } });
-  } else if (sort === 'rating') {
-    pipeline.push({ $sort: { avgRating: -1, ratingCount: -1, createdAt: -1 } });
-  } else if (q && q.trim().length) {
-    pipeline.push({ $sort: { score: -1 } });
+    queries.push(Query.orderDesc('createdAt'));
   } else {
-    pipeline.push({ $sort: { createdAt: -1 } });
+    queries.push(Query.orderDesc('createdAt')); // Default to newest for now
   }
 
-  pipeline.push({ $limit: limit });
+  // Add limit
+  queries.push(Query.limit(limit));
 
-  const results = await prompts.aggregate(pipeline).toArray();
-  // Map to PromptModel shape, ensure optional fields are present
-  return results as SearchResult;
+  const result = await prompts.list(queries);
+  const promptModels = result.documents.map(doc => convertToPromptModel(doc));
+
+  // For each prompt, fetch ratings and calculate averages
+  // Note: This is less efficient than MongoDB aggregation but necessary with Appwrite
+  const enrichedResults: SearchResult = [];
+  
+  for (const prompt of promptModels) {
+    const ratingQueries = [Query.equal('promptId', prompt._id)];
+    const ratingsResult = await ratings.list(ratingQueries);
+    
+    const promptRatings = ratingsResult.documents.map(doc => (doc as any).rating);
+    const avgRating = promptRatings.length > 0 
+      ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length 
+      : undefined;
+    const ratingCount = promptRatings.length;
+    
+    // Apply minimum rating filter
+    if (typeof minRating === 'number' && avgRating !== undefined && avgRating < minRating) {
+      continue;
+    }
+    
+    enrichedResults.push({
+      ...prompt,
+      avgRating,
+      ratingCount,
+      score: q ? undefined : undefined, // Appwrite doesn't provide text score
+    });
+  }
+
+  // Apply sorting for rating-based sorts
+  if (sort === 'rating') {
+    enrichedResults.sort((a, b) => {
+      const aRating = a.avgRating || 0;
+      const bRating = b.avgRating || 0;
+      if (aRating !== bRating) return bRating - aRating;
+      return (b.ratingCount || 0) - (a.ratingCount || 0);
+    });
+  }
+
+  return enrichedResults.slice(0, limit);
 }

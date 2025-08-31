@@ -10,7 +10,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    if (!process.env.MONGODB_URI) {
+    if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
     const comments = await commentRepo.getByPromptId(params.id);
@@ -26,7 +26,7 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    if (!process.env.MONGODB_URI) {
+    if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
     const guard = requireJson(req);

@@ -13,7 +13,7 @@ export async function POST(
   return badRequest('Invalid prompt ID');
   }
 
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
   return serviceUnavailable('Storage not configured');
   }
 
@@ -84,7 +84,7 @@ export async function GET(
   return badRequest('Invalid prompt ID');
   }
 
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
   return serviceUnavailable('Storage not configured');
   }
 

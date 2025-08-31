@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, jest } from '@jest/globals';
 import { Request as UndiciRequest } from 'undici';
 
-// Mock the Mongo-backed repo to avoid importing the ESM mongodb driver in Jest
+// Mock the Appwrite-backed repo to avoid requiring actual Appwrite configuration in Jest
 jest.mock('@/lib/repos/promptRepo', () => {
   return {
   createPrompt: jest.fn(async (input: any) => ({
@@ -24,21 +24,24 @@ function makeRequest(body: any): Request {
   }) as unknown as Request;
 }
 
-const hasMongo = !!process.env.MONGODB_URI;
+const hasAppwrite = !!(process.env.APPWRITE_PROJECT_ID && process.env.APPWRITE_API_KEY);
 
-(hasMongo ? describe : describe.skip)('POST /api/prompts (integration)', () => {
-  const originalUri = process.env.MONGODB_URI;
+(hasAppwrite ? describe : describe.skip)('POST /api/prompts (integration)', () => {
+  const originalProjectId = process.env.APPWRITE_PROJECT_ID;
+  const originalApiKey = process.env.APPWRITE_API_KEY;
 
   beforeAll(() => {
     // Ensure storage path is exercised
-    process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+    process.env.APPWRITE_PROJECT_ID = process.env.APPWRITE_PROJECT_ID || 'test-project';
+    process.env.APPWRITE_API_KEY = process.env.APPWRITE_API_KEY || 'test-key';
   });
 
   afterAll(() => {
-    process.env.MONGODB_URI = originalUri;
+    process.env.APPWRITE_PROJECT_ID = originalProjectId;
+    process.env.APPWRITE_API_KEY = originalApiKey;
   });
 
-  it('creates a prompt (201) and persists it in MongoDB', async () => {
+  it('creates a prompt (201) and persists it in Appwrite', async () => {
     const payload = {
       title: 'Test Prompt Title',
       content: 'This is some sufficiently long test content for the prompt.',

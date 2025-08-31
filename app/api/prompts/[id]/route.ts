@@ -11,12 +11,12 @@ export async function GET(
     return badRequest('Invalid prompt ID');
   }
 
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
     return serviceUnavailable('Storage not configured');
   }
 
   try {
-    // Defer importing the Mongo-backed repo until we know storage is configured
+    // Defer importing the Appwrite-backed repo until we know storage is configured
     const { getPromptById } = await import('@/lib/repos/promptRepo');
     const prompt = await getPromptById(id);
     

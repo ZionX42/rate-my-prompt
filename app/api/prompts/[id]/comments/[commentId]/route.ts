@@ -10,7 +10,7 @@ export async function PATCH(
   { params }: { params: { id: string; commentId: string } }
 ) {
   try {
-    if (!process.env.MONGODB_URI) {
+    if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
     const guard = requireJson(req);
@@ -46,7 +46,7 @@ export async function DELETE(
   { params }: { params: { id: string; commentId: string } }
 ) {
   try {
-    if (!process.env.MONGODB_URI) {
+    if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
     // In a real app, userId would come from a session
