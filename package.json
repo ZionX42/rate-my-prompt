@@ -8,11 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "appwrite:setup": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/appwrite-setup.ts",
+    "appwrite:setup": "tsx scripts/appwrite-setup.ts",
     "deploy:staging": "echo 'Add deployment script here'"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "appwrite": "^19.0.0",
     "eslint-plugin-react": "^7.37.5",
     "next": "^14.2.30",
     "node-appwrite": "^18.0.0",
@@ -38,6 +39,7 @@
     "prisma": "^6.15.0",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }

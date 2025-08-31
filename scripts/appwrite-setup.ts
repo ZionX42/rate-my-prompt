@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
 import { getAppwriteDb } from '../lib/appwrite/client';
 import { ensureCollections } from '../lib/appwrite/collections';
+
+// Load environment variables from .env.local
+dotenv.config({ path: '.env.local' });
 
 async function main() {
   try {

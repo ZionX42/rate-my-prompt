@@ -1,5 +1,5 @@
 import { getAppwriteDb, COLLECTIONS, ID } from './client';
-import { Query } from 'node-appwrite';
+import { Query, IndexType } from 'node-appwrite';
 
 // Document type definitions that match MongoDB schemas
 export interface PromptDoc {
@@ -109,10 +109,10 @@ export async function ensureCollections() {
     await databases.createDatetimeAttribute(databaseId, COLLECTIONS.PROMPTS, 'updatedAt', true);
     
     // Create indexes for prompts
-    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'authorId_idx', 'key', ['authorId']);
-    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'category_idx', 'key', ['category']);
-    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'published_idx', 'key', ['isPublished']);
-    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'created_idx', 'key', ['createdAt']);
+    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'authorId_idx', IndexType.Key, ['authorId']);
+    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'category_idx', IndexType.Key, ['category']);
+    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'published_idx', IndexType.Key, ['isPublished']);
+    await databases.createIndex(databaseId, COLLECTIONS.PROMPTS, 'created_idx', IndexType.Key, ['createdAt']);
     
   } catch (error) {
     // Collection might already exist
@@ -140,9 +140,9 @@ export async function ensureCollections() {
     await databases.createDatetimeAttribute(databaseId, COLLECTIONS.COMMENTS, 'updatedAt', true);
     
     // Create indexes for comments
-    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'promptId_idx', 'key', ['promptId']);
-    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'userId_idx', 'key', ['userId']);
-    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'created_idx', 'key', ['createdAt']);
+    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'promptId_idx', IndexType.Key, ['promptId']);
+    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'userId_idx', IndexType.Key, ['userId']);
+    await databases.createIndex(databaseId, COLLECTIONS.COMMENTS, 'created_idx', IndexType.Key, ['createdAt']);
     
   } catch (error) {
     console.log('Comments collection might already exist:', error);
@@ -167,9 +167,9 @@ export async function ensureCollections() {
     await databases.createDatetimeAttribute(databaseId, COLLECTIONS.RATINGS, 'updatedAt', true);
     
     // Create indexes for ratings
-    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'promptId_idx', 'key', ['promptId']);
-    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'userId_idx', 'key', ['userId']);
-    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'user_prompt_idx', 'key', ['userId', 'promptId']);
+    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'promptId_idx', IndexType.Key, ['promptId']);
+    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'userId_idx', IndexType.Key, ['userId']);
+    await databases.createIndex(databaseId, COLLECTIONS.RATINGS, 'user_prompt_idx', IndexType.Key, ['userId', 'promptId']);
     
   } catch (error) {
     console.log('Ratings collection might already exist:', error);

@@ -4,7 +4,7 @@ import { describe, it, expect, jest, afterEach, beforeAll } from '@jest/globals'
 import { GET, POST } from '@/app/api/prompts/[id]/comments/route';
 import { PATCH, DELETE } from '@/app/api/prompts/[id]/comments/[commentId]/route';
 import { commentRepo } from '@/lib/repos/commentRepo';
-import { Request as UndiciRequest } from 'undici';
+import { NextRequest } from 'next/server';
 
 // Ensure storage env is present for route handlers
 beforeAll(() => {
@@ -22,7 +22,7 @@ describe('Comments API', () => {
     it('should return threaded comments', async () => {
       jest.spyOn(commentRepo, 'getByPromptId').mockResolvedValue([] as any);
 
-  const response = await GET({} as Request, { params: { id: '123' } });
+      const response = await GET(new NextRequest('http://localhost/api/prompts/123/comments'), { params: { id: '123' } });
       const body = await response.json();
 
       expect(response.status).toBe(200);
@@ -38,13 +38,13 @@ describe('Comments API', () => {
         .spyOn(commentRepo, 'create')
         .mockResolvedValue({ ...newComment, _id: 'cm1', promptId: '123', createdAt: new Date(), updatedAt: new Date(), isEdited: false, isDeleted: false } as any);
 
-      const request = new UndiciRequest('http://a/b', {
+      const request = new NextRequest('http://localhost/api/prompts/123/comments', {
         method: 'POST',
         body: JSON.stringify(newComment),
         headers: { 'Content-Type': 'application/json' },
       });
 
-  const response = await POST(request as any, { params: { id: '123' } });
+      const response = await POST(request, { params: { id: '123' } });
       const body = await response.json();
 
       expect(response.status).toBe(201);
@@ -60,13 +60,13 @@ describe('Comments API', () => {
         .spyOn(commentRepo, 'update')
         .mockResolvedValue({ _id: 'c1', promptId: 'p1', userId: 'user1', content: 'Updated content', isEdited: true, isDeleted: false, createdAt: new Date(), updatedAt: new Date() } as any);
 
-      const request = new UndiciRequest('http://a/b', {
+      const request = new NextRequest('http://localhost/api/prompts/p1/comments/c1', {
         method: 'PATCH',
         body: JSON.stringify(updatePayload),
         headers: { 'Content-Type': 'application/json' },
       });
 
-  const response = await PATCH(request as any, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await PATCH(request, { params: { id: 'p1', commentId: 'c1' } });
       const body = await response.json();
 
       expect(response.status).toBe(200);
@@ -79,13 +79,13 @@ describe('Comments API', () => {
     it('should soft delete a comment', async () => {
       jest.spyOn(commentRepo, 'softDelete').mockResolvedValue(true);
 
-      const request = new UndiciRequest('http://a/b', {
+      const request = new NextRequest('http://localhost/api/prompts/p1/comments/c1', {
         method: 'DELETE',
         body: JSON.stringify({ userId: 'user1' }),
         headers: { 'Content-Type': 'application/json' },
       });
 
-  const response = await DELETE(request as any, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await DELETE(request, { params: { id: 'p1', commentId: 'c1' } });
 
       expect(response.status).toBe(204);
       expect(commentRepo.softDelete).toHaveBeenCalledWith('c1', 'user1');
@@ -94,13 +94,13 @@ describe('Comments API', () => {
     it('should return 404 if comment not found or user not authorized', async () => {
       jest.spyOn(commentRepo, 'softDelete').mockResolvedValue(false);
 
-      const request = new UndiciRequest('http://a/b', {
+      const request = new NextRequest('http://localhost/api/prompts/p1/comments/c1', {
         method: 'DELETE',
         body: JSON.stringify({ userId: 'user1' }),
         headers: { 'Content-Type': 'application/json' },
       });
 
-  const response = await DELETE(request as any, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await DELETE(request, { params: { id: 'p1', commentId: 'c1' } });
       const body = await response.json();
 
       expect(response.status).toBe(404);

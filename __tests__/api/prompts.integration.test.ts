@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, jest } from '@jest/globals';
-import { Request as UndiciRequest } from 'undici';
+import { NextRequest } from 'next/server';
 
 // Mock the Appwrite-backed repo to avoid requiring actual Appwrite configuration in Jest
 jest.mock('@/lib/repos/promptRepo', () => {
@@ -16,12 +16,12 @@ jest.mock('@/lib/repos/promptRepo', () => {
 // Import the route handler after mocks
 import { POST } from '../../app/api/prompts/route';
 
-function makeRequest(body: any): Request {
-  return new UndiciRequest('http://localhost/api/prompts', {
+function makeRequest(body: any): NextRequest {
+  return new NextRequest('http://localhost/api/prompts', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }) as unknown as Request;
+  });
 }
 
 const hasAppwrite = !!(process.env.APPWRITE_PROJECT_ID && process.env.APPWRITE_API_KEY);
