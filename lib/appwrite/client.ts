@@ -1,4 +1,4 @@
-import { Client, Databases, ID } from 'node-appwrite';
+import { Client, Databases, ID } from '@/lib/appwrite/sdk';
 
 // Appwrite client configuration
 let client: Client;
@@ -24,12 +24,14 @@ export function getAppwriteDatabases(): Databases {
 export async function getAppwriteDb() {
   const client = getAppwriteClient();
   const databaseId = process.env.APPWRITE_DATABASE_ID || 'prompt-hub';
-  
+
   // Ensure we have the required environment variables
   if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
-    throw new Error('Appwrite configuration missing: APPWRITE_PROJECT_ID and APPWRITE_API_KEY are required');
+    throw new Error(
+      'Appwrite configuration missing: APPWRITE_PROJECT_ID and APPWRITE_API_KEY are required'
+    );
   }
-  
+
   return {
     client,
     databases: getAppwriteDatabases(),
@@ -43,6 +45,6 @@ export { ID };
 // Collections configuration
 export const COLLECTIONS = {
   PROMPTS: 'prompts',
-  COMMENTS: 'comments', 
+  COMMENTS: 'comments',
   RATINGS: 'ratings',
 } as const;
