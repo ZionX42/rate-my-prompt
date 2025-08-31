@@ -14,10 +14,12 @@ const customJestConfig = {
     '^@/components/(.*)$': '<rootDir>/components/$1',
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/(.*)$': '<rootDir>/$1',
+    // Stub ESM-only fetch polyfill used by node-appwrite to a CJS-friendly mock
+    '^node-fetch-native-with-agent$': '<rootDir>/__mocks__/node-fetch-native-with-agent.js',
   },
-  transformIgnorePatterns: [
-    '/node_modules/(?!(node-appwrite|node-fetch-native-with-agent)/)',
-  ],
+  // Do not let Jest pick up Playwright specs
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
+  transformIgnorePatterns: ['/node_modules/(?!(node-appwrite|node-fetch-native-with-agent)/)'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

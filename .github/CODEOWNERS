@@ -1,0 +1,11 @@
+# CODEOWNERS - enforce reviews for critical areas
+# Format: pattern  owner
+
+# API routes
+/app/api/**  @ZionX42
+
+# Repositories and database layer
+/lib/**      @ZionX42
+
+# UI components
+/components/**  @ZionX42
