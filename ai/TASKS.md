@@ -306,3 +306,73 @@
 10.2.3. Create performance monitoring dashboard
    - Verification: Dashboard shows key performance metrics
    - Dependencies: 10.2.1, 10.2.2
+
+## 11. Website Scaffolding
+### 11.1. Foundation & Layout
+11.1.1. Set up project dependencies and tech stack
+   - Verification: shadcn/ui, lucide-react, and Helmet installed and configured
+   - Dependencies: 1.1.2, 1.1.4
+
+11.1.2. Create header and navigation component
+   - Verification: Header with logo and nav links appears on all pages
+   - Dependencies: 11.1.1
+
+11.1.3. Create footer component with social links
+   - Verification: Footer with quick links, social icons, and tagline appears on all pages
+   - Dependencies: 11.1.1
+
+### 11.2. Core Pages
+11.2.1. Build Home page with hero and features
+   - Verification: Home page displays hero section, CTAs, features grid, testimonials placeholder
+   - Dependencies: 11.1.2, 11.1.3
+
+11.2.2. Create Discover page with search and filters
+   - Verification: Searchable and filterable prompt list with rating placeholders
+   - Dependencies: 11.1.2, 11.1.3
+
+11.2.3. Build Submit page with prompt form
+   - Verification: Form with title, category, description, target AI model, tags fields
+   - Dependencies: 11.1.2, 11.1.3
+
+11.2.4. Create Community page with forum layout
+   - Verification: Forum-like categories and threads placeholder
+   - Dependencies: 11.1.2, 11.1.3
+
+11.2.5. Build Hub Academy page
+   - Verification: Blog post list with title, excerpt, tags, "Read More" buttons
+   - Dependencies: 11.1.2, 11.1.3
+
+### 11.3. Static Pages
+11.3.1. Create About, Contact, Privacy Policy, Terms of Service pages
+   - Verification: Simple pages with placeholder content render correctly
+   - Dependencies: 11.1.2, 11.1.3
+
+11.3.2. Build FAQ page with accordion
+   - Verification: At least 12 Q&A pairs in accordion style
+   - Dependencies: 11.1.2, 11.1.3
+
+11.3.3. Create Feedback page
+   - Verification: Feedback form renders with proper validation
+   - Dependencies: 11.1.2, 11.1.3
+
+### 11.4. SEO & Meta
+11.4.1. Implement Helmet meta tags for all pages
+   - Verification: Each page has unique description and keywords
+   - Dependencies: 11.1.1
+
+11.4.2. Add JSON-LD schema markup
+   - Verification: WebSite, Organization, ItemList schemas present
+   - Dependencies: 11.4.1
+
+11.4.3. Configure OpenGraph and Twitter meta tags
+   - Verification: Social sharing previews work correctly
+   - Dependencies: 11.4.1
+
+### 11.5. Technical Files
+11.5.1. Create sitemap.xml, robots.txt, ai.txt
+   - Verification: Files accessible and properly formatted
+   - Dependencies: 11.2.1
+
+11.5.2. Ensure accessibility compliance
+   - Verification: ARIA labels, semantic HTML, keyboard navigation
+   - Dependencies: 11.1.2, 11.1.3
