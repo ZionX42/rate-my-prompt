@@ -310,6 +310,8 @@ export async function ensureCollections() {
     { key: 'category_idx', type: IndexType.Key, attrs: ['category'] },
     { key: 'published_idx', type: IndexType.Key, attrs: ['isPublished'] },
     { key: 'created_idx', type: IndexType.Key, attrs: ['createdAt'] },
+    // Fulltext index is required for Query.search on 'title'
+    { key: 'title_fulltext_idx', type: IndexType.Fulltext, attrs: ['title'] },
   ]);
 
   // Comments
