@@ -1,4 +1,8 @@
 import '@testing-library/jest-dom';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env.local for tests
+dotenv.config({ path: '.env.local' });
 
 // Polyfill Fetch API for tests (Request/Response/fetch) if missing
 try {

@@ -16,7 +16,7 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/$1',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(mongodb|bson|undici)/)',
+    '/node_modules/(?!(node-appwrite|node-fetch-native-with-agent)/)',
   ],
 };
 
