@@ -2,24 +2,45 @@
 
 ## Environment Variables
 
-Ensure you have a `.env` file with required variables. Example:
+Ensure you have a `.env.local` file with required variables. Example:
 
 ```env
+# Database
 DATABASE_URL="..."
+
+# Appwrite Configuration
+NEXT_PUBLIC_APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
+NEXT_PUBLIC_APPWRITE_PROJECT_ID="your-project-id"
+APPWRITE_API_KEY="your-api-key"
+
 # Optional: MongoDB for prompt storage
 MONGODB_URI="mongodb://localhost:27017"
 MONGODB_DB="prompt_hub"
 ```
+
+## Setup
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Copy `.env.example` to `.env.local` and configure your Appwrite settings
+4. Set up Appwrite collections: `npm run appwrite:setup`
+5. Start development server: `npm run dev`
+
 ## Scripts
 
 - `npm test` – run unit tests
+- `npm run dev` – start development server
+- `npm run build` – build for production
+- `npm run appwrite:setup` – create Appwrite collections and indexes
 - `npm run mongo:setup` – create MongoDB indexes/collections (requires MONGODB_URI)
 
 ## Dependencies
 
 This project uses the following key dependencies:
+
 - **Next.js**: React-based framework for building web applications.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Appwrite**: Backend-as-a-Service for database, authentication, and storage.
 - **Prisma**: ORM for PostgreSQL.
 - **MongoDB Node Driver**: MongoDB driver for prompt storage.
 - **Jest**: Testing framework with @testing-library/react for React component testing.
@@ -28,9 +49,11 @@ This project uses the following key dependencies:
 For a complete list, see [`DEPS.md`](DEPS.md).
 
 ## Overview
+
 This project is designed to develop an AI-based solution that addresses specific user needs. The project includes a comprehensive set of documents to guide development, task management, and adherence to best practices.
 
 ## Project Structure
+
 The project is organized as follows:
 
 ```
@@ -43,6 +66,7 @@ ai-project
 ```
 
 ## Contribution
+
 Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.
 
 ## API responses and middleware
@@ -52,7 +76,7 @@ All API routes use a standardized JSON response contract:
 - Success (200/201): Any shape the route defines, e.g. `{ prompt: {...} }`, arrays, etc.
 - No content (204): Empty body.
 - Errors: Always `{ error: string, details?: any }`.
-	- When validation fails with Zod-like errors, `details` is an array of issues and is also mirrored to `issues` for backward compatibility: `{ error: "Validation failed", details: Issue[], issues: Issue[] }`.
+  - When validation fails with Zod-like errors, `details` is an array of issues and is also mirrored to `issues` for backward compatibility: `{ error: "Validation failed", details: Issue[], issues: Issue[] }`.
 
 Common helpers live in `lib/api/responses.ts`:
 

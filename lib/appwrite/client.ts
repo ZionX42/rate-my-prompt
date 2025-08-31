@@ -47,4 +47,5 @@ export const COLLECTIONS = {
   PROMPTS: 'prompts',
   COMMENTS: 'comments',
   RATINGS: 'ratings',
+  USERS: 'users',
 } as const;

@@ -37,6 +37,16 @@ export interface RatingDoc {
   updatedAt: string;
 }
 
+export interface UserDoc {
+  $id: string;
+  displayName: string;
+  email?: string;
+  bio?: string;
+  avatarUrl?: string;
+  joinedAt: string; // ISO string format
+  updatedAt: string; // ISO string format
+}
+
 export async function getCollections() {
   const { databases, databaseId } = await getAppwriteDb();
 
@@ -79,6 +89,18 @@ export async function getCollections() {
         databases.updateDocument(databaseId, COLLECTIONS.RATINGS, documentId, data),
       delete: (documentId: string) =>
         databases.deleteDocument(databaseId, COLLECTIONS.RATINGS, documentId),
+    },
+    users: {
+      collectionId: COLLECTIONS.USERS,
+      create: (data: Omit<UserDoc, '$id'>) =>
+        databases.createDocument(databaseId, COLLECTIONS.USERS, ID.unique(), data),
+      get: (documentId: string) => databases.getDocument(databaseId, COLLECTIONS.USERS, documentId),
+      list: (queries: string[] = []) =>
+        databases.listDocuments(databaseId, COLLECTIONS.USERS, queries),
+      update: (documentId: string, data: Partial<UserDoc>) =>
+        databases.updateDocument(databaseId, COLLECTIONS.USERS, documentId, data),
+      delete: (documentId: string) =>
+        databases.deleteDocument(databaseId, COLLECTIONS.USERS, documentId),
     },
   };
 }
@@ -346,6 +368,20 @@ export async function ensureCollections() {
     { key: 'promptId_idx', type: IndexType.Key, attrs: ['promptId'] },
     { key: 'userId_idx', type: IndexType.Key, attrs: ['userId'] },
     { key: 'user_prompt_idx', type: IndexType.Key, attrs: ['userId', 'promptId'] },
+  ]);
+
+  // Users
+  await ensureCollection(COLLECTIONS.USERS, 'Users');
+  await ensureAttributes(COLLECTIONS.USERS, [
+    { kind: 'string', key: 'displayName', size: 100, required: true },
+    { kind: 'string', key: 'email', size: 320, required: false },
+    { kind: 'string', key: 'bio', size: 1000, required: false },
+    { kind: 'string', key: 'avatarUrl', size: 1000, required: false },
+    { kind: 'string', key: 'joinedAt', size: 30, required: true },
+    { kind: 'string', key: 'updatedAt', size: 30, required: true },
+  ]);
+  await ensureIndexes(COLLECTIONS.USERS, [
+    { key: 'email_idx', type: IndexType.Key, attrs: ['email'] },
   ]);
 }
 

@@ -104,7 +104,13 @@
 - Verification: Call endpoint with query parameter and receive JSON results
 - Dependencies: 2.3.2, 3.2.1
 
-  2.3.4. (Future) Implement multi-field full-text search
+  2.3.4. Add fulltext index for search functionality ✅
+
+- Verification: Search by title works without "requires a fulltext index" error
+- Dependencies: 2.3.3
+- Notes: Added fulltext index on 'title' field in Appwrite collections
+
+  2.3.5. (Future) Implement multi-field full-text search
   - Verification: Searching for a term present only in a prompt's description returns the correct prompt in the search results.
   - Dependencies: 2.3.3
   - Notes: Update `lib/appwrite/collections.ts` to create a single full-text index on `['title', 'description']`. The search repository logic in `lib/repos/promptRepo.ts` will also need to be updated to query against this new
@@ -186,12 +192,12 @@
 - Verification: Navigate to /users/[id] shows profile layout
 - Dependencies: 2.1.1, 2.2.3
 
-  4.1.2. Implement profile edit functionality
+  4.1.2. Implement profile edit functionality ✅
 
 - Verification: User can update bio, avatar, and other profile fields
 - Dependencies: 4.1.1
 
-  4.1.3. Add prompt collection to user profile
+  4.1.3. Add prompt collection to user profile ✅
 
 - Verification: User profile displays prompts created by user
 - Dependencies: 3.1.1, 4.1.1
@@ -359,7 +365,7 @@
 - Verification: Banner appears for new visitors and saves preferences
 - Dependencies: 5.1.1
 
-### 9.2. SOC2 Preparation
+### 9.2. SOC2 Preparation (future)
 
 9.2.1. Document security controls and procedures
 
