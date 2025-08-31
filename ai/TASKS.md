@@ -55,9 +55,9 @@
 - Verification: Run migrations and confirm tables are created
 - Dependencies: 1.1.2
 
-  2.1.2. Configure MongoDB collections for prompt storage ✅
+  2.1.2. Configure Appwrite collections for prompt storage ✅
 
-- Verification: Connect to MongoDB and verify collections exist
+- Verification: Connect to Appwrite and verify collections exist
 - Dependencies: 1.1.2
 
   2.1.3. Set up database connection in application ✅

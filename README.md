@@ -12,10 +12,6 @@ DATABASE_URL="..."
 NEXT_PUBLIC_APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
 NEXT_PUBLIC_APPWRITE_PROJECT_ID="your-project-id"
 APPWRITE_API_KEY="your-api-key"
-
-# Optional: MongoDB for prompt storage
-MONGODB_URI="mongodb://localhost:27017"
-MONGODB_DB="prompt_hub"
 ```
 
 ## Setup
@@ -32,7 +28,6 @@ MONGODB_DB="prompt_hub"
 - `npm run dev` – start development server
 - `npm run build` – build for production
 - `npm run appwrite:setup` – create Appwrite collections and indexes
-- `npm run mongo:setup` – create MongoDB indexes/collections (requires MONGODB_URI)
 
 ## Dependencies
 
@@ -42,7 +37,6 @@ This project uses the following key dependencies:
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Appwrite**: Backend-as-a-Service for database, authentication, and storage.
 - **Prisma**: ORM for PostgreSQL.
-- **MongoDB Node Driver**: MongoDB driver for prompt storage.
 - **Jest**: Testing framework with @testing-library/react for React component testing.
 - **ESLint & Prettier**: Tools for linting and code formatting.
 

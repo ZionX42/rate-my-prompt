@@ -1,7 +1,7 @@
 import { getAppwriteDb, COLLECTIONS, ID } from './client';
 import { Query, IndexType } from '@/lib/appwrite/sdk';
 
-// Document type definitions that match MongoDB schemas
+// Document type definitions for Appwrite collections
 export interface PromptDoc {
   $id: string;
   title: string;

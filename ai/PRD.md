@@ -1,23 +1,29 @@
 # Product Requirements Document (PRD) - Prompt Hub
 
 ## Project Overview
+
 Prompt Hub will be the premier destination for discovering, evaluating, and learning about AI prompts, agents, and workflows. By creating a structured rating system and community platform, we'll solve the growing problem of quality assessment for AI assets while building a valuable resource for AI practitioners at all levels.
 
 ## Problem Statement & Opportunity
+
 ### Current Challenges
+
 - **Discovery Problem**: Quality prompts are scattered across forums, blogs, and social media
 - **Quality Assurance Gap**: No standardized evaluation metrics for prompt effectiveness
 - **Learning Barrier**: Steep learning curve for prompt engineering with fragmented resources
 - **Recognition Deficit**: Skilled prompt engineers lack visibility and compensation mechanisms
 
 ### Market Opportunity
+
 - 67% of AI users report spending significant time searching for effective prompts
 - Growing demand for specialized prompts across industries (healthcare, legal, content creation)
 - Emerging professional field of prompt engineering with monetization potential
 - Community-driven platforms showing strong growth in adjacent tech spaces
 
 ## Target Users
+
 ### Primary Personas
+
 1. **The AI Practitioner (Alex)**
    - Professional using AI tools daily in their workflow
    - Seeks reliable, tested prompts to improve productivity
@@ -37,6 +43,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
    - Pain point: Overwhelmed by conflicting prompt advice
 
 ## Features
+
 1. **Feature 1: Comprehensive Repository**
    - Description: A structured database of AI prompts, agents, and workflows with metadata, versioning, and search capabilities.
    - Requirements:
@@ -77,22 +84,20 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
      - **Bug Report Page/Form**: A dedicated channel for users to report technical issues.
      - **Feedback Page/Form**: A channel for users to provide suggestions and feedback.
 
-
 ## Functionalities
+
 - **Functionality 1: Prompt Academy**
   - Description: Educational resources for learning prompt engineering best practices
   - Structured learning paths from beginner to advanced
   - Technique spotlights with practical examples
   - Expert-led workshops and recorded sessions
   - Certification program for prompt engineers
-  
 - **Functionality 2: Creator Economy Features**
   - Description: Tools to support monetization for prompt engineers
   - Tipping functionality with multiple payment options
   - Subscription model for premium prompt collections
   - Revenue sharing for platform-promoted content
   - Analytics dashboard for creators
-  
 - **Functionality 3: Advanced Platform Capabilities**
   - Description: Tools for testing and optimizing prompts
   - Interactive prompt testing environment
@@ -101,10 +106,11 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
   - Enterprise solutions for teams and organizations
 
 ## Technical Specifications
+
 - **Technical Stack:**
   - Frontend: Next.js/React with TypeScript, Tailwind CSS for styling
   - Backend: Node.js with Express or NestJS, or Python with FastAPI
-  - Database: PostgreSQL for relational data, MongoDB for document storage
+  - Database: PostgreSQL for relational data, Appwrite for document storage and authentication
   - Search: Elasticsearch or Meilisearch for fast, relevant search results
   - Caching: Redis for performance optimization
   - Infrastructure: Docker containers, Kubernetes for orchestration
@@ -129,6 +135,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
   - SOC2 compliance for security and data protection
 
 ## Security & Compliance
+
 - OAuth 2.0 integration (Google, GitHub, Microsoft)
 - Role-based access control system
 - Data encryption for sensitive information
@@ -137,6 +144,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
 - SOC2 compliance preparation and documentation
 
 ## Success Metrics & KPIs
+
 - Registration: 50,000 users in first 12 months
 - Retention: 40% monthly active user retention
 - Engagement: Average session time >8 minutes
@@ -145,6 +153,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
 - Creator Earnings: €100K distributed to prompt engineers in Year 1
 
 ## Stakeholders
+
 - Product Management Team
 - Development Team (Frontend, Backend, DevOps)
 - UX/UI Design Team
@@ -155,19 +164,23 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
 - Early Adopter Community
 
 ## Timeline
+
 ### Phase 1: MVP Launch (Months 1-3)
+
 - Core repository functionality
 - Basic rating system
 - User profiles and authentication
 - Initial categorization system
 
 ### Phase 2: Community Building (Months 4-6)
+
 - Forums and discussion features
 - Enhanced search and discovery
 - Reputation system implementation
 - Moderation tools and reporting
 
 ### Phase 3: Monetization & Growth (Months 7-12)
+
 - Tipping and creator support features
 - Academy fundamentals
 - API access for developers
@@ -175,6 +188,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
 - SOC2 compliance preparation
 
 ## Risk Assessment
+
 1. **Content & Quality Risks**
    - Prompt plagiarism and attribution conflicts
    - Low-quality prompt submissions flooding platform
@@ -189,6 +203,7 @@ Prompt Hub will be the premier destination for discovering, evaluating, and lear
    - Monetization affecting community dynamics
 
 ## Non-Goals & Boundaries
+
 - Not a Model Hosting Platform: We don't host or execute AI models
 - Not a General AI Forum: Focus remains on prompts and prompt engineering
 - Not a Training Data Source: Prompts aren't intended for AI training

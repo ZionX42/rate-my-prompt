@@ -44,12 +44,12 @@ describe('/api/prompts/[id]', () => {
   });
 
   it('returns 404 when prompt not found', async () => {
-    // This test would require MongoDB connection, skip for unit testing
+    // This test would require Appwrite connection, skip for unit testing
     expect(true).toBe(true);
   });
 
   it('returns prompt when found', async () => {
-    // This test would require MongoDB connection, skip for unit testing
+    // This test would require Appwrite connection, skip for unit testing
     expect(true).toBe(true);
   });
 });
