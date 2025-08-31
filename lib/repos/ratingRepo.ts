@@ -1,6 +1,5 @@
 import { getCollections, RatingDoc, Query } from '../appwrite/collections';
 import { Rating, CreateRatingPayload, RatingStats, generateRatingStats } from '../models/rating';
-import { ID } from '../appwrite/client';
 
 // Convert Appwrite document to Rating format
 function convertToRating(doc: any): Rating {
@@ -39,7 +38,7 @@ class RatingRepository {
   async createRating(payload: CreateRatingPayload): Promise<Rating> {
     const collection = await this.getCollection();
     const now = new Date();
-    
+
     const ratingToInsert: Omit<Rating, '_id'> = {
       ...payload,
       createdAt: now,
@@ -71,9 +70,9 @@ class RatingRepository {
   async getRatingsByPromptId(promptId: string): Promise<Rating[]> {
     const collection = await this.getCollection();
     const queries = [Query.equal('promptId', promptId)];
-    
+
     const result = await collection.list(queries);
-    return result.documents.map(doc => convertToRating(doc));
+    return result.documents.map((doc) => convertToRating(doc));
   }
 
   /**
@@ -81,11 +80,8 @@ class RatingRepository {
    */
   async getRatingByUserAndPrompt(userId: string, promptId: string): Promise<Rating | null> {
     const collection = await this.getCollection();
-    const queries = [
-      Query.equal('userId', userId),
-      Query.equal('promptId', promptId),
-    ];
-    
+    const queries = [Query.equal('userId', userId), Query.equal('promptId', promptId)];
+
     const result = await collection.list(queries);
     if (result.documents.length === 0) return null;
     return convertToRating(result.documents[0]);
@@ -94,11 +90,14 @@ class RatingRepository {
   /**
    * Update an existing rating
    */
-  async updateRating(id: string, updates: Partial<Pick<Rating, 'rating' | 'comment'>>): Promise<Rating | null> {
+  async updateRating(
+    id: string,
+    updates: Partial<Pick<Rating, 'rating' | 'comment'>>
+  ): Promise<Rating | null> {
     try {
       const collection = await this.getCollection();
       const now = new Date();
-      
+
       const updateData = {
         ...updates,
         updatedAt: now.toISOString(),
@@ -139,35 +138,34 @@ class RatingRepository {
    */
   async getRatingsByUserId(userId: string): Promise<Rating[]> {
     const collection = await this.getCollection();
-    const queries = [
-      Query.equal('userId', userId),
-      Query.orderDesc('createdAt'),
-    ];
-    
+    const queries = [Query.equal('userId', userId), Query.orderDesc('createdAt')];
+
     const result = await collection.list(queries);
-    return result.documents.map(doc => convertToRating(doc));
+    return result.documents.map((doc) => convertToRating(doc));
   }
 
   /**
    * Get top rated prompts with their average ratings
    */
-  async getTopRatedPrompts(limit = 10): Promise<Array<{ promptId: string; avgRating: number; ratingCount: number }>> {
+  async getTopRatedPrompts(
+    limit = 10
+  ): Promise<Array<{ promptId: string; avgRating: number; ratingCount: number }>> {
     const collection = await this.getCollection();
-    
+
     // Since Appwrite doesn't have aggregation, we need to fetch all ratings and group them
     const queries = [Query.limit(10000)]; // Adjust based on expected data size
     const result = await collection.list(queries);
-    
+
     const promptRatings: Record<string, number[]> = {};
-    
-    result.documents.forEach(doc => {
+
+    result.documents.forEach((doc) => {
       const rating = convertToRating(doc);
       if (!promptRatings[rating.promptId]) {
         promptRatings[rating.promptId] = [];
       }
       promptRatings[rating.promptId].push(rating.rating);
     });
-    
+
     const topRated = Object.entries(promptRatings)
       .map(([promptId, ratings]) => ({
         promptId,
@@ -176,7 +174,7 @@ class RatingRepository {
       }))
       .sort((a, b) => b.avgRating - a.avgRating)
       .slice(0, limit);
-    
+
     return topRated;
   }
 }

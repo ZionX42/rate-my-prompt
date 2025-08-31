@@ -1,6 +1,11 @@
 import { getCollections, PromptDoc, Query } from '../appwrite/collections';
-import { NewPromptInput, PromptModel, sanitizeNewPrompt, validateNewPrompt, PromptCategory } from '../models/prompt';
-import { ID } from '../appwrite/client';
+import {
+  NewPromptInput,
+  PromptModel,
+  sanitizeNewPrompt,
+  validateNewPrompt,
+  PromptCategory,
+} from '../models/prompt';
 
 // Convert Appwrite document to PromptModel format
 function convertToPromptModel(doc: any): PromptModel {
@@ -40,7 +45,7 @@ export async function createPrompt(input: NewPromptInput): Promise<PromptModel> 
     (err as any).issues = validation.issues;
     throw err;
   }
-  
+
   const { prompts } = await getCollections();
   const now = new Date();
   const doc: Omit<PromptModel, '_id'> = {
@@ -48,7 +53,7 @@ export async function createPrompt(input: NewPromptInput): Promise<PromptModel> 
     createdAt: now,
     updatedAt: now,
   };
-  
+
   const promptDoc = convertToPromptDoc(doc);
   const result = await prompts.create(promptDoc);
   return convertToPromptModel(result);
@@ -72,9 +77,9 @@ export async function listPromptsByAuthor(authorId: string, limit = 20): Promise
     Query.orderDesc('createdAt'),
     Query.limit(limit),
   ];
-  
+
   const result = await prompts.list(queries);
-  return result.documents.map(doc => convertToPromptModel(doc));
+  return result.documents.map((doc) => convertToPromptModel(doc));
 }
 
 export async function getFeaturedPrompts(limit = 6): Promise<PromptModel[]> {
@@ -84,9 +89,9 @@ export async function getFeaturedPrompts(limit = 6): Promise<PromptModel[]> {
     Query.orderDesc('createdAt'),
     Query.limit(limit),
   ];
-  
+
   const result = await prompts.list(queries);
-  return result.documents.map(doc => convertToPromptModel(doc));
+  return result.documents.map((doc) => convertToPromptModel(doc));
 }
 
 export async function getPromptsByCategory(category: string, limit = 20): Promise<PromptModel[]> {
@@ -97,9 +102,9 @@ export async function getPromptsByCategory(category: string, limit = 20): Promis
     Query.orderDesc('createdAt'),
     Query.limit(limit),
   ];
-  
+
   const result = await prompts.list(queries);
-  return result.documents.map(doc => convertToPromptModel(doc));
+  return result.documents.map((doc) => convertToPromptModel(doc));
 }
 
 export async function getCategoryStats(): Promise<Array<{ category: string; count: number }>> {
@@ -111,16 +116,16 @@ export async function getCategoryStats(): Promise<Array<{ category: string; coun
     Query.equal('isPublished', true),
     Query.limit(1000), // Adjust based on expected data size
   ];
-  
+
   const result = await prompts.list(queries);
   const categoryCount: Record<string, number> = {};
-  
-  result.documents.forEach(doc => {
+
+  result.documents.forEach((doc) => {
     const promptDoc = doc as any;
     const category = promptDoc.category || 'general';
     categoryCount[category] = (categoryCount[category] || 0) + 1;
   });
-  
+
   return Object.entries(categoryCount)
     .map(([category, count]) => ({ category, count }))
     .sort((a, b) => b.count - a.count);
@@ -143,15 +148,7 @@ export type SearchResult = (PromptModel & {
 })[];
 
 export async function searchPrompts(params: SearchParams): Promise<SearchResult> {
-  const {
-    q,
-    category,
-    minRating,
-    dateFrom,
-    dateTo,
-    limit = 50,
-    sort = 'relevance',
-  } = params;
+  const { q, category, minRating, dateFrom, dateTo, limit = 50, sort = 'relevance' } = params;
 
   const { prompts, ratings } = await getCollections();
   const queries = [Query.equal('isPublished', true)];
@@ -187,27 +184,28 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
   queries.push(Query.limit(limit));
 
   const result = await prompts.list(queries);
-  const promptModels = result.documents.map(doc => convertToPromptModel(doc));
+  const promptModels = result.documents.map((doc) => convertToPromptModel(doc));
 
   // For each prompt, fetch ratings and calculate averages
   // Note: This is less efficient than MongoDB aggregation but necessary with Appwrite
   const enrichedResults: SearchResult = [];
-  
+
   for (const prompt of promptModels) {
     const ratingQueries = [Query.equal('promptId', prompt._id)];
     const ratingsResult = await ratings.list(ratingQueries);
-    
-    const promptRatings = ratingsResult.documents.map(doc => (doc as any).rating);
-    const avgRating = promptRatings.length > 0 
-      ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length 
-      : undefined;
+
+    const promptRatings = ratingsResult.documents.map((doc) => (doc as any).rating);
+    const avgRating =
+      promptRatings.length > 0
+        ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length
+        : undefined;
     const ratingCount = promptRatings.length;
-    
+
     // Apply minimum rating filter
     if (typeof minRating === 'number' && avgRating !== undefined && avgRating < minRating) {
       continue;
     }
-    
+
     enrichedResults.push({
       ...prompt,
       avgRating,

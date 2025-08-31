@@ -32,9 +32,15 @@ function CommentItem({
           </div>
           <div className="text-sm text-heading whitespace-pre-wrap">{top.content}</div>
           <div className="mt-2 flex gap-3 text-xs text-subtext">
-            <button className="hover:text-heading" onClick={() => onReply(top._id!)}>Reply</button>
-            <button className="hover:text-heading" onClick={() => onEdit(top._id!, top.content)}>Edit</button>
-            <button className="hover:text-heading" onClick={() => onDelete(top._id!)}>Delete</button>
+            <button className="hover:text-heading" onClick={() => onReply(top._id!)}>
+              Reply
+            </button>
+            <button className="hover:text-heading" onClick={() => onEdit(top._id!, top.content)}>
+              Edit
+            </button>
+            <button className="hover:text-heading" onClick={() => onDelete(top._id!)}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -50,9 +56,15 @@ function CommentItem({
               </div>
               <div className="text-sm text-heading whitespace-pre-wrap">{r.content}</div>
               <div className="mt-2 flex gap-3 text-xs text-subtext">
-                <button className="hover:text-heading" onClick={() => onReply(r._id!)}>Reply</button>
-                <button className="hover:text-heading" onClick={() => onEdit(r._id!, r.content)}>Edit</button>
-                <button className="hover:text-heading" onClick={() => onDelete(r._id!)}>Delete</button>
+                <button className="hover:text-heading" onClick={() => onReply(r._id!)}>
+                  Reply
+                </button>
+                <button className="hover:text-heading" onClick={() => onEdit(r._id!, r.content)}>
+                  Edit
+                </button>
+                <button className="hover:text-heading" onClick={() => onDelete(r._id!)}>
+                  Delete
+                </button>
               </div>
             </li>
           ))}
@@ -69,8 +81,14 @@ export default function CommentList({ threads, onReply, onEdit, onDelete }: Comm
   return (
     <ul className="divide-y divide-border">
       {threads.map((t) => (
-        <CommentItem key={t.comment._id} thread={t} onReply={onReply} onEdit={onEdit} onDelete={onDelete} />)
-      )}
+        <CommentItem
+          key={t.comment._id}
+          thread={t}
+          onReply={onReply}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ))}
     </ul>
   );
 }

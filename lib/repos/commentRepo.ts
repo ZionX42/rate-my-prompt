@@ -1,6 +1,12 @@
 import { getCollections, CommentDoc, Query } from '../appwrite/collections';
-import { Comment, CreateCommentPayload, UpdateCommentPayload, organizeCommentsIntoThreads, validateCreateComment, validateUpdateComment } from '../models/comment';
-import { ID } from '../appwrite/client';
+import {
+  Comment,
+  CreateCommentPayload,
+  UpdateCommentPayload,
+  organizeCommentsIntoThreads,
+  validateCreateComment,
+  validateUpdateComment,
+} from '../models/comment';
 
 // Convert Appwrite document to Comment format
 function convertToComment(doc: any): Comment {
@@ -40,7 +46,7 @@ class CommentRepository {
   async create(promptId: string, payload: CreateCommentPayload): Promise<Comment> {
     const collection = await this.getCollection();
     const validatedPayload = validateCreateComment(payload);
-    
+
     const now = new Date();
     const doc: Omit<Comment, '_id'> = {
       ...validatedPayload,
@@ -63,9 +69,9 @@ class CommentRepository {
       Query.equal('isDeleted', false),
       Query.orderAsc('createdAt'),
     ];
-    
+
     const result = await collection.list(queries);
-    const comments = result.documents.map(doc => convertToComment(doc));
+    const comments = result.documents.map((doc) => convertToComment(doc));
     return organizeCommentsIntoThreads(comments);
   }
 
@@ -82,7 +88,11 @@ class CommentRepository {
     }
   }
 
-  async update(commentId: string, userId: string, payload: UpdateCommentPayload): Promise<Comment | null> {
+  async update(
+    commentId: string,
+    userId: string,
+    payload: UpdateCommentPayload
+  ): Promise<Comment | null> {
     try {
       const collection = await this.getCollection();
       const validatedPayload = validateUpdateComment(payload);
@@ -110,7 +120,7 @@ class CommentRepository {
   async softDelete(commentId: string, userId: string): Promise<boolean> {
     try {
       const collection = await this.getCollection();
-      
+
       // First check if the comment exists and belongs to the user
       const existing = await this.getById(commentId);
       if (!existing || existing.userId !== userId || existing.isDeleted) {
