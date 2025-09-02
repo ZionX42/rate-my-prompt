@@ -1,0 +1,3 @@
+[submodule "starter-for-react"]
+	path = starter-for-react
+	url = https://github.com/ZionX42/starter-for-react.git

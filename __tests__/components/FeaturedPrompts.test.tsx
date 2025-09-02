@@ -62,9 +62,9 @@ describe('FeaturedPrompts', () => {
     
     expect(screen.getByText('By user123')).toBeInTheDocument();
     expect(screen.getByText('By user456')).toBeInTheDocument();
-    // Date format may vary by locale, so we check for specific dates
-    expect(screen.getByText('15/01/2024')).toBeInTheDocument();
-    expect(screen.getByText('16/01/2024')).toBeInTheDocument();
+    // Date format may vary by locale, so we use toLocaleDateString to match component behavior
+    expect(screen.getByText(new Date('2024-01-15').toLocaleDateString())).toBeInTheDocument();
+    expect(screen.getByText(new Date('2024-01-16').toLocaleDateString())).toBeInTheDocument();
   });
 
   it('shows view details links', () => {
