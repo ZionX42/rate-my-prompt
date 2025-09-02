@@ -9,8 +9,10 @@ const mockPrompts: PromptModel[] = [
   {
     _id: '507f1f77bcf86cd799439011',
     title: 'Content Generator Pro',
-    content: 'A comprehensive prompt for generating high-quality content across various formats and styles.',
-    description: 'This prompt helps you create engaging content for blogs, social media, and marketing materials.',
+    content:
+      'A comprehensive prompt for generating high-quality content across various formats and styles.',
+    description:
+      'This prompt helps you create engaging content for blogs, social media, and marketing materials.',
     authorId: 'user123',
     category: 'writing',
     tags: ['content', 'marketing', 'writing'],
@@ -21,7 +23,8 @@ const mockPrompts: PromptModel[] = [
   {
     _id: '507f1f77bcf86cd799439012',
     title: 'Code Review Assistant',
-    content: 'A detailed prompt for conducting thorough code reviews and providing constructive feedback.',
+    content:
+      'A detailed prompt for conducting thorough code reviews and providing constructive feedback.',
     description: 'Helps developers review code effectively and provide meaningful suggestions.',
     authorId: 'user456',
     category: 'coding',
@@ -35,23 +38,31 @@ const mockPrompts: PromptModel[] = [
 describe('FeaturedPrompts', () => {
   it('renders featured prompts correctly', () => {
     render(<FeaturedPrompts prompts={mockPrompts} />);
-    
+
     expect(screen.getByText('Content Generator Pro')).toBeInTheDocument();
     expect(screen.getByText('Code Review Assistant')).toBeInTheDocument();
-    expect(screen.getByText('This prompt helps you create engaging content for blogs, social media, and marketing materials.')).toBeInTheDocument();
-    expect(screen.getByText('Helps developers review code effectively and provide meaningful suggestions.')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'This prompt helps you create engaging content for blogs, social media, and marketing materials.'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Helps developers review code effectively and provide meaningful suggestions.'
+      )
+    ).toBeInTheDocument();
   });
 
   it('displays categories correctly', () => {
     render(<FeaturedPrompts prompts={mockPrompts} />);
-    
+
     expect(screen.getByText('writing')).toBeInTheDocument();
     expect(screen.getByText('coding')).toBeInTheDocument();
   });
 
   it('shows tags correctly', () => {
     render(<FeaturedPrompts prompts={mockPrompts} />);
-    
+
     expect(screen.getByText('#content')).toBeInTheDocument();
     expect(screen.getByText('#marketing')).toBeInTheDocument();
     expect(screen.getByText('#code')).toBeInTheDocument();
@@ -59,17 +70,17 @@ describe('FeaturedPrompts', () => {
 
   it('displays author and date information', () => {
     render(<FeaturedPrompts prompts={mockPrompts} />);
-    
+
     expect(screen.getByText('By user123')).toBeInTheDocument();
     expect(screen.getByText('By user456')).toBeInTheDocument();
-    // Date format may vary by locale, so we check for specific dates
-    expect(screen.getByText('15/01/2024')).toBeInTheDocument();
-    expect(screen.getByText('16/01/2024')).toBeInTheDocument();
+    // Use more flexible date matching to handle different locale formats
+    expect(screen.getByText(new Date('2024-01-15').toLocaleDateString())).toBeInTheDocument();
+    expect(screen.getByText(new Date('2024-01-16').toLocaleDateString())).toBeInTheDocument();
   });
 
   it('shows view details links', () => {
     render(<FeaturedPrompts prompts={mockPrompts} />);
-    
+
     const viewDetailsLinks = screen.getAllByText('View Details');
     expect(viewDetailsLinks).toHaveLength(2);
     expect(viewDetailsLinks[0]).toHaveAttribute('href', '/prompts/507f1f77bcf86cd799439011');
@@ -78,7 +89,7 @@ describe('FeaturedPrompts', () => {
 
   it('handles empty prompts array', () => {
     render(<FeaturedPrompts prompts={[]} />);
-    
+
     expect(screen.getByText('No featured prompts available at the moment.')).toBeInTheDocument();
     expect(screen.getByText('Submit the first prompt')).toBeInTheDocument();
   });
@@ -87,9 +98,11 @@ describe('FeaturedPrompts', () => {
     const longPrompts: PromptModel[] = [
       {
         _id: '507f1f77bcf86cd799439013',
-        title: 'This is a very long title that should be truncated because it exceeds the fifty character limit',
+        title:
+          'This is a very long title that should be truncated because it exceeds the fifty character limit',
         content: 'Some content here',
-        description: 'This is a very long description that should be truncated because it exceeds the one hundred and twenty character limit set for descriptions in the component',
+        description:
+          'This is a very long description that should be truncated because it exceeds the one hundred and twenty character limit set for descriptions in the component',
         authorId: 'user789',
         category: 'general',
         isPublished: true,
@@ -99,9 +112,13 @@ describe('FeaturedPrompts', () => {
     ];
 
     render(<FeaturedPrompts prompts={longPrompts} />);
-    
-    expect(screen.getByText(/This is a very long title that should be truncated/)).toBeInTheDocument();
-    expect(screen.getByText(/This is a very long description that should be truncated/)).toBeInTheDocument();
+
+    expect(
+      screen.getByText(/This is a very long title that should be truncated/)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/This is a very long description that should be truncated/)
+    ).toBeInTheDocument();
   });
 
   it('limits tags display to 3 and shows more indicator', () => {
@@ -120,7 +137,7 @@ describe('FeaturedPrompts', () => {
     ];
 
     render(<FeaturedPrompts prompts={promptWithManyTags} />);
-    
+
     expect(screen.getByText('#tag1')).toBeInTheDocument();
     expect(screen.getByText('#tag2')).toBeInTheDocument();
     expect(screen.getByText('#tag3')).toBeInTheDocument();

@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { expect } from '@jest/globals';
 import CommentForm from '@/components/comments/CommentForm';
 
 describe('CommentForm', () => {
@@ -7,8 +8,11 @@ describe('CommentForm', () => {
     render(<CommentForm onSubmit={onSubmit} />);
 
     const textarea = screen.getByRole('textbox');
-    fireEvent.change(textarea, { target: { value: '  hello  ' } });
-    fireEvent.click(screen.getByRole('button', { name: /post/i }));
+
+    await act(async () => {
+      fireEvent.change(textarea, { target: { value: '  hello  ' } });
+      fireEvent.click(screen.getByRole('button', { name: /post/i }));
+    });
 
     expect(onSubmit).toHaveBeenCalledWith('hello');
   });
