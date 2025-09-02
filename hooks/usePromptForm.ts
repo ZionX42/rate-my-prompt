@@ -29,7 +29,10 @@ export function usePromptForm(initialData?: Partial<PromptFormData>) {
   const [errors, setErrors] = useState<PromptFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateField = (field: keyof PromptFormData, value: any) => {
+  const updateField = (
+    field: keyof PromptFormData,
+    value: PromptFormData[keyof PromptFormData]
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field as keyof PromptFormErrors]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
