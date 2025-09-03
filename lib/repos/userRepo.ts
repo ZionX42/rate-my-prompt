@@ -1,7 +1,7 @@
 import { getCollections } from '../appwrite/collections';
 import { ID } from '@/lib/appwrite/sdk';
 import {
-  UserProfile,
+  User as UserProfile,
   ProfileUpdateInput,
   validateProfileUpdate,
   sanitizeProfileUpdate,
