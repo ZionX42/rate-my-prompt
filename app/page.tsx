@@ -11,7 +11,7 @@ function Section({ children, className = '' }: { children: React.ReactNode; clas
 }
 
 async function fetchFeaturedPrompts(): Promise<PromptModel[]> {
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
     return []; // Storage not configured
   }
 
@@ -25,7 +25,7 @@ async function fetchFeaturedPrompts(): Promise<PromptModel[]> {
 }
 
 async function fetchCategoryStats(): Promise<Array<{ category: string; count: number }>> {
-  if (!process.env.MONGODB_URI) {
+  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
     return []; // Storage not configured
   }
 
