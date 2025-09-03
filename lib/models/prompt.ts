@@ -25,12 +25,57 @@ export interface NewPromptInput {
 }
 
 export interface PromptModel extends NewPromptInput {
-  _id?: any;
+  _id?: string | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export type ValidationIssue = { path: string; message: string };
+
+// Helper function to validate string fields - DRY principle
+function validateStringField(
+  value: unknown,
+  fieldName: string,
+  minLength: number,
+  required: boolean = true
+): ValidationIssue | null {
+  if (!value) {
+    return required ? { path: fieldName, message: `${fieldName} is required.` } : null;
+  }
+
+  if (typeof value !== 'string') {
+    return { path: fieldName, message: `${fieldName} must be a string.` };
+  }
+
+  if (value.trim().length < minLength) {
+    return { path: fieldName, message: `${fieldName} must be at least ${minLength} characters.` };
+  }
+
+  return null;
+}
+
+// Helper function to validate optional category
+function validateCategory(category: unknown): ValidationIssue | null {
+  if (!category) return null;
+
+  if (!isPromptCategory(category)) {
+    return { path: 'category', message: 'Invalid category.' };
+  }
+
+  return null;
+}
+
+// Helper function to validate optional tags array
+function validateTags(tags: unknown): ValidationIssue | null {
+  if (!tags) return null;
+
+  const isValidTagsArray = Array.isArray(tags) && tags.every((t) => typeof t === 'string');
+  if (!isValidTagsArray) {
+    return { path: 'tags', message: 'tags must be an array of strings.' };
+  }
+
+  return null;
+}
 
 export function validateNewPrompt(input: Partial<NewPromptInput>): {
   ok: boolean;
@@ -38,24 +83,19 @@ export function validateNewPrompt(input: Partial<NewPromptInput>): {
 } {
   const issues: ValidationIssue[] = [];
 
-  if (!input.title || typeof input.title !== 'string' || input.title.trim().length < 3) {
-    issues.push({ path: 'title', message: 'Title must be at least 3 characters.' });
-  }
-  if (!input.content || typeof input.content !== 'string' || input.content.trim().length < 10) {
-    issues.push({ path: 'content', message: 'Content must be at least 10 characters.' });
-  }
-  if (!input.authorId || typeof input.authorId !== 'string') {
-    issues.push({ path: 'authorId', message: 'authorId is required.' });
-  }
+  // Validate required string fields
+  const titleIssue = validateStringField(input.title, 'title', 3);
+  const contentIssue = validateStringField(input.content, 'content', 10);
+  const authorIdIssue = validateStringField(input.authorId, 'authorId', 1);
 
-  if (input.category && !isPromptCategory(input.category)) {
-    issues.push({ path: 'category', message: 'Invalid category.' });
-  }
+  // Validate optional fields
+  const categoryIssue = validateCategory(input.category);
+  const tagsIssue = validateTags(input.tags);
 
-  if (input.tags) {
-    const tagsValid = Array.isArray(input.tags) && input.tags.every((t) => typeof t === 'string');
-    if (!tagsValid) issues.push({ path: 'tags', message: 'tags must be an array of strings.' });
-  }
+  // Collect all issues
+  [titleIssue, contentIssue, authorIdIssue, categoryIssue, tagsIssue]
+    .filter(Boolean)
+    .forEach((issue) => issues.push(issue!));
 
   return { ok: issues.length === 0, issues };
 }
