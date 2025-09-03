@@ -19,13 +19,13 @@ export async function GET(
     // Defer importing the Appwrite-backed repo until we know storage is configured
     const { getPromptById } = await import('@/lib/repos/promptRepo');
     const prompt = await getPromptById(id);
-    
+
     if (!prompt) {
       return notFound('Prompt not found');
     }
 
     return ok({ prompt });
-  } catch (err: any) {
+  } catch (err) {
     return internalError(err);
   }
 }
