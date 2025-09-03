@@ -8,7 +8,7 @@ import {
 } from '../models/prompt';
 
 // Convert Appwrite document to PromptModel format
-function convertToPromptModel(doc: any): PromptModel {
+function convertToPromptModel(doc: PromptDoc): PromptModel {
   return {
     _id: doc.$id,
     title: doc.title,
@@ -18,13 +18,15 @@ function convertToPromptModel(doc: any): PromptModel {
     category: doc.category as PromptCategory,
     tags: doc.tags || [],
     isPublished: doc.isPublished,
-    createdAt: new Date(doc.createdAt),
-    updatedAt: new Date(doc.updatedAt),
+    createdAt: new Date(doc.$createdAt),
+    updatedAt: new Date(doc.$updatedAt),
   };
 }
 
 // Convert PromptModel to Appwrite document format
-function convertToPromptDoc(model: Omit<PromptModel, '_id'>): Omit<PromptDoc, '$id'> {
+function convertToPromptDoc(
+  model: Omit<PromptModel, '_id'>
+): Omit<PromptDoc, '$id' | '$collectionId' | '$databaseId' | '$permissions' | '$sequence'> {
   return {
     title: model.title,
     content: model.content,
@@ -33,16 +35,16 @@ function convertToPromptDoc(model: Omit<PromptModel, '_id'>): Omit<PromptDoc, '$
     category: model.category || 'general',
     tags: model.tags || [],
     isPublished: model.isPublished || false,
-    createdAt: model.createdAt.toISOString(),
-    updatedAt: model.updatedAt.toISOString(),
+    $createdAt: model.createdAt.toISOString(),
+    $updatedAt: model.updatedAt.toISOString(),
   };
 }
 
 export async function createPrompt(input: NewPromptInput): Promise<PromptModel> {
   const validation = validateNewPrompt(input);
   if (!validation.ok) {
-    const err = new Error('Invalid prompt input');
-    (err as any).issues = validation.issues;
+    const err = new Error('Invalid prompt input') as Error & { issues?: unknown };
+    err.issues = validation.issues;
     throw err;
   }
 
@@ -64,8 +66,14 @@ export async function getPromptById(id: string): Promise<PromptModel | null> {
     const { prompts } = await getCollections();
     const result = await prompts.get(id);
     return convertToPromptModel(result);
-  } catch (error: any) {
-    if (error.code === 404) return null;
+  } catch (error: unknown) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      (error as { code: unknown }).code === 404
+    )
+      return null;
     throw error;
   }
 }
@@ -121,7 +129,7 @@ export async function getCategoryStats(): Promise<Array<{ category: string; coun
   const categoryCount: Record<string, number> = {};
 
   result.documents.forEach((doc) => {
-    const promptDoc = doc as any;
+    const promptDoc = doc as PromptDoc;
     const category = promptDoc.category || 'general';
     categoryCount[category] = (categoryCount[category] || 0) + 1;
   });
@@ -191,10 +199,11 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
   const enrichedResults: SearchResult = [];
 
   for (const prompt of promptModels) {
+    if (!prompt._id) continue;
     const ratingQueries = [Query.equal('promptId', prompt._id)];
     const ratingsResult = await ratings.list(ratingQueries);
 
-    const promptRatings = ratingsResult.documents.map((doc) => (doc as any).rating);
+    const promptRatings = ratingsResult.documents.map((doc) => doc.rating);
     const avgRating =
       promptRatings.length > 0
         ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length

@@ -1,28 +1,29 @@
 import { getCollections, RatingDoc, Query } from '../appwrite/collections';
+import type { Models } from 'node-appwrite';
 import { Rating, CreateRatingPayload, RatingStats, generateRatingStats } from '../models/rating';
 
 // Convert Appwrite document to Rating format
-function convertToRating(doc: any): Rating {
+function convertToRating(doc: RatingDoc): Rating {
   return {
     _id: doc.$id,
     promptId: doc.promptId,
     userId: doc.userId,
     rating: doc.rating,
     comment: doc.comment || undefined,
-    createdAt: new Date(doc.createdAt),
-    updatedAt: new Date(doc.updatedAt),
+    createdAt: new Date(doc.$createdAt),
+    updatedAt: new Date(doc.$updatedAt),
   };
 }
 
 // Convert Rating to Appwrite document format
-function convertToRatingDoc(rating: Omit<Rating, '_id'>): Omit<RatingDoc, '$id'> {
+function convertToRatingDoc(
+  rating: Omit<Rating, '_id'>
+): Omit<RatingDoc, keyof Models.Document | 'createdAt' | 'updatedAt'> {
   return {
     promptId: rating.promptId,
     userId: rating.userId,
     rating: rating.rating,
     comment: rating.comment || '',
-    createdAt: rating.createdAt?.toISOString() || new Date().toISOString(),
-    updatedAt: rating.updatedAt?.toISOString() || new Date().toISOString(),
   };
 }
 
@@ -58,8 +59,8 @@ class RatingRepository {
       const collection = await this.getCollection();
       const result = await collection.get(id);
       return convertToRating(result);
-    } catch (error: any) {
-      if (error.code === 404) return null;
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return null;
       throw error;
     }
   }
@@ -105,8 +106,8 @@ class RatingRepository {
 
       const result = await collection.update(id, updateData);
       return convertToRating(result);
-    } catch (error: any) {
-      if (error.code === 404) return null;
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return null;
       throw error;
     }
   }
@@ -119,8 +120,8 @@ class RatingRepository {
       const collection = await this.getCollection();
       await collection.delete(id);
       return true;
-    } catch (error: any) {
-      if (error.code === 404) return false;
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return false;
       throw error;
     }
   }

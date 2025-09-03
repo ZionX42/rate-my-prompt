@@ -30,11 +30,11 @@ Sentry.init({
   },
 
   integrations: [
-    new Sentry.Replay({
-      // Mask all text content, numbers, and inputs
-      maskAllText: true,
-      maskAllInputs: true,
-      blockAllMedia: true,
-    }),
+    // new Sentry.Replay({
+    //   // Mask all text content, numbers, and inputs
+    //   maskAllText: true,
+    //   maskAllInputs: true,
+    //   blockAllMedia: true,
+    // }),
   ],
 });

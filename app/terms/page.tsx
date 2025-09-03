@@ -72,8 +72,9 @@ export default function TermsPage() {
         {/* Introduction */}
         <div className="card p-8 mb-8">
           <p className="text-subtext leading-relaxed mb-4">
-            These Terms of Service ("Terms") govern your use of Prompt Hub and its associated
-            services. By using our platform, you agree to these terms. Please read them carefully.
+            These Terms of Service (&quot;Terms&quot;) govern your use of Prompt Hub and its
+            associated services. By using our platform, you agree to these terms. Please read them
+            carefully.
           </p>
           <p className="text-subtext leading-relaxed">
             If you have any questions about these Terms, please contact us at legal@prompt-hub.com.

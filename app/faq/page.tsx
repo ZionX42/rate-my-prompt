@@ -133,7 +133,8 @@ export default function FAQPage() {
         <div className="text-center mb-12">
           <h1 className="heading-xl mb-4">Frequently Asked Questions</h1>
           <p className="text-lg text-subtext max-w-2xl mx-auto">
-            Find answers to common questions about Prompt Hub. Can't find what you're looking for?
+            Find answers to common questions about Prompt Hub. Can&apos;t find what you&apos;re
+            looking for?
             <Link href="/contact" className="text-primary hover:underline ml-1">
               Contact us
             </Link>
@@ -184,7 +185,8 @@ export default function FAQPage() {
             <div className="mt-12 card p-8 text-center bg-gradient-to-r from-primary/5 to-secondary/5">
               <h3 className="text-xl font-bold text-heading mb-4">Still need help?</h3>
               <p className="text-subtext mb-6">
-                Can't find the answer you're looking for? Our support team is here to help.
+                Can&apos;t find the answer you&apos;re looking for? Our support team is here to
+                help.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link

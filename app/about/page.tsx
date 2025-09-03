@@ -70,9 +70,9 @@ export default function AboutPage() {
         <div className="text-center mb-16">
           <h1 className="heading-xl mb-6">About Prompt Hub</h1>
           <p className="text-xl text-subtext max-w-3xl mx-auto">
-            We're building the world's most comprehensive platform for AI prompt discovery, sharing,
-            and collaboration. Our mission is to democratize access to high-quality AI prompts and
-            foster a thriving community of prompt engineers.
+            We&apos;re building the world&apos;s most comprehensive platform for AI prompt
+            discovery, sharing, and collaboration. Our mission is to democratize access to
+            high-quality AI prompts and foster a thriving community of prompt engineers.
           </p>
         </div>
 
@@ -104,11 +104,11 @@ export default function AboutPage() {
               <p>
                 We believe that the future of AI lies in collaboration and open sharing. By
                 providing a platform where prompt engineers can showcase their work, learn from
-                others, and build upon existing knowledge, we're helping to accelerate AI innovation
-                worldwide.
+                others, and build upon existing knowledge, we&apos;re helping to accelerate AI
+                innovation worldwide.
               </p>
               <p>
-                Today, Prompt Hub is more than just a repository—it's a vibrant community where
+                Today, Prompt Hub is more than just a repository—it&apos;s a vibrant community where
                 beginners learn from experts, ideas are shared freely, and the collective knowledge
                 of the AI community grows stronger every day.
               </p>

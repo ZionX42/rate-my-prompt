@@ -137,7 +137,8 @@ export default function FeedbackPage() {
               help us improve Prompt Hub.
             </p>
             <p className="text-subtext">
-              We'll review your feedback and get back to you if you provided contact information.
+              We&apos;ll review your feedback and get back to you if you provided contact
+              information.
             </p>
           </div>
         </div>

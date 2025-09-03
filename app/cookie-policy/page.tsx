@@ -54,9 +54,9 @@ export default function CookiePolicyPage() {
         {/* Introduction */}
         <div className="card p-8 mb-8">
           <p className="text-subtext leading-relaxed mb-4">
-            This Cookie Policy explains how Prompt Hub ("we", "us", or "our") uses cookies and
-            similar technologies on our website. By using our website, you consent to the use of
-            cookies in accordance with this policy.
+            This Cookie Policy explains how Prompt Hub (&quot;we&quot;, &quot;us&quot;, or
+            &quot;our&quot;) uses cookies and similar technologies on our website. By using our
+            website, you consent to the use of cookies in accordance with this policy.
           </p>
           <p className="text-subtext leading-relaxed">
             If you do not agree to the use of cookies, you should adjust your browser settings
@@ -74,9 +74,9 @@ export default function CookiePolicyPage() {
               traffic, and provide personalized content.
             </p>
             <p>
-              Cookies can be "persistent" (they remain on your device until you delete them) or
-              "session" cookies (they expire when you close your browser). We use both types to
-              provide the best possible user experience.
+              Cookies can be &quot;persistent&quot; (they remain on your device until you delete
+              them) or &quot;session&quot; cookies (they expire when you close your browser). We use
+              both types to provide the best possible user experience.
             </p>
             <p>Similar technologies we may use include:</p>
             <ul className="list-disc list-inside ml-4 space-y-2">
@@ -239,8 +239,8 @@ export default function CookiePolicyPage() {
           <h2 className="text-2xl font-bold text-heading mb-6">Policy Updates</h2>
           <p className="text-subtext leading-relaxed">
             We may update this Cookie Policy from time to time to reflect changes in our practices
-            or applicable laws. When we make material changes, we will update the "Last updated"
-            date at the top of this policy and may provide additional notice.
+            or applicable laws. When we make material changes, we will update the &quot;Last
+            updated&quot; date at the top of this policy and may provide additional notice.
           </p>
         </div>
 

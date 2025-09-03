@@ -6,6 +6,7 @@ import {
   UserDoc,
   CommentDoc,
 } from '../appwrite/collections';
+import type { Models } from 'node-appwrite';
 import {
   NewPromptInput,
   PromptModel,
@@ -31,37 +32,37 @@ function convertToPromptModel(doc: PromptDoc): PromptModel {
 }
 
 // Convert PromptModel to Appwrite document format
-function convertToPromptDoc(model: Omit<PromptModel, '_id'>): Omit<PromptDoc, '$id'> {
+function convertToPromptDoc(
+  model: Omit<PromptModel, '_id'>
+): Omit<PromptDoc, keyof Models.Document> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { createdAt, updatedAt, ...rest } = model;
   return {
-    title: model.title,
-    content: model.content,
-    authorId: model.authorId,
+    ...rest,
     description: model.description || '',
     category: model.category || 'general',
     tags: model.tags || [],
     isPublished: model.isPublished || false,
-    createdAt: model.createdAt.toISOString(),
-    updatedAt: model.updatedAt.toISOString(),
   };
 }
 
 export async function createPrompt(input: NewPromptInput): Promise<PromptModel> {
   const validation = validateNewPrompt(input);
   if (!validation.ok) {
-    const err = new Error('Invalid prompt input');
-    (err as any).issues = validation.issues;
+    const err = new Error('Invalid prompt input') as Error & { issues?: unknown };
+    err.issues = validation.issues;
     throw err;
   }
 
   const { prompts } = await getCollections();
   const now = new Date();
-  const doc: Omit<PromptModel, '_id'> = {
+  const model: Omit<PromptModel, '_id'> = {
     ...sanitizeNewPrompt(input),
     createdAt: now,
     updatedAt: now,
   };
 
-  const promptDoc = convertToPromptDoc(doc);
+  const promptDoc = convertToPromptDoc(model);
   const result = await prompts.create(promptDoc);
   return convertToPromptModel(result);
 }
@@ -71,8 +72,8 @@ export async function getPromptById(id: string): Promise<PromptModel | null> {
     const { prompts } = await getCollections();
     const result = await prompts.get(id);
     return convertToPromptModel(result);
-  } catch (error: any) {
-    if (error.code === 404) return null;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 404) return null;
     throw error;
   }
 }
@@ -170,7 +171,7 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
     limit = 50,
     offset = 0,
     sort = 'relevance',
-    collection = 'prompts',
+    collection: _collection = 'prompts',
   } = params;
 
   const { prompts, ratings } = await getCollections();

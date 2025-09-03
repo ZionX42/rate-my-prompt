@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     const { users } = await getCollections();
 
     // Update user
-    const updateData: any = { role };
+    const updateData: Partial<{ role: string; isActive: boolean }> = { role };
     if (isActive !== undefined) {
       updateData.isActive = isActive;
     }

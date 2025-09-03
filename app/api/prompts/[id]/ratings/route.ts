@@ -1,6 +1,13 @@
 import { NextRequest } from 'next/server';
 import { validateCreateRating } from '@/lib/models/rating';
-import { ok, created as createdResp, badRequest, notFound, serviceUnavailable, internalError } from '@/lib/api/responses';
+import {
+  ok,
+  created as createdResp,
+  badRequest,
+  notFound,
+  serviceUnavailable,
+  internalError,
+} from '@/lib/api/responses';
 import { requireJson } from '@/lib/api/middleware';
 
 export async function POST(
@@ -10,19 +17,19 @@ export async function POST(
   const { id: promptId } = params;
 
   if (!promptId || typeof promptId !== 'string') {
-  return badRequest('Invalid prompt ID');
+    return badRequest('Invalid prompt ID');
   }
 
   if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
-  return serviceUnavailable('Storage not configured');
+    return serviceUnavailable('Storage not configured');
   }
 
   try {
     // Parse request body
-  const guard = requireJson(req);
-  if (guard) return guard;
-  const body = await req.json().catch(() => null);
-  if (!body) return badRequest('Invalid JSON payload');
+    const guard = requireJson(req);
+    if (guard) return guard;
+    const body = await req.json().catch(() => null);
+    if (!body) return badRequest('Invalid JSON payload');
 
     // Add promptId to the payload
     const payload = { ...body, promptId };
@@ -33,15 +40,15 @@ export async function POST(
     // Check if prompt exists
     const { getPromptById } = await import('@/lib/repos/promptRepo');
     const prompt = await getPromptById(promptId);
-    
+
     if (!prompt) {
-  return notFound('Prompt not found');
+      return notFound('Prompt not found');
     }
 
     // Check if user already rated this prompt
     const { ratingRepo } = await import('@/lib/repos/ratingRepo');
     const existingRating = await ratingRepo.getRatingByUserAndPrompt(
-      validatedData.userId, 
+      validatedData.userId,
       promptId
     );
 
@@ -60,11 +67,11 @@ export async function POST(
       const newRating = await ratingRepo.createRating(validatedData);
       return createdResp({ rating: newRating, message: 'Rating created successfully' });
     }
-
-  } catch (err: any) {
+  } catch (err: unknown) {
     // Handle validation errors
-    if (err.name === 'ZodError') {
-      const issues = err.issues?.map((issue: any) => ({
+    if (err instanceof Error && err.name === 'ZodError') {
+      const zodError = err as { issues?: Array<{ path: string[]; message: string }> };
+      const issues = zodError.issues?.map((issue) => ({
         path: issue.path.join('.'),
         message: issue.message,
       }));
@@ -81,11 +88,11 @@ export async function GET(
   const { id: promptId } = params;
 
   if (!promptId || typeof promptId !== 'string') {
-  return badRequest('Invalid prompt ID');
+    return badRequest('Invalid prompt ID');
   }
 
   if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
-  return serviceUnavailable('Storage not configured');
+    return serviceUnavailable('Storage not configured');
   }
 
   try {
@@ -93,19 +100,18 @@ export async function GET(
     const { ratingRepo } = await import('@/lib/repos/ratingRepo');
     const stats = await ratingRepo.getRatingStats(promptId);
     const ratings = await ratingRepo.getRatingsByPromptId(promptId);
-    
-  return ok({ 
+
+    return ok({
       stats,
-      ratings: ratings.map(rating => ({
+      ratings: ratings.map((rating) => ({
         _id: rating._id,
         rating: rating.rating,
         comment: rating.comment,
         userId: rating.userId,
         createdAt: rating.createdAt,
-      }))
-  });
-
-  } catch (err: any) {
-  return internalError(err);
+      })),
+    });
+  } catch (err: unknown) {
+    return internalError(err);
   }
 }

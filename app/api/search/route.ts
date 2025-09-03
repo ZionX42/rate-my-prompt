@@ -8,6 +8,8 @@ import {
 import { ok, badRequest, serviceUnavailable, internalError } from '@/lib/api/responses';
 import { simpleRateLimit } from '@/lib/api/middleware';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
   try {
     if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {

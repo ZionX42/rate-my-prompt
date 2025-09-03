@@ -24,14 +24,16 @@ function convertToComment(doc: any): Comment {
 }
 
 // Convert Comment to Appwrite document format
-function convertToCommentDoc(comment: Omit<Comment, '_id'>): Omit<CommentDoc, '$id'> {
+function convertToCommentDoc(
+  comment: Omit<Comment, '_id'>
+): Omit<CommentDoc, '$id' | '$collectionId' | '$databaseId' | '$permissions' | '$sequence'> {
   return {
     promptId: comment.promptId,
     userId: comment.userId,
     content: comment.content,
     parentId: comment.parentId || '',
-    createdAt: comment.createdAt?.toISOString() || new Date().toISOString(),
-    updatedAt: comment.updatedAt?.toISOString() || new Date().toISOString(),
+    $createdAt: comment.createdAt?.toISOString() || new Date().toISOString(),
+    $updatedAt: comment.updatedAt?.toISOString() || new Date().toISOString(),
     isEdited: comment.isEdited,
     isDeleted: comment.isDeleted,
   };

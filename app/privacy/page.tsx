@@ -138,7 +138,7 @@ export default function PrivacyPage() {
           <ul className="space-y-2 text-subtext">
             <li>• Email notification to your registered address</li>
             <li>• Prominent notice on our platform</li>
-            <li>• Update to the "Last updated" date above</li>
+            <li>• Update to the &quot;Last updated&quot; date above</li>
           </ul>
           <p className="text-subtext mt-4">
             Your continued use of Prompt Hub after such modifications constitutes acceptance of the
