@@ -65,7 +65,7 @@
 - Verification: Run test query and log successful connection
 - Dependencies: 2.1.1, 2.1.2
 
-### 2.2. Authentication
+### 2.2. Authentication (Don't Execute)
 
 2.2.1. Create login form skeleton ✅
 
@@ -89,9 +89,9 @@
 
 ### 2.3. Search Infrastructure
 
-2.3.1. Set up Elasticsearch instance
+2.3.1. Set up Onyx instance
 
-- Verification: Connect to Elasticsearch and ping success
+- Verification: Connect to Onyx and ping success
 - Dependencies: 1.1.2
 
   2.3.2. Create basic search index for prompts

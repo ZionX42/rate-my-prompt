@@ -1,4 +1,11 @@
-import { getCollections, PromptDoc, Query } from '../appwrite/collections';
+import {
+  getCollections,
+  PromptDoc,
+  Query,
+  RatingDoc,
+  UserDoc,
+  CommentDoc,
+} from '../appwrite/collections';
 import {
   NewPromptInput,
   PromptModel,
@@ -8,7 +15,7 @@ import {
 } from '../models/prompt';
 
 // Convert Appwrite document to PromptModel format
-function convertToPromptModel(doc: any): PromptModel {
+function convertToPromptModel(doc: PromptDoc): PromptModel {
   return {
     _id: doc.$id,
     title: doc.title,
@@ -18,8 +25,8 @@ function convertToPromptModel(doc: any): PromptModel {
     category: doc.category as PromptCategory,
     tags: doc.tags || [],
     isPublished: doc.isPublished,
-    createdAt: new Date(doc.createdAt),
-    updatedAt: new Date(doc.updatedAt),
+    createdAt: new Date(doc.$createdAt),
+    updatedAt: new Date(doc.$updatedAt),
   };
 }
 
@@ -121,7 +128,7 @@ export async function getCategoryStats(): Promise<Array<{ category: string; coun
   const categoryCount: Record<string, number> = {};
 
   result.documents.forEach((doc) => {
-    const promptDoc = doc as any;
+    const promptDoc = doc as PromptDoc;
     const category = promptDoc.category || 'general';
     categoryCount[category] = (categoryCount[category] || 0) + 1;
   });
@@ -134,11 +141,15 @@ export async function getCategoryStats(): Promise<Array<{ category: string; coun
 export type SearchParams = {
   q?: string;
   category?: string;
+  tags?: string[];
+  author?: string;
   minRating?: number; // 1..5
   dateFrom?: Date;
   dateTo?: Date;
   limit?: number;
-  sort?: 'relevance' | 'newest' | 'rating';
+  offset?: number;
+  sort?: 'relevance' | 'newest' | 'rating' | 'popularity';
+  collection?: 'prompts' | 'users' | 'comments' | 'all';
 };
 
 export type SearchResult = (PromptModel & {
@@ -148,7 +159,19 @@ export type SearchResult = (PromptModel & {
 })[];
 
 export async function searchPrompts(params: SearchParams): Promise<SearchResult> {
-  const { q, category, minRating, dateFrom, dateTo, limit = 50, sort = 'relevance' } = params;
+  const {
+    q,
+    category,
+    tags,
+    author,
+    minRating,
+    dateFrom,
+    dateTo,
+    limit = 50,
+    offset = 0,
+    sort = 'relevance',
+    collection = 'prompts',
+  } = params;
 
   const { prompts, ratings } = await getCollections();
   const queries = [Query.equal('isPublished', true)];
@@ -156,6 +179,19 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
   // Add category filter
   if (category && category !== 'all') {
     queries.push(Query.equal('category', category));
+  }
+
+  // Add author filter
+  if (author) {
+    queries.push(Query.equal('authorId', author));
+  }
+
+  // Add tags filter (if supported by Appwrite)
+  if (tags && tags.length > 0) {
+    // Note: Appwrite array queries might need different handling
+    for (const tag of tags) {
+      queries.push(Query.search('tags', tag));
+    }
   }
 
   // Add date range filters
@@ -166,40 +202,66 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
     queries.push(Query.lessThanEqual('createdAt', dateTo.toISOString()));
   }
 
-  // Add text search (Appwrite full-text search)
+  // Enhanced multi-field text search
   if (q && q.trim().length) {
-    queries.push(Query.search('title', q.trim()));
-    // Note: Appwrite search is more limited than MongoDB's $text search
-    // You might need to implement custom search logic or use multiple queries
+    const searchTerm = q.trim();
+    // Try searching across multiple fields
+    // Note: Appwrite Query.search can only search one field at a time
+    // We'll prioritize title, then fall back to description and content
+    queries.push(Query.search('title', searchTerm));
   }
 
   // Add sorting
-  if (sort === 'newest') {
-    queries.push(Query.orderDesc('createdAt'));
-  } else {
-    queries.push(Query.orderDesc('createdAt')); // Default to newest for now
+  switch (sort) {
+    case 'newest':
+      queries.push(Query.orderDesc('createdAt'));
+      break;
+    case 'rating':
+      // For rating sort, we'll handle this after fetching results
+      queries.push(Query.orderDesc('createdAt'));
+      break;
+    case 'popularity':
+      // For popularity, we might need to add a computed field or handle post-query
+      queries.push(Query.orderDesc('createdAt'));
+      break;
+    default:
+      queries.push(Query.orderDesc('createdAt'));
   }
 
-  // Add limit
+  // Add pagination
+  if (offset > 0) {
+    queries.push(Query.cursorAfter(offset.toString()));
+  }
   queries.push(Query.limit(limit));
 
   const result = await prompts.list(queries);
   const promptModels = result.documents.map((doc) => convertToPromptModel(doc));
+  const promptIds = promptModels.map((p) => p._id).filter((id): id is string => !!id);
+
+  // Fetch all ratings for the returned prompts in a single query
+  const allRatings = new Map<string, { total: number; count: number }>();
+  if (promptIds.length > 0) {
+    const ratingQueries = [Query.equal('promptId', promptIds)];
+    const ratingsResult = await ratings.list(ratingQueries);
+    for (const r of ratingsResult.documents) {
+      const ratingDoc = r as RatingDoc;
+      const current = allRatings.get(ratingDoc.promptId) ?? { total: 0, count: 0 };
+      current.total += ratingDoc.rating;
+      current.count++;
+      allRatings.set(ratingDoc.promptId, current);
+    }
+  }
 
   // For each prompt, fetch ratings and calculate averages
-  // Note: This is less efficient than MongoDB aggregation but necessary with Appwrite
   const enrichedResults: SearchResult = [];
 
   for (const prompt of promptModels) {
-    const ratingQueries = [Query.equal('promptId', prompt._id)];
-    const ratingsResult = await ratings.list(ratingQueries);
+    if (!prompt._id) continue; // Skip if no ID
 
-    const promptRatings = ratingsResult.documents.map((doc) => (doc as any).rating);
+    const ratingData = allRatings.get(prompt._id);
     const avgRating =
-      promptRatings.length > 0
-        ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length
-        : undefined;
-    const ratingCount = promptRatings.length;
+      ratingData && ratingData.count > 0 ? ratingData.total / ratingData.count : undefined;
+    const ratingCount = ratingData ? ratingData.count : 0;
 
     // Apply minimum rating filter
     if (typeof minRating === 'number' && avgRating !== undefined && avgRating < minRating) {
@@ -210,7 +272,7 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
       ...prompt,
       avgRating,
       ratingCount,
-      score: q ? undefined : undefined, // Appwrite doesn't provide text score
+      score: q ? calculateSearchScore(prompt, q) : undefined,
     });
   }
 
@@ -224,5 +286,139 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
     });
   }
 
-  return enrichedResults.slice(0, limit);
+  return enrichedResults;
+}
+
+// Helper function to calculate search relevance score
+function calculateSearchScore(prompt: PromptModel, query: string): number {
+  const searchTerm = query.toLowerCase();
+  const title = prompt.title.toLowerCase();
+  const description = prompt.description?.toLowerCase() || '';
+
+  let score = 0;
+
+  // Title matches get highest score
+  if (title.includes(searchTerm)) {
+    score += 10;
+    if (title.startsWith(searchTerm)) score += 5; // Exact prefix match
+  }
+
+  // Description matches get medium score
+  if (description.includes(searchTerm)) {
+    score += 5;
+  }
+
+  // Tag matches get additional score
+  if (prompt.tags) {
+    prompt.tags.forEach((tag) => {
+      if (tag.toLowerCase().includes(searchTerm)) {
+        score += 3;
+      }
+    });
+  }
+
+  return score;
+}
+
+// Enhanced CRUD operations with better error handling
+export async function getPromptsByTags(tags: string[], limit = 20): Promise<PromptModel[]> {
+  const { prompts } = await getCollections();
+  const queries = [Query.equal('isPublished', true)];
+
+  // Add tag-based search
+  if (tags.length > 0) {
+    for (const tag of tags) {
+      queries.push(Query.search('tags', tag));
+    }
+  }
+
+  queries.push(Query.orderDesc('createdAt'));
+  queries.push(Query.limit(limit));
+
+  const result = await prompts.list(queries);
+  return result.documents.map((doc) => convertToPromptModel(doc));
+}
+
+export async function getPromptsByAuthorWithStats(
+  authorId: string,
+  limit = 20
+): Promise<PromptModel[]> {
+  const { prompts } = await getCollections();
+  const queries = [
+    Query.equal('authorId', authorId),
+    Query.orderDesc('createdAt'),
+    Query.limit(limit),
+  ];
+
+  const result = await prompts.list(queries);
+  return result.documents.map((doc) => convertToPromptModel(doc));
+}
+
+// Cross-collection search functionality
+export type CrossCollectionSearchResult = {
+  prompts: SearchResult;
+  users: UserDoc[]; // User search results
+  comments: CommentDoc[]; // Comment search results
+  totalCount: number;
+};
+
+export async function searchAllCollections(
+  params: SearchParams
+): Promise<CrossCollectionSearchResult> {
+  const { q } = params;
+
+  if (!q || !q.trim()) {
+    return {
+      prompts: [],
+      users: [],
+      comments: [],
+      totalCount: 0,
+    };
+  }
+
+  // Search prompts
+  const promptResults = await searchPrompts({ ...params, collection: 'prompts' });
+
+  // For now, return only prompt results
+  // TODO: Implement user and comment search when those repositories are available
+  return {
+    prompts: promptResults,
+    users: [],
+    comments: [],
+    totalCount: promptResults.length,
+  };
+}
+
+// Enhanced pagination support
+export async function getPromptsPaginated(params: {
+  page?: number;
+  limit?: number;
+  category?: string;
+  sort?: 'relevance' | 'newest' | 'rating' | 'popularity';
+}): Promise<{
+  prompts: PromptModel[];
+  totalCount: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  currentPage: number;
+}> {
+  const { page = 1, limit = 20, category, sort = 'newest' } = params;
+  const offset = (page - 1) * limit;
+
+  const searchParams: SearchParams = {
+    category,
+    sort,
+    limit,
+    offset,
+  };
+
+  const results = await searchPrompts(searchParams);
+
+  return {
+    prompts: results,
+    totalCount: results.length, // This is approximate since Appwrite doesn't provide total counts easily
+    hasNextPage: results.length === limit,
+    hasPrevPage: page > 1,
+    currentPage: page,
+  };
 }

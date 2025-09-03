@@ -1,9 +1,9 @@
 import { getAppwriteDb, COLLECTIONS, ID } from './client';
-import { Query, IndexType } from '@/lib/appwrite/sdk';
+import { Query, IndexType } from 'node-appwrite';
+import type { Models } from 'node-appwrite';
 
 // Document type definitions for Appwrite collections
-export interface PromptDoc {
-  $id: string;
+export interface PromptDoc extends Models.Document {
   title: string;
   content: string;
   authorId: string;
@@ -11,42 +11,32 @@ export interface PromptDoc {
   category: string;
   tags: string[];
   isPublished: boolean;
-  createdAt: string; // ISO string format
-  updatedAt: string; // ISO string format
 }
 
-export interface CommentDoc {
-  $id: string;
+export interface CommentDoc extends Models.Document {
   promptId: string;
   userId: string;
   content: string;
   parentId?: string;
-  createdAt: string;
-  updatedAt: string;
   isEdited: boolean;
   isDeleted: boolean;
 }
 
-export interface RatingDoc {
-  $id: string;
+export interface RatingDoc extends Models.Document {
   promptId: string;
   userId: string;
   rating: number; // 1-5
   comment?: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
-export interface UserDoc {
-  $id: string;
+export interface UserDoc extends Models.Document {
   displayName: string;
   email?: string;
   bio?: string;
   avatarUrl?: string;
   role: string;
   isActive: boolean;
-  joinedAt: string; // ISO string format
-  updatedAt: string; // ISO string format
+  joinedAt: string; // ISO datetime string from Appwrite
 }
 
 export async function getCollections() {
@@ -55,52 +45,53 @@ export async function getCollections() {
   return {
     prompts: {
       collectionId: COLLECTIONS.PROMPTS,
-      create: (data: Omit<PromptDoc, '$id'>) =>
-        databases.createDocument(databaseId, COLLECTIONS.PROMPTS, ID.unique(), data),
+      create: (data: Omit<PromptDoc, keyof Models.Document | 'createdAt' | 'updatedAt'>) =>
+        databases.createDocument<PromptDoc>(databaseId, COLLECTIONS.PROMPTS, ID.unique(), data),
       get: (documentId: string) =>
-        databases.getDocument(databaseId, COLLECTIONS.PROMPTS, documentId),
+        databases.getDocument<PromptDoc>(databaseId, COLLECTIONS.PROMPTS, documentId),
       list: (queries: string[] = []) =>
-        databases.listDocuments(databaseId, COLLECTIONS.PROMPTS, queries),
+        databases.listDocuments<PromptDoc>(databaseId, COLLECTIONS.PROMPTS, queries),
       update: (documentId: string, data: Partial<PromptDoc>) =>
-        databases.updateDocument(databaseId, COLLECTIONS.PROMPTS, documentId, data),
+        databases.updateDocument<PromptDoc>(databaseId, COLLECTIONS.PROMPTS, documentId, data),
       delete: (documentId: string) =>
         databases.deleteDocument(databaseId, COLLECTIONS.PROMPTS, documentId),
     },
     comments: {
       collectionId: COLLECTIONS.COMMENTS,
-      create: (data: Omit<CommentDoc, '$id'>) =>
-        databases.createDocument(databaseId, COLLECTIONS.COMMENTS, ID.unique(), data),
+      create: (data: Omit<CommentDoc, keyof Models.Document | 'createdAt' | 'updatedAt'>) =>
+        databases.createDocument<CommentDoc>(databaseId, COLLECTIONS.COMMENTS, ID.unique(), data),
       get: (documentId: string) =>
-        databases.getDocument(databaseId, COLLECTIONS.COMMENTS, documentId),
+        databases.getDocument<CommentDoc>(databaseId, COLLECTIONS.COMMENTS, documentId),
       list: (queries: string[] = []) =>
-        databases.listDocuments(databaseId, COLLECTIONS.COMMENTS, queries),
+        databases.listDocuments<CommentDoc>(databaseId, COLLECTIONS.COMMENTS, queries),
       update: (documentId: string, data: Partial<CommentDoc>) =>
-        databases.updateDocument(databaseId, COLLECTIONS.COMMENTS, documentId, data),
+        databases.updateDocument<CommentDoc>(databaseId, COLLECTIONS.COMMENTS, documentId, data),
       delete: (documentId: string) =>
         databases.deleteDocument(databaseId, COLLECTIONS.COMMENTS, documentId),
     },
     ratings: {
       collectionId: COLLECTIONS.RATINGS,
-      create: (data: Omit<RatingDoc, '$id'>) =>
-        databases.createDocument(databaseId, COLLECTIONS.RATINGS, ID.unique(), data),
+      create: (data: Omit<RatingDoc, keyof Models.Document | 'createdAt' | 'updatedAt'>) =>
+        databases.createDocument<RatingDoc>(databaseId, COLLECTIONS.RATINGS, ID.unique(), data),
       get: (documentId: string) =>
-        databases.getDocument(databaseId, COLLECTIONS.RATINGS, documentId),
+        databases.getDocument<RatingDoc>(databaseId, COLLECTIONS.RATINGS, documentId),
       list: (queries: string[] = []) =>
-        databases.listDocuments(databaseId, COLLECTIONS.RATINGS, queries),
+        databases.listDocuments<RatingDoc>(databaseId, COLLECTIONS.RATINGS, queries),
       update: (documentId: string, data: Partial<RatingDoc>) =>
-        databases.updateDocument(databaseId, COLLECTIONS.RATINGS, documentId, data),
+        databases.updateDocument<RatingDoc>(databaseId, COLLECTIONS.RATINGS, documentId, data),
       delete: (documentId: string) =>
         databases.deleteDocument(databaseId, COLLECTIONS.RATINGS, documentId),
     },
     users: {
       collectionId: COLLECTIONS.USERS,
-      create: (data: Omit<UserDoc, '$id'>) =>
-        databases.createDocument(databaseId, COLLECTIONS.USERS, ID.unique(), data),
-      get: (documentId: string) => databases.getDocument(databaseId, COLLECTIONS.USERS, documentId),
+      create: (data: Omit<UserDoc, keyof Models.Document>) =>
+        databases.createDocument<UserDoc>(databaseId, COLLECTIONS.USERS, ID.unique(), data),
+      get: (documentId: string) =>
+        databases.getDocument<UserDoc>(databaseId, COLLECTIONS.USERS, documentId),
       list: (queries: string[] = []) =>
-        databases.listDocuments(databaseId, COLLECTIONS.USERS, queries),
+        databases.listDocuments<UserDoc>(databaseId, COLLECTIONS.USERS, queries),
       update: (documentId: string, data: Partial<UserDoc>) =>
-        databases.updateDocument(databaseId, COLLECTIONS.USERS, documentId, data),
+        databases.updateDocument<UserDoc>(databaseId, COLLECTIONS.USERS, documentId, data),
       delete: (documentId: string) =>
         databases.deleteDocument(databaseId, COLLECTIONS.USERS, documentId),
     },
@@ -334,8 +325,21 @@ export async function ensureCollections() {
     { key: 'category_idx', type: IndexType.Key, attrs: ['category'] },
     { key: 'published_idx', type: IndexType.Key, attrs: ['isPublished'] },
     { key: 'created_idx', type: IndexType.Key, attrs: ['createdAt'] },
-    // Fulltext index is required for Query.search on 'title'
+    // Enhanced full-text indexes for multi-field search
     { key: 'title_fulltext_idx', type: IndexType.Fulltext, attrs: ['title'] },
+    { key: 'description_fulltext_idx', type: IndexType.Fulltext, attrs: ['description'] },
+    { key: 'content_fulltext_idx', type: IndexType.Fulltext, attrs: ['content'] },
+    {
+      key: 'title_description_fulltext_idx',
+      type: IndexType.Fulltext,
+      attrs: ['title', 'description'],
+    },
+    { key: 'title_content_fulltext_idx', type: IndexType.Fulltext, attrs: ['title', 'content'] },
+    // Key indexes for efficient filtering
+    { key: 'tags_idx', type: IndexType.Key, attrs: ['tags'] },
+    { key: 'author_category_idx', type: IndexType.Key, attrs: ['authorId', 'category'] },
+    { key: 'category_published_idx', type: IndexType.Key, attrs: ['category', 'isPublished'] },
+    { key: 'author_published_idx', type: IndexType.Key, attrs: ['authorId', 'isPublished'] },
   ]);
 
   // Comments
@@ -354,6 +358,11 @@ export async function ensureCollections() {
     { key: 'promptId_idx', type: IndexType.Key, attrs: ['promptId'] },
     { key: 'userId_idx', type: IndexType.Key, attrs: ['userId'] },
     { key: 'created_idx', type: IndexType.Key, attrs: ['createdAt'] },
+    // Enhanced indexes for comment search
+    { key: 'content_fulltext_idx', type: IndexType.Fulltext, attrs: ['content'] },
+    { key: 'user_prompt_idx', type: IndexType.Key, attrs: ['userId', 'promptId'] },
+    { key: 'isDeleted_idx', type: IndexType.Key, attrs: ['isDeleted'] },
+    { key: 'parentId_idx', type: IndexType.Key, attrs: ['parentId'] },
   ]);
 
   // Ratings
@@ -381,12 +390,17 @@ export async function ensureCollections() {
     { kind: 'string', key: 'avatarUrl', size: 1000, required: false },
     { kind: 'string', key: 'role', size: 20, required: true },
     { kind: 'bool', key: 'isActive', required: true, default: true },
-    { kind: 'string', key: 'joinedAt', size: 30, required: true },
-    { kind: 'string', key: 'updatedAt', size: 30, required: true },
+    { kind: 'datetime', key: 'joinedAt', required: true },
+    { kind: 'datetime', key: 'updatedAt', required: true },
   ]);
   await ensureIndexes(COLLECTIONS.USERS, [
     { key: 'email_idx', type: IndexType.Key, attrs: ['email'] },
     { key: 'role_idx', type: IndexType.Key, attrs: ['role'] },
+    // Enhanced indexes for user search
+    { key: 'displayName_fulltext_idx', type: IndexType.Fulltext, attrs: ['displayName'] },
+    { key: 'bio_fulltext_idx', type: IndexType.Fulltext, attrs: ['bio'] },
+    { key: 'isActive_idx', type: IndexType.Key, attrs: ['isActive'] },
+    { key: 'joinedAt_idx', type: IndexType.Key, attrs: ['joinedAt'] },
   ]);
 }
 
