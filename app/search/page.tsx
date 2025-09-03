@@ -1,8 +1,20 @@
 import Link from 'next/link';
 import Filters from '@/components/search/Filters';
 
+interface PromptSearchResult {
+  _id: string;
+  title: string;
+  category?: string;
+  authorId?: string;
+  tags?: string[];
+  score?: number;
+  avgRating?: number;
+  ratingCount?: number;
+  description?: string;
+}
+
 interface SearchResponse {
-  data: any[];
+  data: PromptSearchResult[];
   meta: {
     query?: string;
     total: number;
@@ -44,7 +56,7 @@ function parseParams(searchParams: Record<string, string | string[] | undefined>
     category,
     tags,
     author,
-    minRating: isNaN(minRating as any) ? undefined : minRating,
+    minRating: isNaN(minRating!) ? undefined : minRating,
     dateFrom: dateFrom && !isNaN(dateFrom.getTime()) ? dateFrom : undefined,
     dateTo: dateTo && !isNaN(dateTo.getTime()) ? dateTo : undefined,
     sort,
@@ -54,7 +66,7 @@ function parseParams(searchParams: Record<string, string | string[] | undefined>
   };
 }
 
-async function fetchSearchResults(params: any): Promise<SearchResponse> {
+async function fetchSearchResults(params: Record<string, unknown>): Promise<SearchResponse> {
   const queryString = new URLSearchParams();
 
   Object.entries(params).forEach(([key, value]) => {
@@ -155,12 +167,12 @@ export default async function SearchPage({
 
       {searchResults.length > 0 && (
         <ul className="divide-y divide-border rounded-md overflow-hidden bg-card shadow-soft">
-          {searchResults.map((p: any) => (
-            <li key={String((p as any)._id)} className="p-4">
+          {searchResults.map((p) => (
+            <li key={p._id} className="p-4">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <Link
-                    href={`/prompts/${(p as any)._id}`}
+                    href={`/prompts/${p._id}`}
                     className="text-lg font-semibold text-heading hover:underline"
                   >
                     {p.title}
@@ -173,9 +185,12 @@ export default async function SearchPage({
                   )}
                   {p.tags && p.tags.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                      {p.tags.map((t: string) => (
-                        <span key={t} className="px-2 py-0.5 bg-surface rounded-full text-subtext">
-                          #{t}
+                      {p.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 bg-surface rounded-full text-subtext"
+                        >
+                          #{tag}
                         </span>
                       ))}
                     </div>
@@ -187,12 +202,10 @@ export default async function SearchPage({
                   )}
                 </div>
                 <div className="text-right text-sm text-subtext min-w-[120px]">
-                  {typeof (p as any).avgRating === 'number' ? (
+                  {typeof p.avgRating === 'number' ? (
                     <div>
-                      <span className="text-heading font-medium">
-                        {(p as any).avgRating.toFixed(1)}
-                      </span>{' '}
-                      ⭐<div className="text-xs">{(p as any).ratingCount || 0} ratings</div>
+                      <span className="text-heading font-medium">{p.avgRating.toFixed(1)}</span> ⭐
+                      <div className="text-xs">{p.ratingCount || 0} ratings</div>
                     </div>
                   ) : (
                     <div>No ratings</div>
