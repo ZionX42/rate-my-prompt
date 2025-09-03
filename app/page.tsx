@@ -5,7 +5,9 @@ import CategoryNavigation from '@/components/prompts/CategoryNavigation';
 import { PromptModel } from '@/lib/models/prompt';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>;
+  return (
+    <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>
+  );
 }
 
 async function fetchFeaturedPrompts(): Promise<PromptModel[]> {
@@ -52,11 +54,16 @@ export default async function HomePage() {
               <br className="hidden md:block" /> building the future.
             </h1>
             <p className="mt-4 text-lg muted max-w-2xl">
-              A platform to discover, rank, and learn from top prompts and agents. Share your work. Level up with the community.
+              A platform to discover, rank, and learn from top prompts, agents & workflows. Share
+              your work. Level up with the community.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/prompts" className="cta cta--pink hover-glow-pink">Browse Prompts</Link>
-              <Link href="/prompts/new" className="cta cta--blue hover-glow-blue">Submit Your Prompt</Link>
+              <Link href="/prompts" className="cta cta--pink hover-glow-pink">
+                Browse Prompts
+              </Link>
+              <Link href="/prompts/new" className="cta cta--blue hover-glow-blue">
+                Submit Your Prompt
+              </Link>
             </div>
           </div>
           <div className="card card-hover p-6 lg:p-8">
@@ -64,17 +71,35 @@ export default async function HomePage() {
               <div className="rounded-2xl bg-surface/70 border border-border p-4">
                 <div className="text-heading font-semibold">Trending</div>
                 <ul className="mt-3 space-y-2">
-                  <li className="flex justify-between"><span>Content Generator</span><span className="text-hfYellow">4.8★</span></li>
-                  <li className="flex justify-between"><span>Customer Support</span><span className="text-hfYellow">4.7★</span></li>
-                  <li className="flex justify-between"><span>SEO Optimizer</span><span className="text-hfYellow">4.7★</span></li>
+                  <li className="flex justify-between">
+                    <span>Content Generator</span>
+                    <span className="text-hfYellow">4.8★</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Customer Support</span>
+                    <span className="text-hfYellow">4.7★</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>SEO Optimizer</span>
+                    <span className="text-hfYellow">4.7★</span>
+                  </li>
                 </ul>
               </div>
               <div className="rounded-2xl bg-surface/70 border border-border p-4">
                 <div className="text-heading font-semibold">Latest</div>
                 <ul className="mt-3 space-y-2">
-                  <li className="flex justify-between"><span>Summarizer Pro</span><span className="text-hfYellow">New</span></li>
-                  <li className="flex justify-between"><span>Resume Builder</span><span className="text-hfYellow">New</span></li>
-                  <li className="flex justify-between"><span>Docs QA</span><span className="text-hfYellow">New</span></li>
+                  <li className="flex justify-between">
+                    <span>Summarizer Pro</span>
+                    <span className="text-hfYellow">New</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Resume Builder</span>
+                    <span className="text-hfYellow">New</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Docs QA</span>
+                    <span className="text-hfYellow">New</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -90,11 +115,25 @@ export default async function HomePage() {
             <div key={label} className="card card-hover p-5 border border-border">
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-heading">{label}</span>
-                <span className={i === 0 ? 'text-accent-blue' : i === 1 ? 'text-accent-pink' : 'text-accent-green'}>●</span>
+                <span
+                  className={
+                    i === 0
+                      ? 'text-accent-blue'
+                      : i === 1
+                        ? 'text-accent-pink'
+                        : 'text-accent-green'
+                  }
+                >
+                  ●
+                </span>
               </div>
-              <p className="mt-2 text-sm muted">Top {label.toLowerCase()} prompts curated by the community.</p>
+              <p className="mt-2 text-sm muted">
+                Top {label.toLowerCase()} prompts curated by the community.
+              </p>
               <div className="mt-4">
-                <Link href="/prompts" className="text-hfYellow underline underline-offset-4">Explore</Link>
+                <Link href="/prompts" className="text-hfYellow underline underline-offset-4">
+                  Explore
+                </Link>
               </div>
             </div>
           ))}
@@ -117,8 +156,12 @@ export default async function HomePage() {
       <Section className="pt-0">
         <div className="grid lg:grid-cols-2 gap-6 items-stretch">
           <div className="card p-6">
-            <h3 className="text-xl md:text-2xl font-bold text-heading">The collaboration platform</h3>
-            <p className="mt-2 muted">Share, review, and iterate on prompts with transparent version history.</p>
+            <h3 className="text-xl md:text-2xl font-bold text-heading">
+              The collaboration platform
+            </h3>
+            <p className="mt-2 muted">
+              Share, review, and iterate on prompts with transparent version history.
+            </p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>• Structured reviews (effectiveness, efficiency, clarity)</li>
               <li>• Versioning and changelogs</li>
@@ -128,7 +171,7 @@ export default async function HomePage() {
           <div className="card p-0 overflow-hidden">
             <div className="bg-surface border-b border-border px-4 py-2 text-xs">Example</div>
             <pre className="p-4 text-sm text-heading/90">
-{`System: You are a marketing assistant.
+              {`System: You are a marketing assistant.
 Task: Produce a 100-word product description.
 
 Scoring:

@@ -5,6 +5,7 @@ import {
   ProfileUpdateInput,
   validateProfileUpdate,
   sanitizeProfileUpdate,
+  Role,
 } from '../models/user';
 
 // Document type for User in Appwrite
@@ -14,6 +15,8 @@ interface UserDoc {
   email?: string;
   bio?: string;
   avatarUrl?: string;
+  role: string;
+  isActive: boolean;
   joinedAt: string; // ISO string format
   updatedAt: string; // ISO string format
 }
@@ -26,6 +29,8 @@ function convertToUserProfile(doc: any): UserProfile {
     email: doc.email,
     bio: doc.bio,
     avatarUrl: doc.avatarUrl,
+    role: doc.role as Role,
+    isActive: doc.isActive ?? true,
     joinedAt: new Date(doc.joinedAt),
     updatedAt: new Date(doc.updatedAt),
   };
@@ -39,6 +44,8 @@ function convertToUserDoc(profile: Partial<UserProfile>): Partial<UserDoc> {
   if (profile.email !== undefined) doc.email = profile.email;
   if (profile.bio !== undefined) doc.bio = profile.bio;
   if (profile.avatarUrl !== undefined) doc.avatarUrl = profile.avatarUrl;
+  if (profile.role !== undefined) doc.role = profile.role;
+  if (profile.isActive !== undefined) doc.isActive = profile.isActive;
   if (profile.joinedAt !== undefined) doc.joinedAt = profile.joinedAt.toISOString();
   if (profile.updatedAt !== undefined) doc.updatedAt = profile.updatedAt.toISOString();
 

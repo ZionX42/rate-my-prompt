@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(_request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Create a new response
   const response = NextResponse.next();
 
@@ -48,6 +48,17 @@ export function middleware(_request: NextRequest) {
 
   // Remove server header
   response.headers.delete('X-Powered-By');
+
+  // Admin route protection
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    // TODO: Implement proper authentication check
+    // For now, check for session cookie (placeholder)
+    const sessionCookie = request.cookies.get('session')?.value;
+    if (!sessionCookie || sessionCookie !== 'admin') {
+      // Redirect to home or login
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+  }
 
   return response;
 }

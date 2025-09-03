@@ -3,44 +3,122 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		/* Light mode tokens */
-		--color-bg: 255 255 255;          /* #FFFFFF */
-		--color-surface: 245 245 247;     /* #F5F5F7 */
-		--color-card: 240 240 244;        /* #F0F0F4 */
-		--color-border: 225 225 230;
-		--color-heading: 17 17 17;        /* #111111 */
-		--color-subtext: 68 68 68;        /* #444444 */
-	}
+  :root {
+    /* Light mode tokens */
+    --color-bg: 255 255 255; /* #FFFFFF */
+    --color-surface: 245 245 247; /* #F5F5F7 */
+    --color-card: 240 240 244; /* #F0F0F4 */
+    --color-border: 225 225 230;
+    --color-heading: 17 17 17; /* #111111 */
+    --color-subtext: 68 68 68; /* #444444 */
 
-	.dark {
-		--color-bg: 12 12 18;             /* #0C0C12 */
-		--color-surface: 16 16 24;         /* #101018 */
-		--color-card: 26 26 36;            /* #1A1A24 */
-		--color-border: 42 42 56;
-		--color-heading: 255 255 255;      /* #FFFFFF */
-		--color-subtext: 160 160 176;      /* #A0A0B0 */
-	}
+    /* shadcn/ui variables */
+    --background: 0 0 100;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0 100;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0 100;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
 
-	html, body { @apply h-full; }
-	body {
-		@apply bg-bg text-subtext font-sans antialiased;
-		background-image: linear-gradient(to bottom, rgb(var(--color-bg)), rgb(var(--color-surface)));
-	}
+  .dark {
+    --color-bg: 12 12 18; /* #0C0C12 */
+    --color-surface: 16 16 24; /* #101018 */
+    --color-card: 26 26 36; /* #1A1A24 */
+    --color-border: 42 42 56;
+    --color-heading: 255 255 255; /* #FFFFFF */
+    --color-subtext: 160 160 176; /* #A0A0B0 */
+
+    /* shadcn/ui dark mode variables */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  html,
+  body {
+    @apply h-full;
+  }
+  body {
+    @apply bg-bg text-subtext font-sans antialiased;
+    background-image: linear-gradient(to bottom, rgb(var(--color-bg)), rgb(var(--color-surface)));
+  }
 }
 
 @layer components {
-	.card { @apply bg-card rounded-2xl border border-border shadow-soft; }
-	.card-hover { @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl; }
-	.cta { @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium; }
-	.cta--pink { background-image: linear-gradient(90deg, #FF4B91, #5F5CFF); @apply text-white; }
-	.cta--blue { background-image: linear-gradient(90deg, #4A90E2, #34D399); @apply text-white; }
-	.hover-glow-yellow:hover { box-shadow: 0 0 28px rgba(255, 210, 31, 0.45); }
-	.hover-glow-blue:hover   { box-shadow: 0 0 28px rgba(74, 144, 226, 0.45); }
-	.hover-glow-pink:hover   { box-shadow: 0 0 28px rgba(255, 75, 145, 0.45); }
+  .card {
+    @apply bg-card rounded-2xl border border-border shadow-soft;
+  }
+  .card-hover {
+    @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl;
+  }
+  .cta {
+    @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-medium;
+  }
+  .cta--pink {
+    background-image: linear-gradient(90deg, #ff4b91, #5f5cff);
+    @apply text-white;
+  }
+  .cta--blue {
+    background-image: linear-gradient(90deg, #4a90e2, #34d399);
+    @apply text-white;
+  }
+  .hover-glow-yellow:hover {
+    box-shadow: 0 0 28px rgba(255, 210, 31, 0.45);
+  }
+  .hover-glow-blue:hover {
+    box-shadow: 0 0 28px rgba(74, 144, 226, 0.45);
+  }
+  .hover-glow-pink:hover {
+    box-shadow: 0 0 28px rgba(255, 75, 145, 0.45);
+  }
 }
 
 @layer utilities {
-	.heading-xl { @apply text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading; }
-	.muted { @apply text-subtext; }
+  .heading-xl {
+    @apply text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading;
+  }
+  .muted {
+    @apply text-subtext;
+  }
 }

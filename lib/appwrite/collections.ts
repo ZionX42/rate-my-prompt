@@ -43,6 +43,8 @@ export interface UserDoc {
   email?: string;
   bio?: string;
   avatarUrl?: string;
+  role: string;
+  isActive: boolean;
   joinedAt: string; // ISO string format
   updatedAt: string; // ISO string format
 }
@@ -377,11 +379,14 @@ export async function ensureCollections() {
     { kind: 'string', key: 'email', size: 320, required: false },
     { kind: 'string', key: 'bio', size: 1000, required: false },
     { kind: 'string', key: 'avatarUrl', size: 1000, required: false },
+    { kind: 'string', key: 'role', size: 20, required: true },
+    { kind: 'bool', key: 'isActive', required: true, default: true },
     { kind: 'string', key: 'joinedAt', size: 30, required: true },
     { kind: 'string', key: 'updatedAt', size: 30, required: true },
   ]);
   await ensureIndexes(COLLECTIONS.USERS, [
     { key: 'email_idx', type: IndexType.Key, attrs: ['email'] },
+    { key: 'role_idx', type: IndexType.Key, attrs: ['role'] },
   ]);
 }
 

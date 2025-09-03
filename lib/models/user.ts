@@ -8,12 +8,20 @@ import {
   detectMaliciousPatterns,
 } from '@/lib/security/sanitize';
 
+export enum Role {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
+}
+
 export interface User {
   _id: string;
   displayName: string;
   email?: string;
   bio?: string;
   avatarUrl?: string;
+  role: Role;
+  isActive: boolean;
   joinedAt: Date;
   updatedAt: Date;
   // Add any additional fields needed for user profiles
