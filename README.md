@@ -29,6 +29,29 @@ APPWRITE_API_KEY="your-api-key"
 - `npm run build` – build for production
 - `npm run appwrite:setup` – create Appwrite collections and indexes
 
+## Testing
+
+This project uses [Jest](https://jestjs.io/) for unit and integration testing and [Cypress](https://www.cypress.io/) for end-to-end testing.
+
+### Running Tests
+
+- **Run all tests with coverage:**
+  ```bash
+  npm test
+  ```
+- **Run tests in watch mode:**
+  ```bash
+  npm run test:watch
+  ```
+- **Run Cypress E2E tests:**
+  ```bash
+  npm run cypress:run
+  ```
+
+### Coverage
+
+Test coverage is automatically generated in the `coverage/` directory after running `npm test`. The CI/CD pipeline will also upload coverage reports to [Codecov](https://about.codecov.io/) for visualization and tracking.
+
 ## Dependencies
 
 This project uses the following key dependencies:

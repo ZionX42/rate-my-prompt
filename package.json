@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:no-coverage": "jest",
+    "test:watch": "jest --watch",
     "appwrite:setup": "tsx scripts/appwrite-setup.ts",
     "deploy:staging": "echo 'Add deployment script here'",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
@@ -20,13 +22,16 @@
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "@sentry/nextjs": "^10.8.0",
+    "@sentry/node": "^10.8.0",
     "appwrite": "^19.0.0",
     "eslint-plugin-react": "^7.37.5",
     "next": "^14.2.30",
     "node-appwrite": "^18.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

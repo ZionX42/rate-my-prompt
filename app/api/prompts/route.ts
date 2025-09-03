@@ -1,10 +1,19 @@
-import { validateNewPrompt } from '@/lib/models/prompt';
+import { validateNewPrompt, NewPromptInput, PromptCategory } from '@/lib/models/prompt';
 import { NextRequest } from 'next/server';
-import { created as createdResp, badRequest, serviceUnavailable, internalError } from '@/lib/api/responses';
-import { requireJson } from '@/lib/api/middleware';
+import {
+  created as createdResp,
+  badRequest,
+  serviceUnavailable,
+  internalError,
+} from '@/lib/api/responses';
+import { requireJson, logRequest } from '@/lib/api/middleware';
+import { logUserAction } from '@/lib/logger';
 
 export async function POST(req: NextRequest): Promise<Response> {
-  let body: any;
+  // Log the API request
+  logRequest(req);
+
+  let body: unknown;
   try {
     body = await req.json();
   } catch {
@@ -14,15 +23,22 @@ export async function POST(req: NextRequest): Promise<Response> {
   const guard = requireJson(req);
   if (guard) return guard;
 
-  const payload = {
-    title: body?.title,
-    content: body?.content,
-    authorId: body?.authorId,
-    description: body?.description,
-    category: body?.category,
-    tags: body?.tags,
-    isPublished: body?.isPublished,
-  } as any;
+  // Type assertion for request body
+  const requestBody = body as Record<string, unknown>;
+
+  const payload: Partial<NewPromptInput> = {
+    title: typeof requestBody?.title === 'string' ? requestBody.title : undefined,
+    content: typeof requestBody?.content === 'string' ? requestBody.content : undefined,
+    authorId: typeof requestBody?.authorId === 'string' ? requestBody.authorId : undefined,
+    description: typeof requestBody?.description === 'string' ? requestBody.description : undefined,
+    category:
+      typeof requestBody?.category === 'string'
+        ? (requestBody.category as PromptCategory)
+        : undefined,
+    tags: Array.isArray(requestBody?.tags) ? (requestBody.tags as string[]) : undefined,
+    isPublished:
+      typeof requestBody?.isPublished === 'boolean' ? requestBody.isPublished : undefined,
+  };
 
   const validation = validateNewPrompt(payload);
   if (!validation.ok) {
@@ -36,11 +52,19 @@ export async function POST(req: NextRequest): Promise<Response> {
   try {
     // Defer importing the Appwrite-backed repo until we know storage is configured
     const { createPrompt } = await import('@/lib/repos/promptRepo');
-  const createdPrompt = await createPrompt(payload);
-  return createdResp({ prompt: createdPrompt });
-  } catch (err: any) {
-    if (err?.issues) {
-      return badRequest('Validation failed', err.issues);
+    const createdPrompt = await createPrompt(payload as NewPromptInput);
+
+    // Log the user action
+    logUserAction('prompt_created', String(payload.authorId), {
+      promptId: createdPrompt._id,
+      title: createdPrompt.title,
+      category: createdPrompt.category,
+    });
+
+    return createdResp({ prompt: createdPrompt });
+  } catch (err: unknown) {
+    if (err && typeof err === 'object' && 'issues' in err) {
+      return badRequest('Validation failed', (err as { issues: unknown }).issues);
     }
     return internalError(err);
   }
