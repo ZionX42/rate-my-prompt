@@ -46,12 +46,6 @@ const Navigation = () => {
               >
                 About
               </Link>
-              <Link
-                href="/cookie-policy"
-                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Cookies
-              </Link>
             </div>
           </div>
 
@@ -135,12 +129,6 @@ const Navigation = () => {
             className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             About
-          </Link>
-          <Link
-            href="/cookie-policy"
-            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-          >
-            Cookies
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-border">
