@@ -29,14 +29,32 @@ const Navigation = () => {
                 Categories
               </Link>
               <Link
+                href="/community"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Community
+              </Link>
+              <Link
+                href="/academy"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Academy
+              </Link>
+              <Link
                 href="/about"
                 className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 About
               </Link>
+              <Link
+                href="/cookie-policy"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Cookies
+              </Link>
             </div>
           </div>
-          
+
           {/* Right side navigation items */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
             <SearchInput />
@@ -55,7 +73,7 @@ const Navigation = () => {
             </Link>
             <ThemeToggle />
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden">
             <button
@@ -84,35 +102,53 @@ const Navigation = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile menu, show/hide based on menu state */}
-  <div className="hidden sm:hidden">
+      <div className="hidden sm:hidden">
         <div className="pt-2 pb-3 space-y-1">
           <Link
             href="/prompts"
-    className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Prompts
           </Link>
           <Link
             href="/categories"
-    className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Categories
           </Link>
           <Link
+            href="/community"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Community
+          </Link>
+          <Link
+            href="/academy"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Academy
+          </Link>
+          <Link
             href="/about"
-    className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             About
           </Link>
+          <Link
+            href="/cookie-policy"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Cookies
+          </Link>
         </div>
-    <div className="pt-4 pb-3 border-t border-border">
+        <div className="pt-4 pb-3 border-t border-border">
           <div className="flex items-center px-4">
             <div className="flex-shrink-0">
               <Link
                 href="/login"
-        className="block px-4 py-2 text-base font-medium text-subtext hover:text-heading hover:bg-card"
+                className="block px-4 py-2 text-base font-medium text-subtext hover:text-heading hover:bg-card"
               >
                 Log in
               </Link>
@@ -120,8 +156,8 @@ const Navigation = () => {
             <div className="mt-3">
               <Link
                 href="/signup"
-        className="block w-full px-4 py-2 text-base font-medium text-center text-white rounded-2xl"
-        style={{ backgroundImage: 'linear-gradient(90deg, #4A90E2, #34D399)' }}
+                className="block w-full px-4 py-2 text-base font-medium text-center text-white rounded-2xl"
+                style={{ backgroundImage: 'linear-gradient(90deg, #4A90E2, #34D399)' }}
               >
                 Sign up
               </Link>
