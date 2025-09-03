@@ -1,7 +1,14 @@
 import { z } from 'zod';
 
 // User profile data model
-export interface UserProfile {
+import {
+  sanitizeDisplayName,
+  sanitizeBio,
+  sanitizeUrl,
+  detectMaliciousPatterns,
+} from '@/lib/security/sanitize';
+
+export interface User {
   _id: string;
   displayName: string;
   email?: string;
@@ -47,9 +54,15 @@ export function validateProfileUpdate(input: ProfileUpdateInput) {
 
 // Sanitize input before saving to database
 export function sanitizeProfileUpdate(input: ProfileUpdateInput): ProfileUpdateInput {
+  // Check for malicious patterns in all fields
+  const fieldsToCheck = [input.displayName, input.bio, input.avatarUrl].filter(Boolean);
+  if (fieldsToCheck.some((field) => detectMaliciousPatterns(field!))) {
+    throw new Error('Potentially malicious content detected');
+  }
+
   return {
-    ...(input.displayName !== undefined && { displayName: input.displayName.trim() }),
-    ...(input.bio !== undefined && { bio: input.bio.trim() }),
-    ...(input.avatarUrl !== undefined && { avatarUrl: input.avatarUrl.trim() }),
+    ...(input.displayName !== undefined && { displayName: sanitizeDisplayName(input.displayName) }),
+    ...(input.bio !== undefined && { bio: sanitizeBio(input.bio) }),
+    ...(input.avatarUrl !== undefined && { avatarUrl: sanitizeUrl(input.avatarUrl) }),
   };
 }

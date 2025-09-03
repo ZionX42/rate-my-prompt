@@ -1,11 +1,15 @@
 import { z } from 'zod';
+import { sanitizeCommentContent, detectMaliciousPatterns } from '@/lib/security/sanitize';
 
 // Comment schema for validation
 export const CommentSchema = z.object({
   _id: z.string().optional(),
   promptId: z.string().min(1, 'Prompt ID is required'),
   userId: z.string().min(1, 'User ID is required'),
-  content: z.string().min(1, 'Comment content is required').max(2000, 'Comment cannot exceed 2000 characters'),
+  content: z
+    .string()
+    .min(1, 'Comment content is required')
+    .max(2000, 'Comment cannot exceed 2000 characters'),
   parentId: z.string().optional().nullable(), // For threaded comments
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
@@ -17,7 +21,10 @@ export const CommentSchema = z.object({
 export type Comment = z.infer<typeof CommentSchema>;
 
 // For creating new comments
-export type CreateCommentPayload = Omit<Comment, '_id' | 'createdAt' | 'updatedAt' | 'isEdited' | 'isDeleted'>;
+export type CreateCommentPayload = Omit<
+  Comment,
+  '_id' | 'createdAt' | 'updatedAt' | 'isEdited' | 'isDeleted'
+>;
 
 // For updating existing comments
 export type UpdateCommentPayload = {
@@ -43,20 +50,25 @@ export function validateComment(data: unknown): Comment {
 }
 
 export function validateCreateComment(data: unknown): CreateCommentPayload {
-  const CreateCommentSchema = CommentSchema.omit({ 
-    _id: true, 
-    createdAt: true, 
+  const CreateCommentSchema = CommentSchema.omit({
+    _id: true,
+    createdAt: true,
     updatedAt: true,
     isEdited: true,
-    isDeleted: true
+    isDeleted: true,
   }).strict(); // Use strict to prevent additional fields
   return CreateCommentSchema.parse(data);
 }
 
 export function validateUpdateComment(data: unknown): UpdateCommentPayload {
-  const UpdateCommentSchema = z.object({
-    content: z.string().min(1, 'Comment content is required').max(2000, 'Comment cannot exceed 2000 characters'),
-  }).strict();
+  const UpdateCommentSchema = z
+    .object({
+      content: z
+        .string()
+        .min(1, 'Comment content is required')
+        .max(2000, 'Comment cannot exceed 2000 characters'),
+    })
+    .strict();
   return UpdateCommentSchema.parse(data);
 }
 
@@ -72,13 +84,13 @@ export function isReply(comment: Comment): boolean {
 
 // Helper function to generate comment statistics
 export function generateCommentStats(comments: Comment[]): CommentStats {
-  const visibleComments = comments.filter(comment => !comment.isDeleted);
+  const visibleComments = comments.filter((comment) => !comment.isDeleted);
   const topLevelComments = visibleComments.filter(isTopLevelComment);
   const replies = visibleComments.filter(isReply);
-  
+
   const latestComment = visibleComments
-    .filter(comment => comment.createdAt)
-    .sort((a, b) => (b.createdAt!.getTime() - a.createdAt!.getTime()))[0]?.createdAt;
+    .filter((comment) => comment.createdAt)
+    .sort((a, b) => b.createdAt!.getTime() - a.createdAt!.getTime())[0]?.createdAt;
 
   return {
     totalComments: topLevelComments.length,
@@ -89,12 +101,12 @@ export function generateCommentStats(comments: Comment[]): CommentStats {
 
 // Helper function to organize comments into threads
 export function organizeCommentsIntoThreads(comments: Comment[]): CommentThread[] {
-  const visibleComments = comments.filter(comment => !comment.isDeleted);
+  const visibleComments = comments.filter((comment) => !comment.isDeleted);
   const topLevelComments = visibleComments.filter(isTopLevelComment);
   const repliesMap = new Map<string, Comment[]>();
 
   // Group replies by parent ID
-  visibleComments.filter(isReply).forEach(reply => {
+  visibleComments.filter(isReply).forEach((reply) => {
     const parentId = reply.parentId!;
     if (!repliesMap.has(parentId)) {
       repliesMap.set(parentId, []);
@@ -103,7 +115,7 @@ export function organizeCommentsIntoThreads(comments: Comment[]): CommentThread[
   });
 
   // Sort replies by creation date
-  repliesMap.forEach(replies => {
+  repliesMap.forEach((replies) => {
     replies.sort((a, b) => {
       if (!a.createdAt || !b.createdAt) return 0;
       return a.createdAt.getTime() - b.createdAt.getTime();
@@ -116,7 +128,7 @@ export function organizeCommentsIntoThreads(comments: Comment[]): CommentThread[
       if (!a.createdAt || !b.createdAt) return 0;
       return b.createdAt.getTime() - a.createdAt.getTime(); // Newest first
     })
-    .map(comment => {
+    .map((comment) => {
       const commentId = comment._id!;
       const replies = repliesMap.get(commentId) || [];
       return {
@@ -125,4 +137,28 @@ export function organizeCommentsIntoThreads(comments: Comment[]): CommentThread[
         replyCount: replies.length,
       };
     });
+}
+
+// Sanitization functions
+export function sanitizeCreateComment(input: CreateCommentPayload): CreateCommentPayload {
+  // Check for malicious patterns
+  if (detectMaliciousPatterns(input.content)) {
+    throw new Error('Potentially malicious content detected');
+  }
+
+  return {
+    ...input,
+    content: sanitizeCommentContent(input.content),
+  };
+}
+
+export function sanitizeUpdateComment(input: UpdateCommentPayload): UpdateCommentPayload {
+  // Check for malicious patterns
+  if (detectMaliciousPatterns(input.content)) {
+    throw new Error('Potentially malicious content detected');
+  }
+
+  return {
+    content: sanitizeCommentContent(input.content),
+  };
 }

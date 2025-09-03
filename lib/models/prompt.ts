@@ -1,3 +1,10 @@
+import {
+  sanitizeText,
+  sanitizePromptContent,
+  sanitizeTags,
+  detectMaliciousPatterns,
+} from '@/lib/security/sanitize';
+
 export type PromptCategory =
   | 'general'
   | 'coding'
@@ -54,18 +61,25 @@ export function validateNewPrompt(input: Partial<NewPromptInput>): {
 }
 
 export function sanitizeNewPrompt(input: NewPromptInput): NewPromptInput {
+  // Check for malicious patterns
+  if (detectMaliciousPatterns(input.title) || detectMaliciousPatterns(input.content)) {
+    throw new Error('Potentially malicious content detected');
+  }
+
   return {
     ...input,
-    title: input.title.trim(),
-    content: input.content.trim(),
-    description: input.description?.trim(),
+    title: sanitizeText(input.title, { maxLength: 200 }),
+    content: sanitizePromptContent(input.content),
+    description: input.description
+      ? sanitizeText(input.description, { maxLength: 500 })
+      : undefined,
     category: input.category ?? 'general',
-    tags: (input.tags ?? []).map((t) => t.trim()).filter(Boolean),
+    tags: sanitizeTags(input.tags ?? []),
     isPublished: input.isPublished ?? false,
   };
 }
 
-export function isPromptCategory(x: any): x is PromptCategory {
+export function isPromptCategory(x: unknown): x is PromptCategory {
   return (
     x === 'general' ||
     x === 'coding' ||
