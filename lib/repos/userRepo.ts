@@ -1,5 +1,5 @@
 import { getCollections } from '../appwrite/collections';
-import { ID } from '@/lib/appwrite/sdk';
+import { Query } from '@/lib/appwrite/sdk';
 import {
   User as UserProfile,
   ProfileUpdateInput,
@@ -7,22 +7,10 @@ import {
   sanitizeProfileUpdate,
   Role,
 } from '../models/user';
-
-// Document type for User in Appwrite
-interface UserDoc {
-  $id: string;
-  displayName: string;
-  email?: string;
-  bio?: string;
-  avatarUrl?: string;
-  role: string;
-  isActive: boolean;
-  joinedAt: string; // ISO string format
-  updatedAt: string; // ISO string format
-}
+import type { UserDoc } from '../appwrite/collections';
 
 // Convert Appwrite document to UserProfile format
-function convertToUserProfile(doc: any): UserProfile {
+function convertToUserProfile(doc: UserDoc): UserProfile {
   return {
     _id: doc.$id,
     displayName: doc.displayName,
@@ -32,7 +20,7 @@ function convertToUserProfile(doc: any): UserProfile {
     role: doc.role as Role,
     isActive: doc.isActive ?? true,
     joinedAt: new Date(doc.joinedAt),
-    updatedAt: new Date(doc.updatedAt),
+    updatedAt: new Date(doc.$updatedAt || doc.joinedAt),
   };
 }
 
@@ -47,20 +35,67 @@ function convertToUserDoc(profile: Partial<UserProfile>): Partial<UserDoc> {
   if (profile.role !== undefined) doc.role = profile.role;
   if (profile.isActive !== undefined) doc.isActive = profile.isActive;
   if (profile.joinedAt !== undefined) doc.joinedAt = profile.joinedAt.toISOString();
-  if (profile.updatedAt !== undefined) doc.updatedAt = profile.updatedAt.toISOString();
 
   return doc;
 }
 
 export async function getUserById(userId: string): Promise<UserProfile | null> {
   try {
-    // For now, we assume users collection exists or will be created by auth system
     const { users } = await getCollections();
     const result = await users.get(userId);
     return convertToUserProfile(result);
-  } catch (error: any) {
-    if (error.code === 404) return null;
-    throw error;
+  } catch (error: unknown) {
+    console.error('Error getting user by ID:', error);
+    return null;
+  }
+}
+
+export async function getUserByEmail(email: string): Promise<UserProfile | null> {
+  try {
+    const { users } = await getCollections();
+    const result = await users.list([Query.equal('email', email)]);
+
+    if (result.documents.length === 0) {
+      return null;
+    }
+
+    return convertToUserProfile(result.documents[0]);
+  } catch (error: unknown) {
+    console.error('Error getting user by email:', error);
+    return null;
+  }
+}
+
+export async function createUser(
+  userData: Omit<UserProfile, '_id' | 'joinedAt' | 'updatedAt'>
+): Promise<UserProfile> {
+  try {
+    const { users } = await getCollections();
+
+    const userDoc: Omit<
+      UserDoc,
+      | '$id'
+      | '$createdAt'
+      | '$updatedAt'
+      | '$collectionId'
+      | '$databaseId'
+      | '$permissions'
+      | '$sequence'
+    > = {
+      displayName: userData.displayName,
+      email: userData.email,
+      role: userData.role,
+      isActive: userData.isActive ?? true,
+      joinedAt: new Date().toISOString(),
+    };
+
+    const result = await users.create(userDoc);
+    return convertToUserProfile(result);
+  } catch (error: unknown) {
+    console.error('Error creating user:', error);
+    throw new Error(
+      `Failed to create user: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
   }
 }
 
@@ -70,8 +105,8 @@ export async function updateUserProfile(
 ): Promise<UserProfile> {
   const validation = validateProfileUpdate(input);
   if (!validation.ok) {
-    const err = new Error('Invalid profile update input');
-    (err as any).issues = validation.issues;
+    const err = new Error('Invalid profile update input') as Error & { issues: unknown };
+    err.issues = validation.issues;
     throw err;
   }
 
@@ -84,11 +119,9 @@ export async function updateUserProfile(
   }
 
   const sanitizedInput = sanitizeProfileUpdate(input);
-  const now = new Date();
 
   const updateData = {
     ...convertToUserDoc(sanitizedInput),
-    updatedAt: now.toISOString(),
   };
 
   const result = await users.update(userId, updateData);

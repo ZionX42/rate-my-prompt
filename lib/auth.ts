@@ -1,15 +1,53 @@
 import { cookies } from 'next/headers';
 import { User, Role } from './models/user';
 import { getUserById } from './repos/userRepo';
+import { serverConfig } from './config/server';
+import jwt from 'jsonwebtoken';
+import { SignJWT, jwtVerify } from 'jose';
 
-// Placeholder for JWT decoding - replace with actual implementation
-function decodeUserFromToken(token: string): { userId: string } | null {
-  // TODO: Implement JWT verification
-  // For testing, return mock admin user if admin cookie is set
-  if (token === 'admin') {
-    return { userId: 'mock-admin-id' };
+// JWT payload interface
+interface CustomJWTPayload {
+  userId: string;
+  email: string;
+  role: Role;
+  iat?: number;
+  exp?: number;
+}
+
+// Create JWT token
+export async function createJWT(payload: Omit<CustomJWTPayload, 'iat' | 'exp'>): Promise<string> {
+  const secret = new TextEncoder().encode(serverConfig.jwt.secret);
+
+  const token = await new SignJWT(payload)
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime(serverConfig.jwt.expiresIn)
+    .sign(secret);
+
+  return token;
+}
+
+// Verify and decode JWT token
+export async function verifyJWT(token: string): Promise<CustomJWTPayload | null> {
+  try {
+    const secret = new TextEncoder().encode(serverConfig.jwt.secret);
+    const { payload } = await jwtVerify(token, secret);
+    return payload as unknown as CustomJWTPayload;
+  } catch (error) {
+    console.error('JWT verification failed:', error);
+    return null;
   }
-  return null;
+}
+
+// Legacy JWT decoding for backward compatibility (using jsonwebtoken)
+function decodeUserFromToken(token: string): { userId: string } | null {
+  try {
+    const decoded = jwt.verify(token, serverConfig.jwt.secret) as CustomJWTPayload;
+    return { userId: decoded.userId };
+  } catch (error) {
+    console.error('Legacy JWT decoding failed:', error);
+    return null;
+  }
 }
 
 // Get current user from request
@@ -22,25 +60,33 @@ export async function getCurrentUser(): Promise<User | null> {
       return null;
     }
 
-    const decoded = decodeUserFromToken(sessionToken);
+    // Try new JWT verification first
+    const decoded = await verifyJWT(sessionToken);
     if (!decoded) {
+      // Fallback to legacy decoding for backward compatibility
+      const legacyDecoded = decodeUserFromToken(sessionToken);
+      if (!legacyDecoded) {
+        return null;
+      }
+
+      // For legacy tokens, we need to fetch user from database
+      const user = await getUserById(legacyDecoded.userId);
+      return user;
+    }
+
+    // For new JWT tokens, we have the user data in the payload
+    // But we should still verify the user exists in the database
+    const user = await getUserById(decoded.userId);
+    if (!user) {
       return null;
     }
 
-    // For testing, return mock admin user
-    if (decoded.userId === 'mock-admin-id') {
-      return {
-        _id: 'mock-admin-id',
-        displayName: 'Mock Admin',
-        email: 'admin@example.com',
-        role: Role.ADMIN,
-        isActive: true,
-        joinedAt: new Date(),
-        updatedAt: new Date(),
-      };
+    // Update user role if it has changed
+    if (user.role !== decoded.role) {
+      // Note: In a real implementation, you might want to update the token
+      // or handle role changes differently
     }
 
-    const user = await getUserById(decoded.userId);
     return user;
   } catch (error) {
     console.error('Error getting current user:', error);
@@ -62,6 +108,13 @@ export async function currentUserHasPermission(permission: string): Promise<bool
   }
 
   // Import here to avoid circular dependency
-  const { hasPermission } = await import('./permissions');
-  return hasPermission(user.role, permission as any);
+  const { hasPermission, Permission } = await import('./permissions');
+
+  // Try to match the permission string to the enum
+  const permissionEnum = Object.values(Permission).find((p) => p === permission);
+  if (!permissionEnum) {
+    return false;
+  }
+
+  return hasPermission(user.role, permissionEnum);
 }

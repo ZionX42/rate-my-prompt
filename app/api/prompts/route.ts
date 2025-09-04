@@ -8,6 +8,7 @@ import {
 } from '@/lib/api/responses';
 import { requireJson, logRequest } from '@/lib/api/middleware';
 import { logUserAction } from '@/lib/logger';
+import { validateServerConfig } from '@/lib/config/server';
 
 export async function POST(req: NextRequest): Promise<Response> {
   // Log the API request
@@ -45,8 +46,12 @@ export async function POST(req: NextRequest): Promise<Response> {
     return badRequest('Validation failed', validation.issues);
   }
 
-  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
-    return serviceUnavailable('Storage not configured');
+  // Validate server configuration
+  try {
+    validateServerConfig();
+  } catch (error) {
+    console.error('Server configuration validation failed:', error);
+    return serviceUnavailable('Server configuration error');
   }
 
   try {
