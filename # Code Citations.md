@@ -2,4406 +2,1786 @@
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
 
 ```
-{
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import
 ```
+;
 
-## License: Apache-2.0
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import
 ```
 
 ## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('
-```
 
-## License: Apache-2.0
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('
 ```
+;
 
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
 
 ```
-{import('tail
-```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tail
 ```
+;
 
-## License: Apache-2.0
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tail
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwind
+;
+
+   export
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwind
 ```
+;
 
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
+   export
 ```
-{import('tailwind
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss
+;
+
+   export const
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss
+   export const
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').
+;
+
+   export const logger
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger
 ```
-{import('tailwindcss').
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config
+;
+
+   export const logger =
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config
+   export const logger =
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config}
+;
+
+   export const logger = win
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config}
 ```
+;
 
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
+   export const logger = win
 ```
-{import('tailwindcss').Config}
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
+;
 
+   export const logger = winston
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
+;
 
+   export const logger = winston
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
+;
 
+   export const logger = winston.create
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module
+;
+
+   export const logger = winston.create
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger
 ```
-{import('tailwindcss').Config} */
-module
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports
+;
+
+   export const logger = winston.createLogger
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+   export const logger = winston.createLogger({
 
 ```
-{import('tailwindcss').Config} */
-module.exports
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports =
+;
+
+   export const logger = winston.createLogger({
+
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module.exports =
 ```
+;
 
-## License: Apache-2.0
+   export const logger = winston.createLogger({
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports =
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+     level
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+     level
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+     level:
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+     level:
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
+;
 
+   export const logger = winston.createLogger({
+     level: '
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  dark
+;
+
+   export const logger = winston.createLogger({
+     level: '
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  dark
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  dark
+   export const logger = winston.createLogger({
+     level: 'info
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode
+;
+
+   export const logger = winston.createLogger({
+     level: 'info
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode
 ```
+;
 
-## License: Apache-2.0
+   export const logger = winston.createLogger({
+     level: 'info',
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode:
-```
-
-## License: unknown
+;
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode:
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode:
 ```
+;
 
-## License: MIT
+   export const logger = winston.createLogger({
+     level: 'info',
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: '
-```
-
-## License: unknown
+;
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: '
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: '
 ```
+;
 
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
+   export const logger = winston.createLogger({
+     level: 'info',
+     format
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: '
-```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class
+   export const logger = winston.createLogger({
+     level: 'info',
+     format:
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: win
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: win
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content
-```
-
-## License: unknown
+;
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content
 ```
+;
 
-## License: MIT
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content:
-```
-
-## License: unknown
+;
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content:
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content:
 ```
+;
 
-## License: MIT
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports:
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
 
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
 
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
 
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './
 ```
+;
 
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new win
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new win
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.trans
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.trans
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename:
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: '
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: '
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts
 ```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log',
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log',
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level:
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level:
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: '
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: '
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error'
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error'
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,
 ```
+;
 
-## License: MIT
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
+;
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new win
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new win
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.trans
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.trans
 ```
 
-## License: Apache-2.0
+## License: unknown
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+;
 
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename:
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename:
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: '
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: '
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/com
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/com
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/comb
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/comb
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log
 ```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log
 ```
 
 ## License: unknown
 
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log'
 ```
 
 ## License: unknown
 
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,
+;
+
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log'
 ```
 
 ## License: unknown
 
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
+https://github.com/Tetraflix/UserProfiles/blob/a62555f87cfd6609096f0100d9b7a4215441189c/server/index.js
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,
-```
-
-## License: Apache-2.0
+;
 
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log' }),
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,
-```
 
-## License: MIT
+## License: unknown
 
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
+https://github.com/Confluente/backend-v2/blob/5f4e4dce00a123b187884d9ead871dcd5dc4b16b/src/logger.ts
 
 ```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
+;
 
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-
-```
-
-## License: unknown
-
-https://github.com/rikas/oterosantos.com/blob/a8e59f8f8befc3f53a70029d4d90a8f44a03023f/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-  ],
-```
-
-## License: unknown
-
-https://github.com/bdougie/live-template/blob/0192fbae7cf5d26d3e959454c6e1146adc8b7a01/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-  ],
-```
-
-## License: unknown
-
-https://github.com/HotPotatoC/juanchristian.com/blob/faf35ab0d32973147ce748bea889f28c65f4196e/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-  ],
-```
-
-## License: Apache-2.0
-
-https://github.com/liyipeng123/gone-web/blob/b69f31f77e1f108df251701e6862761f8fe72f41/tailwind.config.js
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-  ],
-```
-
-## License: MIT
-
-https://github.com/lilingxi01/radix-colors-tailwind/blob/b8ab6a311f1e7406b9194eb37c1af8150b2c1da6/README.md
-
-```
-{import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './lib/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-  ],
+   export const logger = winston.createLogger({
+     level: 'info',
+     format: winston.format.json(),
+     transports: [
+       new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+       new winston.transports.File({ filename: 'logs/combined.log' }),
 ```
