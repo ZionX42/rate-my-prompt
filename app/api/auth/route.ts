@@ -11,6 +11,7 @@ import { validateServerConfig } from '@/lib/config/server';
 import { ok, created, badRequest, unauthorized, internalError } from '@/lib/api/responses';
 import { requireJson, logRequest } from '@/lib/api/middleware';
 import { cookies } from 'next/headers';
+import { InputValidation } from '@/lib/security/validation';
 
 export async function POST(req: NextRequest): Promise<Response> {
   logRequest(req);
@@ -57,9 +58,15 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
     return badRequest('Email and password are required');
   }
 
+  // Validate email format
+  const emailValidation = InputValidation.validateEmail(email);
+  if (!emailValidation.isValid) {
+    return badRequest(emailValidation.errors.join(', '));
+  }
+
   try {
     // Verify user credentials using password hashing
-    const user = await verifyUserPassword(email, password);
+    const user = await verifyUserPassword(emailValidation.sanitized, password);
     if (!user) {
       return unauthorized('Invalid credentials');
     }
@@ -109,17 +116,29 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
     return badRequest('Display name, email, and password are required');
   }
 
+  // Validate email format
+  const emailValidation = InputValidation.validateEmail(email);
+  if (!emailValidation.isValid) {
+    return badRequest(emailValidation.errors.join(', '));
+  }
+
+  // Validate display name
+  const displayNameValidation = InputValidation.validateDisplayName(displayName);
+  if (!displayNameValidation.isValid) {
+    return badRequest(displayNameValidation.errors.join(', '));
+  }
+
   try {
     // Check if user already exists
-    const existingUser = await getUserByEmail(email);
+    const existingUser = await getUserByEmail(emailValidation.sanitized);
     if (existingUser) {
       return badRequest('User already exists');
     }
 
     // Create new user
     const newUser: Omit<User, '_id' | 'joinedAt' | 'updatedAt'> = {
-      displayName,
-      email,
+      displayName: displayNameValidation.sanitized,
+      email: emailValidation.sanitized,
       role: Role.USER,
       isActive: true,
     };

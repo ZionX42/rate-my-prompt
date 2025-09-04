@@ -10,6 +10,7 @@ import {
   badRequest,
 } from '@/lib/api/responses';
 import { requireJson } from '@/lib/api/middleware';
+import { InputValidation } from '@/lib/security/validation';
 
 // GET /api/prompts/:id/comments
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -35,11 +36,34 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const guard = requireJson(req);
     if (guard) return guard;
     const data = await req.json();
+
     // In a real app, userId would come from a session
     if (!data.userId) {
       return unauthorized('userId is required');
     }
-    const newComment = await commentRepo.create(resolvedParams.id, data);
+
+    // Validate and sanitize comment content
+    if (!data.content || typeof data.content !== 'string') {
+      return badRequest('Comment content is required');
+    }
+
+    const contentValidation = InputValidation.validateTextContent(data.content, {
+      maxLength: 1000,
+      minLength: 1,
+      allowHtml: false,
+    });
+
+    if (!contentValidation.isValid) {
+      return badRequest('Comment validation failed: ' + contentValidation.errors.join(', '));
+    }
+
+    // Create sanitized data object
+    const sanitizedData = {
+      ...data,
+      content: contentValidation.sanitized,
+    };
+
+    const newComment = await commentRepo.create(resolvedParams.id, sanitizedData);
     return created(newComment);
   } catch (error) {
     if (error instanceof ZodError) {
