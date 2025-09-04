@@ -63,7 +63,7 @@ export default function Filters() {
     if (typeof state.minRating === 'number') params.set('minRating', String(state.minRating));
     if (state.dateFrom) params.set('dateFrom', state.dateFrom);
     if (state.dateTo) params.set('dateTo', state.dateTo);
-    if (state.sort && state.sort !== 'relevance') params.set('sort', state.sort);
+    if (state.sort) params.set('sort', state.sort);
     if (state.limit !== 20) params.set('limit', String(state.limit));
     router.push(`/search?${params.toString()}`);
   }
