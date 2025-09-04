@@ -8,6 +8,7 @@ import {
   Role,
 } from '../models/user';
 import type { UserDoc } from '../appwrite/collections';
+import { PasswordUtils } from '../security/password';
 
 // Convert Appwrite document to UserProfile format
 function convertToUserProfile(doc: UserDoc): UserProfile {
@@ -96,6 +97,82 @@ export async function createUser(
     throw new Error(
       `Failed to create user: ${error instanceof Error ? error.message : 'Unknown error'}`
     );
+  }
+}
+
+export async function createUserWithPassword(
+  userData: Omit<UserProfile, '_id' | 'joinedAt' | 'updatedAt'>,
+  password: string
+): Promise<UserProfile> {
+  try {
+    // Validate password strength
+    const passwordValidation = PasswordUtils.validateStrength(password);
+    if (!passwordValidation.isValid) {
+      throw new Error(`Password validation failed: ${passwordValidation.errors.join(', ')}`);
+    }
+
+    // Hash the password
+    const passwordHash = await PasswordUtils.hash(password);
+
+    const { users } = await getCollections();
+
+    const userDoc: Omit<
+      UserDoc,
+      | '$id'
+      | '$createdAt'
+      | '$updatedAt'
+      | '$collectionId'
+      | '$databaseId'
+      | '$permissions'
+      | '$sequence'
+    > = {
+      displayName: userData.displayName,
+      email: userData.email,
+      role: userData.role,
+      isActive: userData.isActive ?? true,
+      joinedAt: new Date().toISOString(),
+      passwordHash,
+    };
+
+    const result = await users.create(userDoc);
+    return convertToUserProfile(result);
+  } catch (error: unknown) {
+    console.error('Error creating user with password:', error);
+    throw new Error(
+      `Failed to create user: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
+}
+
+export async function verifyUserPassword(
+  email: string,
+  password: string
+): Promise<UserProfile | null> {
+  try {
+    const user = await getUserByEmail(email);
+    if (!user) {
+      return null;
+    }
+
+    // Get the user document with password hash
+    const { users } = await getCollections();
+    const userDoc = await users.get(user._id);
+
+    if (!userDoc.passwordHash) {
+      // User doesn't have a password set (legacy user or mock user)
+      return null;
+    }
+
+    // Verify the password
+    const isValidPassword = await PasswordUtils.verify(password, userDoc.passwordHash);
+    if (!isValidPassword) {
+      return null;
+    }
+
+    return user;
+  } catch (error: unknown) {
+    console.error('Error verifying user password:', error);
+    return null;
   }
 }
 

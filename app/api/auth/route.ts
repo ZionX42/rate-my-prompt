@@ -1,6 +1,11 @@
 import { NextRequest } from 'next/server';
 import { createJWT, verifyJWT } from '@/lib/auth';
-import { getUserByEmail, createUser, getUserById } from '@/lib/repos/userRepo';
+import {
+  getUserByEmail,
+  createUserWithPassword,
+  verifyUserPassword,
+  getUserById,
+} from '@/lib/repos/userRepo';
 import { User, Role } from '@/lib/models/user';
 import { validateServerConfig } from '@/lib/config/server';
 import { ok, created, badRequest, unauthorized, internalError } from '@/lib/api/responses';
@@ -53,15 +58,9 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
   }
 
   try {
-    const user = await getUserByEmail(email);
+    // Verify user credentials using password hashing
+    const user = await verifyUserPassword(email, password);
     if (!user) {
-      return unauthorized('Invalid credentials');
-    }
-
-    // Simple password check for now (should be replaced with proper hashing)
-    const isValidPassword = password === 'password';
-
-    if (!isValidPassword) {
       return unauthorized('Invalid credentials');
     }
 
@@ -125,7 +124,7 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
       isActive: true,
     };
 
-    const createdUser = await createUser(newUser);
+    const createdUser = await createUserWithPassword(newUser, password);
 
     // Create JWT token
     const token = await createJWT({
