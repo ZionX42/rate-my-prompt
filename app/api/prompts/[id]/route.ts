@@ -3,9 +3,10 @@ import { ok, badRequest, notFound, serviceUnavailable, internalError } from '@/l
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const { id } = params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
   if (!id || typeof id !== 'string') {
     return badRequest('Invalid prompt ID');

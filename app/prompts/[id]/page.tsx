@@ -6,7 +6,7 @@ import { StarRating, RatingSubmission } from '@/components/ratings/StarRating';
 import Comments from '@/components/comments/Comments';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 async function fetchPrompt(id: string): Promise<PromptModel | null> {
@@ -38,7 +38,8 @@ async function fetchRatingStats(promptId: string): Promise<RatingStats | null> {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const prompt = await fetchPrompt(params.id);
+  const resolvedParams = await params;
+  const prompt = await fetchPrompt(resolvedParams.id);
 
   if (!prompt) {
     return {
@@ -53,13 +54,14 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PromptDetailPage({ params }: Props) {
-  const prompt = await fetchPrompt(params.id);
+  const resolvedParams = await params;
+  const prompt = await fetchPrompt(resolvedParams.id);
 
   if (!prompt) {
     notFound();
   }
 
-  const ratingStats = await fetchRatingStats(params.id);
+  const ratingStats = await fetchRatingStats(resolvedParams.id);
 
   return (
     <main className="px-6 md:px-10 lg:px-16 py-10 md:py-14">

@@ -15,7 +15,7 @@ function decodeUserFromToken(token: string): { userId: string } | null {
 // Get current user from request
 export async function getCurrentUser(): Promise<User | null> {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const sessionToken = cookieStore.get('session')?.value;
 
     if (!sessionToken) {

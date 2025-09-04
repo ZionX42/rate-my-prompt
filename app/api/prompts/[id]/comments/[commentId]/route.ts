@@ -1,15 +1,24 @@
 import { NextRequest } from 'next/server';
 import { commentRepo } from '@/lib/repos/commentRepo';
 import { ZodError } from 'zod';
-import { ok, noContent, unauthorized, serviceUnavailable, internalError, badRequest, notFound } from '@/lib/api/responses';
+import {
+  ok,
+  noContent,
+  unauthorized,
+  serviceUnavailable,
+  internalError,
+  badRequest,
+  notFound,
+} from '@/lib/api/responses';
 import { requireJson } from '@/lib/api/middleware';
 
 // PATCH /api/prompts/:id/comments/:commentId
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string; commentId: string } }
+  { params }: { params: Promise<{ id: string; commentId: string }> }
 ) {
   try {
+    const resolvedParams = await params;
     if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
@@ -21,11 +30,7 @@ export async function PATCH(
       return unauthorized('userId is required');
     }
 
-    const updatedComment = await commentRepo.update(
-      params.commentId,
-      userId,
-      { content }
-    );
+    const updatedComment = await commentRepo.update(resolvedParams.commentId, userId, { content });
 
     if (!updatedComment) {
       return notFound('Comment not found or user not authorized');
@@ -43,9 +48,10 @@ export async function PATCH(
 // DELETE /api/prompts/:id/comments/:commentId
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string; commentId: string } }
+  { params }: { params: Promise<{ id: string; commentId: string }> }
 ) {
   try {
+    const resolvedParams = await params;
     if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
       return serviceUnavailable('Storage not configured');
     }
@@ -55,7 +61,7 @@ export async function DELETE(
       return unauthorized('userId is required');
     }
 
-    const success = await commentRepo.softDelete(params.commentId, userId);
+    const success = await commentRepo.softDelete(resolvedParams.commentId, userId);
 
     if (!success) {
       return notFound('Comment not found or user not authorized');

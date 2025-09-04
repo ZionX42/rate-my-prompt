@@ -1,5 +1,10 @@
 import Link from 'next/link';
-import Filters from '@/components/search/Filters';
+import dynamic from 'next/dynamic';
+
+const Filters = dynamic(() => import('@/components/search/Filters'), {
+  ssr: false,
+  loading: () => <div className="mb-6 bg-card p-4 rounded-md shadow-soft">Loading filters...</div>,
+});
 
 interface PromptSearchResult {
   _id: string;
@@ -98,9 +103,10 @@ async function fetchSearchResults(params: Record<string, unknown>): Promise<Sear
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const params = parseParams(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const params = parseParams(resolvedSearchParams);
 
   let results: SearchResponse;
   try {

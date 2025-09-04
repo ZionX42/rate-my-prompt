@@ -12,9 +12,10 @@ import { requireJson } from '@/lib/api/middleware';
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const { id: promptId } = params;
+  const resolvedParams = await params;
+  const { id: promptId } = resolvedParams;
 
   if (!promptId || typeof promptId !== 'string') {
     return badRequest('Invalid prompt ID');
@@ -83,9 +84,10 @@ export async function POST(
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const { id: promptId } = params;
+  const resolvedParams = await params;
+  const { id: promptId } = resolvedParams;
 
   if (!promptId || typeof promptId !== 'string') {
     return badRequest('Invalid prompt ID');

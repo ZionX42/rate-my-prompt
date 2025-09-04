@@ -2,6 +2,7 @@
   "name": "prompt-hub",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -57,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
     "autoprefixer": "^10.4.21",
-    "cypress": "^15.0.0",
+    "cypress": "^15.1.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.30",
     "eslint-plugin-jest": "^29.0.1",

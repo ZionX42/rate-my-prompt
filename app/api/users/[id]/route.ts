@@ -10,9 +10,10 @@ const getUserIdFromRequest = (req: NextRequest): string | null => {
   return req.headers.get('x-user-id') || null;
 };
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
 
     // Get the user profile
     const user = await getUserById(id);
@@ -26,9 +27,10 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const requestUserId = getUserIdFromRequest(req);
 
     // Simple authorization check - users can only update their own profiles

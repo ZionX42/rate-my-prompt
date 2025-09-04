@@ -8,8 +8,9 @@ import UserPrompts from '@/components/users/UserPrompts';
 
 // User profile page template
 // Tasks 4.1.2 and 4.1.3: Implement profile edit functionality and add prompt collection to user profile
-export default async function UserProfilePage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function UserProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
   // Try to fetch the user from the database
   let user = null;

@@ -23,7 +23,7 @@ export function requireJson(req: NextRequest | Request) {
 const recentHits = new Map<string, { count: number; resetAt: number }>();
 
 export function simpleRateLimit(req: NextRequest, limit = 60, windowMs = 60_000) {
-  const ip = req.ip || req.headers.get('x-forwarded-for') || '127.0.0.1';
+  const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1';
   const now = Date.now();
   const rec = recentHits.get(String(ip));
   if (!rec || rec.resetAt < now) {
@@ -42,7 +42,7 @@ export function simpleRateLimit(req: NextRequest, limit = 60, windowMs = 60_000)
 export function logRequest(req: NextRequest, userId?: string) {
   logApiRequest(req.method, req.url, userId, {
     userAgent: req.headers.get('user-agent'),
-    ip: req.ip || req.headers.get('x-forwarded-for') || '127.0.0.1',
+    ip: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1',
     timestamp: new Date().toISOString(),
   });
 }
