@@ -50,22 +50,26 @@ const Navigation = () => {
           </div>
 
           {/* Right side navigation items */}
-          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
-            <SearchInput />
-            <Link
-              href="/login"
-              className="text-subtext hover:text-heading px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="ml-4 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
-              style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
-            >
-              Sign up
-            </Link>
-            <ThemeToggle />
+          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            <div className="flex items-center">
+              <SearchInput />
+            </div>
+            <div className="flex items-center ml-4">
+              <Link
+                href="/login"
+                className="text-subtext hover:text-heading px-3 py-2 text-sm font-medium"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="ml-3 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
+                style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
+              >
+                Sign up
+              </Link>
+              <ThemeToggle className="ml-4" />
+            </div>
           </div>
 
           {/* Mobile menu button */}
