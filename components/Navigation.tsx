@@ -17,18 +17,6 @@ const Navigation = () => {
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
-                href="/prompts"
-                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Prompts
-              </Link>
-              <Link
-                href="/categories"
-                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Categories
-              </Link>
-              <Link
                 href="/community"
                 className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
@@ -45,6 +33,18 @@ const Navigation = () => {
                 className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 About
+              </Link>
+              <Link
+                href="/contact"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/feedback"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Feedback
               </Link>
             </div>
           </div>
@@ -105,20 +105,8 @@ const Navigation = () => {
       <div className="hidden sm:hidden">
         <div className="pt-2 pb-3 space-y-1">
           <Link
-            href="/prompts"
-            className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-          >
-            Prompts
-          </Link>
-          <Link
-            href="/categories"
-            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-          >
-            Categories
-          </Link>
-          <Link
             href="/community"
-            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Community
           </Link>
@@ -133,6 +121,18 @@ const Navigation = () => {
             className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             About
+          </Link>
+          <Link
+            href="/contact"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/feedback"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Feedback
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-border">
