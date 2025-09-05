@@ -1,17 +1,11 @@
 import { NextRequest } from 'next/server';
-import { createJWT, verifyJWT } from '@/lib/auth';
-import {
-  getUserByEmail,
-  createUserWithPassword,
-  verifyUserPassword,
-  getUserById,
-} from '@/lib/repos/userRepo';
+import { getUserByEmail, createUserWithPassword, verifyUserPassword } from '@/lib/repos/userRepo';
 import { User, Role } from '@/lib/models/user';
 import { validateServerConfig } from '@/lib/config/server';
 import { ok, created, badRequest, unauthorized, internalError } from '@/lib/api/responses';
 import { requireJson, logRequest } from '@/lib/api/middleware';
-import { cookies } from 'next/headers';
 import { InputValidation } from '@/lib/security/validation';
+import { SessionManager } from '@/lib/auth/sessionManager';
 
 export async function POST(req: NextRequest): Promise<Response> {
   logRequest(req);
@@ -71,21 +65,8 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
       return unauthorized('Invalid credentials');
     }
 
-    // Create JWT token
-    const token = await createJWT({
-      userId: user._id,
-      email: user.email || '',
-      role: user.role,
-    });
-
-    // Set session cookie
-    const cookieStore = await cookies();
-    cookieStore.set('session', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    // Create session using SessionManager
+    await SessionManager.createSession(user);
 
     return ok({
       user: {
@@ -94,7 +75,6 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
         email: user.email,
         role: user.role,
       },
-      token,
     });
   } catch (error) {
     console.error('Login error:', error);
@@ -145,21 +125,8 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
 
     const createdUser = await createUserWithPassword(newUser, password);
 
-    // Create JWT token
-    const token = await createJWT({
-      userId: createdUser._id,
-      email: createdUser.email || '',
-      role: createdUser.role,
-    });
-
-    // Set session cookie
-    const cookieStore = await cookies();
-    cookieStore.set('session', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    // Create session using SessionManager
+    await SessionManager.createSession(createdUser);
 
     return created({
       user: {
@@ -168,7 +135,6 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
         email: createdUser.email,
         role: createdUser.role,
       },
-      token,
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -178,9 +144,7 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
 
 async function handleLogout(): Promise<Response> {
   try {
-    const cookieStore = await cookies();
-    cookieStore.delete('session');
-
+    await SessionManager.destroySession();
     return ok({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
@@ -190,33 +154,22 @@ async function handleLogout(): Promise<Response> {
 
 async function handleVerify(): Promise<Response> {
   try {
-    const cookieStore = await cookies();
-    const sessionToken = cookieStore.get('session')?.value;
+    const session = await SessionManager.getCurrentSession();
 
-    if (!sessionToken) {
-      return unauthorized('No session token');
-    }
-
-    const decoded = await verifyJWT(sessionToken);
-    if (!decoded) {
-      return unauthorized('Invalid token');
-    }
-
-    const user = await getUserById(decoded.userId);
-    if (!user) {
-      return unauthorized('User not found');
+    if (!session.isValid || !session.user) {
+      return unauthorized('Invalid session');
     }
 
     return ok({
       user: {
-        _id: user._id,
-        displayName: user.displayName,
-        email: user.email,
-        role: user.role,
+        _id: session.user._id,
+        displayName: session.user.displayName,
+        email: session.user.email,
+        role: session.user.role,
       },
     });
   } catch (error) {
-    console.error('Token verification error:', error);
-    return unauthorized('Token verification failed');
+    console.error('Session verification error:', error);
+    return unauthorized('Session verification failed');
   }
 }

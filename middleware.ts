@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { RequestMonitor } from '@/lib/monitoring/requestMonitor';
+import { CSRFProtection } from '@/lib/security/csrf';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
@@ -25,6 +26,9 @@ const CORS_HEADERS = {
     'X-Requested-With',
     'Accept',
     'Origin',
+    'X-CSRF-Token',
+    'CSRF-Token',
+    'X-XSRF-Token',
   ],
   'Access-Control-Allow-Credentials': 'true',
   'Access-Control-Max-Age': '86400', // 24 hours
@@ -155,6 +159,16 @@ export function middleware(request: NextRequest) {
       );
       addSecurityHeaders(response, clientIP);
       return response;
+    }
+  }
+
+  // Apply CSRF protection to state-changing API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const csrfResponse = CSRFProtection.middleware(request);
+    if (csrfResponse) {
+      RequestMonitor.logResponse(request, csrfResponse);
+      addSecurityHeaders(csrfResponse, clientIP);
+      return csrfResponse;
     }
   }
 

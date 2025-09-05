@@ -1,9 +1,8 @@
-import { cookies } from 'next/headers';
 import { User, Role } from './models/user';
-import { getUserById } from './repos/userRepo';
 import { serverConfig } from './config/server';
 import jwt from 'jsonwebtoken';
 import { SignJWT, jwtVerify } from 'jose';
+import { SessionManager } from './auth/sessionManager';
 
 // JWT payload interface
 interface CustomJWTPayload {
@@ -40,7 +39,7 @@ export async function verifyJWT(token: string): Promise<CustomJWTPayload | null>
 }
 
 // Legacy JWT decoding for backward compatibility (using jsonwebtoken)
-function decodeUserFromToken(token: string): { userId: string } | null {
+function _decodeUserFromToken(token: string): { userId: string } | null {
   try {
     const decoded = jwt.verify(token, serverConfig.jwt.secret) as CustomJWTPayload;
     return { userId: decoded.userId };
@@ -53,41 +52,8 @@ function decodeUserFromToken(token: string): { userId: string } | null {
 // Get current user from request
 export async function getCurrentUser(): Promise<User | null> {
   try {
-    const cookieStore = await cookies();
-    const sessionToken = cookieStore.get('session')?.value;
-
-    if (!sessionToken) {
-      return null;
-    }
-
-    // Try new JWT verification first
-    const decoded = await verifyJWT(sessionToken);
-    if (!decoded) {
-      // Fallback to legacy decoding for backward compatibility
-      const legacyDecoded = decodeUserFromToken(sessionToken);
-      if (!legacyDecoded) {
-        return null;
-      }
-
-      // For legacy tokens, we need to fetch user from database
-      const user = await getUserById(legacyDecoded.userId);
-      return user;
-    }
-
-    // For new JWT tokens, we have the user data in the payload
-    // But we should still verify the user exists in the database
-    const user = await getUserById(decoded.userId);
-    if (!user) {
-      return null;
-    }
-
-    // Update user role if it has changed
-    if (user.role !== decoded.role) {
-      // Note: In a real implementation, you might want to update the token
-      // or handle role changes differently
-    }
-
-    return user;
+    const session = await SessionManager.getCurrentSession();
+    return session.user;
   } catch (error) {
     console.error('Error getting current user:', error);
     return null;
