@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useMemo, useState } from 'react';
 import { type PromptCategory } from '@/lib/models/prompt';
 
@@ -75,8 +75,8 @@ export function PromptForm() {
         const serverIssues = Array.isArray(data?.details)
           ? data.details
           : Array.isArray(data?.issues)
-          ? data.issues
-          : undefined;
+            ? data.issues
+            : undefined;
         setResult({
           status: 'error',
           message: data?.error || 'Submission failed',
@@ -94,7 +94,7 @@ export function PromptForm() {
       setErrors({});
       // Keep form values so user can see what was submitted; optional reset below
       // setForm({ ...form, title: '', content: '', description: '', tags: '' });
-    } catch (err: any) {
+    } catch {
       setResult({ status: 'error', message: 'Network error' });
     }
   }
@@ -106,7 +106,9 @@ export function PromptForm() {
   return (
     <form onSubmit={onSubmit} className="max-w-3xl space-y-6">
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-heading">Title</label>
+        <label htmlFor="title" className="block text-sm font-medium text-heading">
+          Title
+        </label>
         <input
           id="title"
           name="title"
@@ -119,7 +121,9 @@ export function PromptForm() {
       </div>
 
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-heading">Content</label>
+        <label htmlFor="content" className="block text-sm font-medium text-heading">
+          Content
+        </label>
         <textarea
           id="content"
           name="content"
@@ -133,7 +137,9 @@ export function PromptForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="authorId" className="block text-sm font-medium text-heading">Author ID</label>
+          <label htmlFor="authorId" className="block text-sm font-medium text-heading">
+            Author ID
+          </label>
           <input
             id="authorId"
             name="authorId"
@@ -145,7 +151,9 @@ export function PromptForm() {
           {errors.authorId && <p className="mt-1 text-sm text-red-500">{errors.authorId}</p>}
         </div>
         <div>
-          <label htmlFor="category" className="block text-sm font-medium text-heading">Category</label>
+          <label htmlFor="category" className="block text-sm font-medium text-heading">
+            Category
+          </label>
           <select
             id="category"
             name="category"
@@ -154,14 +162,18 @@ export function PromptForm() {
             className="mt-1 w-full rounded-xl bg-surface border border-border px-3 py-2 outline-none"
           >
             {categories.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c}>
+                {c}
+              </option>
             ))}
           </select>
         </div>
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-heading">Description</label>
+        <label htmlFor="description" className="block text-sm font-medium text-heading">
+          Description
+        </label>
         <input
           id="description"
           name="description"
@@ -174,7 +186,9 @@ export function PromptForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="tags" className="block text-sm font-medium text-heading">Tags</label>
+          <label htmlFor="tags" className="block text-sm font-medium text-heading">
+            Tags
+          </label>
           <input
             id="tags"
             name="tags"
@@ -206,10 +220,14 @@ export function PromptForm() {
           {result.status === 'submitting' ? 'Submitting…' : 'Submit Prompt'}
         </button>
         {result.status === 'error' && (
-          <span role="alert" className="text-sm text-red-500">{result.message}</span>
+          <span role="alert" className="text-sm text-red-500">
+            {result.message}
+          </span>
         )}
         {result.status === 'success' && (
-          <span role="status" className="text-sm text-accent-green">Submitted! ID: {result.id || 'created'}</span>
+          <span role="status" className="text-sm text-accent-green">
+            Submitted! ID: {result.id || 'created'}
+          </span>
         )}
       </div>
     </form>

@@ -7,19 +7,20 @@ import {
   validateCreateComment,
   validateUpdateComment,
 } from '../models/comment';
+import { AppwriteDocument } from '../types/appwrite';
 
 // Convert Appwrite document to Comment format
-function convertToComment(doc: any): Comment {
+function convertToComment(doc: AppwriteDocument): Comment {
   return {
-    _id: doc.$id,
-    promptId: doc.promptId,
-    userId: doc.userId,
-    content: doc.content,
-    parentId: doc.parentId || undefined,
-    createdAt: new Date(doc.createdAt),
-    updatedAt: new Date(doc.updatedAt),
-    isEdited: doc.isEdited,
-    isDeleted: doc.isDeleted,
+    _id: doc.$id as string,
+    promptId: doc.promptId as string,
+    userId: doc.userId as string,
+    content: doc.content as string,
+    parentId: (doc.parentId as string) || undefined,
+    createdAt: new Date(doc.createdAt as string),
+    updatedAt: new Date(doc.updatedAt as string),
+    isEdited: doc.isEdited as boolean,
+    isDeleted: doc.isDeleted as boolean,
   };
 }
 
@@ -61,7 +62,7 @@ class CommentRepository {
 
     const commentDoc = convertToCommentDoc(doc);
     const result = await collection.create(commentDoc);
-    return convertToComment(result);
+    return convertToComment(result as unknown as AppwriteDocument);
   }
 
   async getByPromptId(promptId: string) {
@@ -73,7 +74,9 @@ class CommentRepository {
     ];
 
     const result = await collection.list(queries);
-    const comments = result.documents.map((doc) => convertToComment(doc));
+    const comments = result.documents.map((doc) =>
+      convertToComment(doc as unknown as AppwriteDocument)
+    );
     return organizeCommentsIntoThreads(comments);
   }
 
@@ -81,11 +84,11 @@ class CommentRepository {
     try {
       const collection = await this.getCollection();
       const result = await collection.get(commentId);
-      const comment = convertToComment(result);
+      const comment = convertToComment(result as unknown as AppwriteDocument);
       if (comment.isDeleted) return null;
       return comment;
-    } catch (error: any) {
-      if (error.code === 404) return null;
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return null;
       throw error;
     }
   }
@@ -112,9 +115,9 @@ class CommentRepository {
       };
 
       const result = await collection.update(commentId, updateData);
-      return convertToComment(result);
-    } catch (error: any) {
-      if (error.code === 404) return null;
+      return convertToComment(result as unknown as AppwriteDocument);
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return null;
       throw error;
     }
   }
@@ -137,8 +140,8 @@ class CommentRepository {
 
       await collection.update(commentId, updateData);
       return true;
-    } catch (error: any) {
-      if (error.code === 404) return false;
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 404) return false;
       throw error;
     }
   }

@@ -20,7 +20,7 @@ export class CSRFProtection {
   /**
    * Generate a CSRF token for a session
    */
-  static generateToken(sessionId?: string): string {
+  static generateToken(_sessionId?: string): string {
     this.initialize();
     return this.tokens.create(this.secret);
   }

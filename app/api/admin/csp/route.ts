@@ -59,7 +59,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
     try {
       envContent = fs.readFileSync(envPath, 'utf8');
-    } catch (error) {
+    } catch {
       return badRequest('Could not read environment file');
     }
 

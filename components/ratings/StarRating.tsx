@@ -18,20 +18,20 @@ export interface StarRatingProps {
   className?: string;
 }
 
-export function StarRating({ 
-  value = 0, 
-  readOnly = false, 
+export function StarRating({
+  value = 0,
+  readOnly = false,
   size = 'medium',
   showValue = false,
   onChange,
-  className = ''
+  className = '',
 }: StarRatingProps) {
   const [hoverValue, setHoverValue] = useState<number>(0);
-  
+
   const sizeClasses = {
     small: 'w-4 h-4',
     medium: 'w-5 h-5',
-    large: 'w-6 h-6'
+    large: 'w-6 h-6',
   };
 
   const handleStarClick = (rating: number) => {
@@ -56,10 +56,7 @@ export function StarRating({
 
   return (
     <div className={`flex items-center gap-1 ${className}`}>
-      <div 
-        className="flex items-center gap-0.5"
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className="flex items-center gap-0.5" onMouseLeave={handleMouseLeave}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
@@ -78,9 +75,10 @@ export function StarRating({
               viewBox="0 0 24 24"
               className={`
                 w-full h-full transition-colors duration-150
-                ${star <= displayValue 
-                  ? 'fill-yellow-400 text-yellow-400' 
-                  : 'fill-gray-200 text-gray-200 hover:fill-yellow-200 hover:text-yellow-200'
+                ${
+                  star <= displayValue
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'fill-gray-200 text-gray-200 hover:fill-yellow-200 hover:text-yellow-200'
                 }
               `}
             >
@@ -89,11 +87,9 @@ export function StarRating({
           </button>
         ))}
       </div>
-      
+
       {showValue && value > 0 && (
-        <span className="text-sm text-gray-600 ml-1">
-          {value.toFixed(1)}
-        </span>
+        <span className="text-sm text-gray-600 ml-1">{value.toFixed(1)}</span>
       )}
     </div>
   );
@@ -121,7 +117,7 @@ export function RatingSubmission({
   existingRating = 0,
   existingComment = '',
   onSubmit,
-  isSubmitting = false
+  isSubmitting = false,
 }: RatingSubmissionProps) {
   const [rating, setRating] = useState(existingRating);
   const [comment, setComment] = useState(existingComment);
@@ -130,7 +126,7 @@ export function RatingSubmission({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (rating === 0) {
       setError('Please select a rating');
       return;
@@ -164,7 +160,7 @@ export function RatingSubmission({
       } else {
         setError(data.error || 'Failed to submit rating');
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     }
   };
@@ -172,15 +168,8 @@ export function RatingSubmission({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-heading mb-2">
-          Your Rating
-        </label>
-        <StarRating
-          value={rating}
-          onChange={setRating}
-          size="large"
-          className="mb-1"
-        />
+        <label className="block text-sm font-medium text-heading mb-2">Your Rating</label>
+        <StarRating value={rating} onChange={setRating} size="large" className="mb-1" />
         {rating > 0 && (
           <p className="text-xs text-gray-500">
             {rating === 1 && 'Poor'}
@@ -205,9 +194,7 @@ export function RatingSubmission({
           className="w-full rounded-xl bg-surface border border-border px-3 py-2 outline-none resize-vertical"
           placeholder="Share your thoughts about this prompt..."
         />
-        <p className="text-xs text-gray-500 mt-1">
-          {comment.length}/500 characters
-        </p>
+        <p className="text-xs text-gray-500 mt-1">{comment.length}/500 characters</p>
       </div>
 
       {error && (

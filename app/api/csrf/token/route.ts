@@ -5,7 +5,7 @@ import { CSRFProtection } from '@/lib/security/csrf';
  * CSRF Token API Endpoint
  * GET /api/csrf/token - Returns a new CSRF token
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     return CSRFProtection.createTokenResponse();
   } catch (error) {
