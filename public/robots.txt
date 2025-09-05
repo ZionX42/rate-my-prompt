@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Block access to admin areas
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Block access to user-specific pages that don't need indexing
+Disallow: /users/*/edit
+Disallow: /settings
+
+# Allow access to main content
+Allow: /prompts/
+Allow: /categories/
+Allow: /community/
+Allow: /academy/
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /privacy
+Allow: /terms
+
+# Sitemap location
+Sitemap: https://prompthub.com/sitemap.xml

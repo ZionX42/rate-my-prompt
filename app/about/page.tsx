@@ -44,19 +44,19 @@ export default function AboutPage() {
 
   const team = [
     {
-      name: 'Sarah Chen',
+      name: 'Rick Nassar',
       role: 'Founder & CEO',
-      bio: 'Former AI researcher with 10+ years in machine learning and prompt engineering.',
+      bio: 'Former Cybersecurity Analyst with 10+ years in system administration and prompt engineering.',
       image: '/api/placeholder/150/150',
     },
     {
-      name: 'Marcus Rodriguez',
+      name: 'YOUR NAME',
       role: 'CTO',
       bio: 'Full-stack developer specializing in AI applications and scalable web platforms.',
       image: '/api/placeholder/150/150',
     },
     {
-      name: 'Dr. Emily Watson',
+      name: 'YOUR NAME',
       role: 'Head of Research',
       bio: 'PhD in Computer Science, focused on natural language processing and AI ethics.',
       image: '/api/placeholder/150/150',

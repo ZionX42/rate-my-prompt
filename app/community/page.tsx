@@ -50,7 +50,7 @@ export default function CommunityPage() {
   const recentThreads = [
     {
       id: 1,
-      title: 'Best practices for GPT-4 prompt engineering',
+      title: 'Best practices for GPT-5 prompt engineering',
       author: 'promptmaster',
       replies: 23,
       lastReply: '5 minutes ago',
