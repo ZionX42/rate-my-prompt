@@ -4,7 +4,7 @@ type ContainerProps = {
   children: React.ReactNode;
   className?: string;
   as?: React.ElementType;
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '7xl' | 'full';
   padding?: boolean;
 };
 
@@ -22,6 +22,7 @@ const Container: React.FC<ContainerProps> = ({
     lg: 'max-w-lg',
     xl: 'max-w-xl',
     '2xl': 'max-w-2xl',
+    '7xl': 'max-w-7xl',
     full: 'max-w-full',
   };
 

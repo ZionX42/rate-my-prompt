@@ -2,11 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import FeaturedPrompts from '@/components/prompts/FeaturedPrompts';
 import CategoryNavigation from '@/components/prompts/CategoryNavigation';
+import Container from '@/components/layout/Container';
 import { PromptModel } from '@/lib/models/prompt';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>
+    <section className={`py-12 md:py-16 ${className}`}>
+      <Container maxWidth="7xl">{children}</Container>
+    </section>
   );
 }
 
