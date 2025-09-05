@@ -13,7 +13,10 @@ export default function FeaturedPrompts({ prompts }: FeaturedPromptsProps) {
     return (
       <div className="text-center py-8">
         <p className="text-muted">No featured prompts available at the moment.</p>
-        <Link href="/prompts/new" className="text-hfYellow underline underline-offset-4 mt-2 inline-block">
+        <Link
+          href="/prompts/new"
+          className="text-hfYellow underline underline-offset-4 mt-2 inline-block"
+        >
           Submit the first prompt
         </Link>
       </div>
@@ -34,45 +37,45 @@ export default function FeaturedPrompts({ prompts }: FeaturedPromptsProps) {
               </span>
             )}
           </div>
-          
+
           {prompt.description && (
             <p className="text-sm muted mb-4">
-              {prompt.description.length > 120 ? `${prompt.description.substring(0, 120)}...` : prompt.description}
+              {prompt.description.length > 120
+                ? `${prompt.description.substring(0, 120)}...`
+                : prompt.description}
             </p>
           )}
-          
+
           <div className="flex items-center justify-between text-xs text-muted mb-4">
             <span>By {prompt.authorId}</span>
-            <span>{new Date(prompt.createdAt).toLocaleDateString()}</span>
+            <span>{new Date(prompt.createdAt).toLocaleDateString('en-US')}</span>
           </div>
-          
+
           {prompt.tags && prompt.tags.length > 0 && (
             <div className="flex flex-wrap gap-1 mb-4">
               {prompt.tags.slice(0, 3).map((tag, index) => (
-                <span 
-                  key={index}
-                  className="px-2 py-1 text-xs bg-surface/50 rounded text-muted"
-                >
+                <span key={index} className="px-2 py-1 text-xs bg-surface/50 rounded text-muted">
                   #{tag}
                 </span>
               ))}
               {prompt.tags.length > 3 && (
-                <span className="px-2 py-1 text-xs text-muted">
-                  +{prompt.tags.length - 3} more
-                </span>
+                <span className="px-2 py-1 text-xs text-muted">+{prompt.tags.length - 3} more</span>
               )}
             </div>
           )}
-          
+
           <div className="flex items-center justify-between">
-            <Link 
+            <Link
               href={`/prompts/${prompt._id}`}
               className="text-hfYellow hover:text-hfYellow/80 font-medium text-sm underline underline-offset-4"
             >
               View Details
             </Link>
             <span className="text-xs text-muted">
-              {prompt.content.length > 100 ? `${prompt.content.substring(0, 100)}...` : prompt.content.length} chars
+              {prompt.content.length > 100
+                ? `${prompt.content.substring(0, 100)}...`
+                : prompt.content.length}{' '}
+              chars
             </span>
           </div>
         </div>

@@ -74,23 +74,6 @@ const nextConfig = {
   // Server external packages
   serverExternalPackages: [],
 
-  // Custom webpack configuration
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Add custom webpack rules here
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    // Resolve aliases
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
-    };
-
-    return config;
-  },
-
   // Enhanced security headers
   async headers() {
     return [

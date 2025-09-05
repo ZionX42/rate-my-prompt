@@ -87,7 +87,7 @@ export default async function PromptDetailPage({ params }: Props) {
             <span>•</span>
             <span>Category: {prompt.category}</span>
             <span>•</span>
-            <span>Created {new Date(prompt.createdAt).toLocaleDateString()}</span>
+            <span>Created {new Date(prompt.createdAt).toLocaleDateString('en-US')}</span>
             {prompt.isPublished && (
               <>
                 <span>•</span>

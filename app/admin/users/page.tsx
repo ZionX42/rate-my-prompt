@@ -125,7 +125,7 @@ export default function AdminUsersPage() {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(user.joinedAt).toLocaleDateString()}
+                  {new Date(user.joinedAt).toLocaleDateString('en-US')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <button

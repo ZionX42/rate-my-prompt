@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { RequestMonitor } from '@/lib/monitoring/requestMonitor';
 import { CSRFProtection } from '@/lib/security/csrf';
+import crypto from 'crypto';
+
+export const runtime = 'nodejs';
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
@@ -127,6 +130,9 @@ function addSecurityHeaders(response: NextResponse, clientIP: string): void {
 export function middleware(request: NextRequest) {
   const clientIP = getClientIP(request);
 
+  // Generate CSP nonce for this request
+  const nonce = crypto.randomBytes(16).toString('base64');
+
   // Log the incoming request
   RequestMonitor.logRequest(request);
 
@@ -177,28 +183,36 @@ export function middleware(request: NextRequest) {
 
   // Enhanced Security Headers
 
-  // Enhanced Content Security Policy with reporting
-  // Note: If you need inline scripts/styles, use SecurityUtils.generateCSPWithNonce()
-  // and pass the nonce to your components via headers or context
-  const csp = [
-    "default-src 'self'",
-    "script-src 'self' https://js.sentry-cdn.com",
-    "style-src 'self' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
-    "img-src 'self' data: https: blob:",
-    "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io",
-    "media-src 'self'",
-    "object-src 'none'",
-    "frame-src 'none'",
-    "frame-ancestors 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    'upgrade-insecure-requests',
-    `report-uri /api/security/csp-report`,
-    `report-to /api/security/csp-report`,
-  ].join('; ');
+  // Enhanced Content Security Policy with nonce (conditionally applied)
+  const cspEnabled = process.env.CSP_ENABLED !== 'false';
 
-  response.headers.set('Content-Security-Policy', csp);
+  if (cspEnabled) {
+    const csp = [
+      "default-src 'self'",
+      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com`,
+      `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: https: blob:",
+      "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io",
+      "media-src 'self'",
+      "object-src 'none'",
+      "frame-src 'none'",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      'upgrade-insecure-requests',
+      `report-uri /api/security/csp-report`,
+      `report-to /api/security/csp-report`,
+    ].join('; ');
+
+    response.headers.set('Content-Security-Policy', csp);
+  } else {
+    // When CSP is disabled, set a permissive policy for development/testing
+    response.headers.set(
+      'Content-Security-Policy',
+      "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:"
+    );
+  }
 
   // Prevent clickjacking
   response.headers.set('X-Frame-Options', 'DENY');

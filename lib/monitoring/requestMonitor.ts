@@ -1,8 +1,35 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
-import { logApiRequest, logApiResponse, logError, logWarn } from '@/lib/logger';
 import { PerformanceMonitor } from './performanceMonitor';
 import { ErrorTracker } from './errorTracker';
+
+// Edge Runtime compatible logging functions
+const logApiRequest = (
+  method: string,
+  url: string,
+  userId?: string,
+  meta?: Record<string, unknown>
+) => {
+  console.log('API Request', { method, url, userId, ...meta });
+};
+
+const logApiResponse = (
+  method: string,
+  url: string,
+  status: number,
+  duration?: number,
+  meta?: Record<string, unknown>
+) => {
+  console.log('API Response', { method, url, status, duration, ...meta });
+};
+
+const logError = (message: string, error?: unknown, meta?: Record<string, unknown>) => {
+  console.error(message, { error, ...meta });
+};
+
+const logWarn = (message: string, meta?: Record<string, unknown>) => {
+  console.warn(message, meta);
+};
 
 /**
  * Enhanced request logging and monitoring middleware

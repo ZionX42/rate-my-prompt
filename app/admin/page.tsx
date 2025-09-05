@@ -1,5 +1,4 @@
-import { redirect } from 'next/navigation';
-import { isCurrentUserAdmin } from '@/lib/auth';
+import CSPToggle from '@/components/admin/CSPToggle';
 
 export default async function AdminDashboard() {
   // TODO: Enable server-side check once auth is implemented
@@ -33,14 +32,9 @@ export default async function AdminDashboard() {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">System Settings</h2>
-          <p className="text-gray-600 mb-4">Configure system-wide settings</p>
-          <button
-            className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
-            disabled
-          >
-            Coming Soon
-          </button>
+          <h2 className="text-xl font-semibold mb-4">Security Settings</h2>
+          <p className="text-gray-600 mb-4">Manage security policies and CSP</p>
+          <CSPToggle />
         </div>
       </div>
     </div>
