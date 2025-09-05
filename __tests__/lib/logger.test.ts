@@ -1,7 +1,21 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
-import { logError, logWarn, logInfo, logDebug, logUserAction, logApiRequest } from '@/lib/logger';
 
-// Mock Winston to avoid actual file I/O in tests
+// Mock console methods to suppress logger output during tests
+const originalConsole = { ...console };
+beforeAll(() => {
+  console.log = jest.fn();
+  console.error = jest.fn();
+  console.warn = jest.fn();
+  console.info = jest.fn();
+  console.debug = jest.fn();
+});
+
+afterAll(() => {
+  // Restore original console methods
+  Object.assign(console, originalConsole);
+});
+
+// Mock winston to prevent actual logging
 jest.mock('winston', () => ({
   createLogger: jest.fn(() => ({
     error: jest.fn(),
@@ -24,6 +38,8 @@ jest.mock('winston', () => ({
   },
 }));
 
+import { logError, logWarn, logInfo, logDebug, logUserAction, logApiRequest } from '@/lib/logger';
+
 describe('Logger', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -38,66 +54,60 @@ describe('Logger', () => {
       const error = new Error('Test error');
       const meta = { userId: 'user123' };
 
-      logError('Something went wrong', error, meta);
-
-      // In a real test, you'd verify the logger was called correctly
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() => logError('Something went wrong', error, meta)).not.toThrow();
     });
 
     it('should log warning messages', () => {
       const meta = { component: 'auth' };
 
-      logWarn('Warning message', meta);
-
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() => logWarn('Warning message', meta)).not.toThrow();
     });
 
     it('should log info messages', () => {
       const meta = { action: 'login' };
 
-      logInfo('User logged in', meta);
-
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() => logInfo('User logged in', meta)).not.toThrow();
     });
 
     it('should log debug messages', () => {
       const meta = { step: 'validation' };
 
-      logDebug('Debug information', meta);
-
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() => logDebug('Debug information', meta)).not.toThrow();
     });
   });
 
   describe('Structured logging functions', () => {
     it('should log user actions with proper structure', () => {
-      logUserAction('prompt_created', 'user123', {
-        promptId: 'prompt456',
-        category: 'coding',
-      });
-
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() =>
+        logUserAction('prompt_created', 'user123', {
+          promptId: 'prompt456',
+          category: 'coding',
+        })
+      ).not.toThrow();
     });
 
     it('should log API requests with proper structure', () => {
-      logApiRequest('POST', '/api/prompts', 'user123', {
-        userAgent: 'Mozilla/5.0',
-        ip: '192.168.1.1',
-      });
-
-      expect(true).toBe(true); // Placeholder assertion
+      expect(() =>
+        logApiRequest('POST', '/api/prompts', 'user123', {
+          userAgent: 'Mozilla/5.0',
+          ip: '192.168.1.1',
+        })
+      ).not.toThrow();
     });
   });
 
   describe('Environment-based configuration', () => {
     it('should respect LOG_LEVEL environment variable', () => {
       // Test that log level configuration works
-      expect(true).toBe(true); // Placeholder assertion
+      // Since we're mocking the logger, we can't easily test environment config
+      // This would require mocking the winston module differently
+      expect(true).toBe(true); // Environment config test - would need more complex mocking
     });
 
     it('should configure differently for production vs development', () => {
       // Test environment-specific configuration
-      expect(true).toBe(true); // Placeholder assertion
+      // This would also require more complex mocking of the winston logger creation
+      expect(true).toBe(true); // Environment config test - would need more complex mocking
     });
   });
 

@@ -1,150 +1,157 @@
 import bcrypt from 'bcryptjs';
+import { describe, it, expect } from '@jest/globals';
 
-// Simple password utilities for testing (without server-only)
-class TestPasswordUtils {
-  private static readonly SALT_ROUNDS = 12;
+describe('Security Tests', () => {
+  // Simple password utilities for testing (without server-only)
+  class TestPasswordUtils {
+    private static readonly SALT_ROUNDS = 12;
 
-  static async hash(password: string): Promise<string> {
-    const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
-    return await bcrypt.hash(password, salt);
-  }
-
-  static async verify(password: string, hash: string): Promise<boolean> {
-    return await bcrypt.compare(password, hash);
-  }
-
-  static validateStrength(password: string): { isValid: boolean; errors: string[] } {
-    const errors: string[] = [];
-
-    if (password.length < 8) {
-      errors.push('Password must be at least 8 characters long');
+    static async hash(password: string): Promise<string> {
+      const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
+      return await bcrypt.hash(password, salt);
     }
 
-    if (!/[A-Z]/.test(password)) {
-      errors.push('Password must contain at least one uppercase letter');
+    static async verify(password: string, hash: string): Promise<boolean> {
+      return await bcrypt.compare(password, hash);
     }
 
-    if (!/[a-z]/.test(password)) {
-      errors.push('Password must contain at least one lowercase letter');
-    }
+    static validateStrength(password: string): { isValid: boolean; errors: string[] } {
+      const errors: string[] = [];
 
-    if (!/\d/.test(password)) {
-      errors.push('Password must contain at least one number');
-    }
+      if (password.length < 8) {
+        errors.push('Password must be at least 8 characters long');
+      }
 
-    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
-      errors.push('Password must contain at least one special character');
-    }
+      if (!/[A-Z]/.test(password)) {
+        errors.push('Password must contain at least one uppercase letter');
+      }
 
-    return {
-      isValid: errors.length === 0,
-      errors,
-    };
-  }
-}
+      if (!/[a-z]/.test(password)) {
+        errors.push('Password must contain at least one lowercase letter');
+      }
 
-// Mock JWT functions for testing
-class TestJWT {
-  static async createJWT(payload: Record<string, unknown>): Promise<string> {
-    // Simple mock JWT creation for testing
-    const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-    const body = btoa(JSON.stringify({ ...payload, iat: Date.now(), exp: Date.now() + 86400000 }));
-    const signature = btoa('mock-signature');
-    return `${header}.${body}.${signature}`;
-  }
+      if (!/\d/.test(password)) {
+        errors.push('Password must contain at least one number');
+      }
 
-  static async verifyJWT(token: string): Promise<Record<string, unknown> | null> {
-    try {
-      const parts = token.split('.');
-      if (parts.length !== 3) return null;
+      if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+        errors.push('Password must contain at least one special character');
+      }
 
-      const payload = JSON.parse(atob(parts[1]));
-      if (payload.exp < Date.now()) return null;
-
-      return payload;
-    } catch {
-      return null;
+      return {
+        isValid: errors.length === 0,
+        errors,
+      };
     }
   }
-}
 
-async function testPasswordHashing() {
-  console.log('🧪 Testing Password Hashing...');
+  // Mock JWT functions for testing
+  class TestJWT {
+    static async createJWT(payload: Record<string, unknown>): Promise<string> {
+      // Simple mock JWT creation for testing
+      const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+      const body = btoa(
+        JSON.stringify({ ...payload, iat: Date.now(), exp: Date.now() + 86400000 })
+      );
+      const signature = btoa('mock-signature');
+      return `${header}.${body}.${signature}`;
+    }
 
-  const testPassword = 'TestPassword123!';
+    static async verifyJWT(token: string): Promise<Record<string, unknown> | null> {
+      try {
+        const parts = token.split('.');
+        if (parts.length !== 3) return null;
 
-  // Test password hashing
-  const hash = await TestPasswordUtils.hash(testPassword);
-  console.log('✅ Password hashed successfully');
+        const payload = JSON.parse(atob(parts[1]));
+        if (payload.exp < Date.now()) return null;
 
-  // Test password verification
-  const isValid = await TestPasswordUtils.verify(testPassword, hash);
-  console.log('✅ Password verification:', isValid ? 'PASSED' : 'FAILED');
-
-  // Test invalid password
-  const isInvalid = await TestPasswordUtils.verify('WrongPassword', hash);
-  console.log('✅ Invalid password verification:', !isInvalid ? 'PASSED' : 'FAILED');
-
-  // Test password strength validation
-  const strongPassword = 'StrongPass123!';
-  const weakPassword = 'weak';
-
-  const strongValidation = TestPasswordUtils.validateStrength(strongPassword);
-  const weakValidation = TestPasswordUtils.validateStrength(weakPassword);
-
-  console.log('✅ Strong password validation:', strongValidation.isValid ? 'PASSED' : 'FAILED');
-  console.log('✅ Weak password validation:', !weakValidation.isValid ? 'PASSED' : 'FAILED');
-
-  return true;
-}
-
-async function testJWT() {
-  console.log('\n🧪 Testing JWT Authentication...');
-
-  const payload = {
-    userId: 'test-user-123',
-    email: 'test@example.com',
-    role: 'USER',
-  };
-
-  // Test JWT creation
-  const token = await TestJWT.createJWT(payload);
-  console.log('✅ JWT token created successfully');
-
-  // Test JWT verification
-  const decoded = await TestJWT.verifyJWT(token);
-  console.log('✅ JWT verification:', decoded ? 'PASSED' : 'FAILED');
-
-  if (decoded) {
-    console.log('✅ JWT payload matches:', decoded.userId === payload.userId);
-    console.log('✅ JWT email matches:', decoded.email === payload.email);
+        return payload;
+      } catch {
+        return null;
+      }
+    }
   }
 
-  // Test invalid token
-  const invalidDecoded = await TestJWT.verifyJWT('invalid-token');
-  console.log('✅ Invalid token verification:', !invalidDecoded ? 'PASSED' : 'FAILED');
+  describe('Password Security', () => {
+    it('should hash passwords securely', async () => {
+      const testPassword = 'TestPassword123!';
 
-  return true;
-}
+      const hash = await TestPasswordUtils.hash(testPassword);
+      expect(hash).toBeDefined();
+      expect(typeof hash).toBe('string');
+      expect(hash.length).toBeGreaterThan(0);
+    });
 
-async function runSecurityTests() {
-  console.log('🔒 Running Security Tests...\n');
+    it('should verify correct passwords', async () => {
+      const testPassword = 'TestPassword123!';
 
-  try {
-    await testPasswordHashing();
-    await testJWT();
+      const hash = await TestPasswordUtils.hash(testPassword);
+      const isValid = await TestPasswordUtils.verify(testPassword, hash);
 
-    console.log('\n🎉 All security tests passed!');
-    return true;
-  } catch (error) {
-    console.error('\n❌ Security test failed:', error);
-    return false;
-  }
-}
+      expect(isValid).toBe(true);
+    });
 
-// Run tests if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runSecurityTests();
-}
+    it('should reject incorrect passwords', async () => {
+      const testPassword = 'TestPassword123!';
+      const wrongPassword = 'WrongPassword';
 
-export { runSecurityTests };
+      const hash = await TestPasswordUtils.hash(testPassword);
+      const isValid = await TestPasswordUtils.verify(wrongPassword, hash);
+
+      expect(isValid).toBe(false);
+    });
+
+    it('should validate strong passwords', () => {
+      const strongPassword = 'StrongPass123!';
+      const validation = TestPasswordUtils.validateStrength(strongPassword);
+
+      expect(validation.isValid).toBe(true);
+      expect(validation.errors).toHaveLength(0);
+    });
+
+    it('should reject weak passwords', () => {
+      const weakPassword = 'weak';
+      const validation = TestPasswordUtils.validateStrength(weakPassword);
+
+      expect(validation.isValid).toBe(false);
+      expect(validation.errors.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('JWT Authentication', () => {
+    it('should create JWT tokens', async () => {
+      const payload = {
+        userId: 'test-user-123',
+        email: 'test@example.com',
+        role: 'USER',
+      };
+
+      const token = await TestJWT.createJWT(payload);
+      expect(token).toBeDefined();
+      expect(typeof token).toBe('string');
+      expect(token.split('.')).toHaveLength(3);
+    });
+
+    it('should verify valid JWT tokens', async () => {
+      const payload = {
+        userId: 'test-user-123',
+        email: 'test@example.com',
+        role: 'USER',
+      };
+
+      const token = await TestJWT.createJWT(payload);
+      const decoded = await TestJWT.verifyJWT(token);
+
+      expect(decoded).toBeDefined();
+      expect(decoded?.userId).toBe(payload.userId);
+      expect(decoded?.email).toBe(payload.email);
+    });
+
+    it('should reject invalid JWT tokens', async () => {
+      const invalidToken = 'invalid-token';
+      const decoded = await TestJWT.verifyJWT(invalidToken);
+
+      expect(decoded).toBeNull();
+    });
+  });
+});
