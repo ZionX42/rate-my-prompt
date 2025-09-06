@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 // Polyfill for assert in Edge Runtime
 if (typeof (globalThis as any).assert === 'undefined') {

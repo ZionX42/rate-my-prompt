@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
@@ -8,12 +9,12 @@ export default function NotFound() {
         The prompt you&apos;re looking for doesn&apos;t exist or has been removed.
       </p>
       <div className="flex justify-center gap-3">
-        <a href="/" className="cta cta--pink hover-glow-pink">
+        <Link href="/" className="cta cta--pink hover-glow-pink">
           Go Home
-        </a>
-        <a href="/prompts" className="cta cta--blue hover-glow-blue">
+        </Link>
+        <Link href="/prompts" className="cta cta--blue hover-glow-blue">
           Browse Prompts
-        </a>
+        </Link>
       </div>
     </main>
   );

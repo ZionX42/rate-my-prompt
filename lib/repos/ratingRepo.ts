@@ -17,7 +17,6 @@ function convertToRating(doc: RatingDoc): Rating {
 
 // Convert Rating to Appwrite document format
 function convertToRatingDoc(rating: Omit<Rating, '_id'>): Omit<RatingDoc, keyof Models.Document> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { createdAt, updatedAt, ...rest } = rating;
   return {
     ...rest,

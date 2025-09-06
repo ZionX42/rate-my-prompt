@@ -18,6 +18,9 @@ const eslintConfig = [
       '**/generated/**/*',
       'coverage/**/*',
       'node_modules/**/*',
+      'app/generated/prisma/runtime/**/*',
+      'app/generated/prisma/wasm.js',
+      'app/generated/prisma/wasm-engine-edge.js',
     ],
     rules: {
       'react/react-in-jsx-scope': 'off',
@@ -32,6 +35,12 @@ const eslintConfig = [
       '@typescript-eslint/no-require-imports': 'off', // For config files
       '@typescript-eslint/triple-slash-reference': 'off', // For Next.js types
       'import/no-anonymous-default-export': 'off', // For config files
+    },
+  },
+  {
+    files: ['cypress/support/component.ts'],
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
     },
   },
 ];

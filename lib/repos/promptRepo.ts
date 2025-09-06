@@ -35,7 +35,6 @@ function convertToPromptModel(doc: PromptDoc): PromptModel {
 function convertToPromptDoc(
   model: Omit<PromptModel, '_id'>
 ): Omit<PromptDoc, keyof Models.Document> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { createdAt, updatedAt, ...rest } = model;
   return {
     ...rest,

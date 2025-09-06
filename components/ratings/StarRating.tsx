@@ -12,7 +12,7 @@ export interface StarRatingProps {
   /** Show rating value as text */
   showValue?: boolean;
   /** Callback when rating changes */
-  // eslint-disable-next-line no-unused-vars
+
   onChange?: (value: number) => void;
   /** Additional CSS classes */
   className?: string;
@@ -105,7 +105,7 @@ export interface RatingSubmissionProps {
   /** Existing comment */
   existingComment?: string;
   /** Callback when rating is submitted */
-  // eslint-disable-next-line no-unused-vars
+
   onSubmit?: (data: { rating: number; comment?: string }) => void;
   /** Whether submission is in progress */
   isSubmitting?: boolean;
