@@ -25,13 +25,15 @@ describe('PromptForm', () => {
       ok: true,
       json: async () => ({ prompt: { _id: 'abc123' } }),
     });
-    // @ts-ignore
+    // @ts-expect-error: Mocking global.fetch for testing
     global.fetch = mockFetch;
 
     render(<PromptForm />);
 
     fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'My Prompt' } });
-    fireEvent.change(screen.getByLabelText(/Content/i), { target: { value: 'This is the prompt content.' } });
+    fireEvent.change(screen.getByLabelText(/Content/i), {
+      target: { value: 'This is the prompt content.' },
+    });
     fireEvent.change(screen.getByLabelText(/Author ID/i), { target: { value: 'user-1' } });
 
     fireEvent.click(screen.getByRole('button', { name: /submit prompt/i }));
@@ -44,19 +46,24 @@ describe('PromptForm', () => {
   it('shows server validation errors', async () => {
     const mockFetch = jest.fn().mockResolvedValue({
       ok: false,
-      json: async () => ({ error: 'Validation failed', issues: [{ path: 'title', message: 'bad' }] }),
+      json: async () => ({
+        error: 'Validation failed',
+        issues: [{ path: 'title', message: 'bad' }],
+      }),
     });
-    // @ts-ignore
+    // @ts-expect-error: Mocking global.fetch for testing
     global.fetch = mockFetch;
 
     render(<PromptForm />);
-  // Provide valid client-side values so submission proceeds and server returns validation errors
-  fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Valid Title' } });
-  fireEvent.change(screen.getByLabelText(/Content/i), { target: { value: 'This content is long enough.' } });
+    // Provide valid client-side values so submission proceeds and server returns validation errors
+    fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'Valid Title' } });
+    fireEvent.change(screen.getByLabelText(/Content/i), {
+      target: { value: 'This content is long enough.' },
+    });
     fireEvent.change(screen.getByLabelText(/Author ID/i), { target: { value: 'user-1' } });
     fireEvent.click(screen.getByRole('button', { name: /submit prompt/i }));
 
     await waitFor(() => expect(mockFetch).toHaveBeenCalled());
-  expect(await screen.findByText(/Submission failed|Validation failed/)).toBeInTheDocument();
+    expect(await screen.findByText(/Submission failed|Validation failed/)).toBeInTheDocument();
   });
 });

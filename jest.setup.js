@@ -48,3 +48,39 @@ try {
 } catch (e) {
   // ignore
 }
+
+// Enhanced mock cleanup and test utilities
+afterEach(() => {
+  // Clear all mocks after each test
+  jest.clearAllMocks();
+  jest.clearAllTimers();
+
+  // Clear any lingering async operations
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
+// Global test utilities
+global.testUtils = {
+  waitFor: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+  waitForCondition: async (condition, timeout = 5000, interval = 100) => {
+    const startTime = Date.now();
+    while (Date.now() - startTime < timeout) {
+      const result = await condition();
+      if (result) return;
+      await new Promise((resolve) => setTimeout(resolve, interval));
+    }
+    throw new Error(`Condition not met within ${timeout}ms`);
+  },
+};
+
+// Mock console methods to reduce noise in tests
+const originalConsole = { ...console };
+beforeAll(() => {
+  console.warn = jest.fn();
+  console.error = jest.fn();
+});
+
+afterAll(() => {
+  Object.assign(console, originalConsole);
+});

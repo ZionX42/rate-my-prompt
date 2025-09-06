@@ -10,7 +10,6 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     ignores: [
       'app/generated/**/*',
@@ -21,7 +20,13 @@ const eslintConfig = [
       'app/generated/prisma/runtime/**/*',
       'app/generated/prisma/wasm.js',
       'app/generated/prisma/wasm-engine-edge.js',
+      'app/generated/prisma/runtime/wasm-engine-edge.js',
+      '.next/**/*',
+      '.next/types/**/*',
     ],
+  },
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  {
     rules: {
       'react/react-in-jsx-scope': 'off',
       'no-unused-vars': 'off',

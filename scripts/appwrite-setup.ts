@@ -8,18 +8,19 @@ dotenv.config({ path: '.env.local' });
 async function main() {
   try {
     console.log('Setting up Appwrite collections...');
-    
+
     // Test connection
-    const { client, databases, databaseId } = await getAppwriteDb();
+    const { databases, databaseId } = await getAppwriteDb();
     console.log(`Connected to Appwrite project: ${process.env.APPWRITE_PROJECT_ID}`);
     console.log(`Database ID: ${databaseId}`);
-    
+
     // Create database if it doesn't exist
     try {
       await databases.get(databaseId);
       console.log('Database already exists');
-    } catch (error: any) {
-      if (error.code === 404) {
+    } catch (error: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((error as any).code === 404) {
         console.log('Creating database...');
         await databases.create(databaseId, 'Prompt Hub Database', true);
         console.log('Database created successfully');
@@ -27,11 +28,11 @@ async function main() {
         throw error;
       }
     }
-    
+
     // Ensure collections exist
     await ensureCollections();
     console.log('Appwrite collections are ready.');
-    
+
     process.exit(0);
   } catch (err) {
     console.error('Error setting up Appwrite collections:', err);

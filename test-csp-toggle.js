@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /**
  * CSP Toggle Test Script
  * Tests the CSP enable/disable functionality end-to-end

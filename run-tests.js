@@ -1,8 +1,8 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
 try {
   console.log('Running tests...');
-  const result = execSync('npx jest --coverage --passWithNoTests --ci', {
+  execSync('npx jest --coverage --passWithNoTests --ci', {
     stdio: 'inherit',
     cwd: process.cwd(),
     env: { ...process.env, CI: 'true' },
