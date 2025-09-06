@@ -1,0 +1,88 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+    - navigation [ref=e2]:
+        - generic [ref=e4]:
+            - generic [ref=e5]:
+                - link "Prompt Hub" [ref=e7] [cursor=pointer]:
+                    - /url: /
+                - generic [ref=e8]:
+                    - link "Community" [ref=e9] [cursor=pointer]:
+                        - /url: /community
+                    - link "Academy" [ref=e10] [cursor=pointer]:
+                        - /url: /academy
+                    - link "About" [ref=e11] [cursor=pointer]:
+                        - /url: /about
+                    - link "Contact" [ref=e12] [cursor=pointer]:
+                        - /url: /contact
+                    - link "Feedback" [ref=e13] [cursor=pointer]:
+                        - /url: /feedback
+            - generic [ref=e14]:
+                - search "Site" [ref=e16]:
+                    - generic [ref=e17]: Search
+                    - textbox "Search prompts" [ref=e18]
+                    - button "Submit search" [ref=e19] [cursor=pointer]: Search
+                - generic [ref=e20]:
+                    - link "Log in" [ref=e21] [cursor=pointer]:
+                        - /url: /login
+                    - link "Sign up" [ref=e22] [cursor=pointer]:
+                        - /url: /signup
+                    - button "Toggle theme" [ref=e23] [cursor=pointer]:
+                        - img "moon" [ref=e24] [cursor=pointer]: 🌙
+    - main [ref=e25]
+    - contentinfo [ref=e36]:
+        - generic [ref=e37]:
+            - generic [ref=e38]:
+                - generic [ref=e39]:
+                    - heading "Prompt Hub" [level=2] [ref=e40]
+                    - paragraph [ref=e41]: The premier platform for discovering, sharing, and rating AI prompts.
+                    - generic [ref=e42]:
+                        - link "Twitter" [ref=e43] [cursor=pointer]:
+                            - /url: https://twitter.com/prompthub
+                            - generic [ref=e44] [cursor=pointer]: Twitter
+                            - img [ref=e45] [cursor=pointer]
+                        - link "GitHub" [ref=e47] [cursor=pointer]:
+                            - /url: https://github.com/prompthub
+                            - generic [ref=e48] [cursor=pointer]: GitHub
+                            - img [ref=e49] [cursor=pointer]
+                - generic [ref=e51]:
+                    - heading "Quick Links" [level=2] [ref=e52]
+                    - list [ref=e53]:
+                        - listitem [ref=e54]:
+                            - link "Browse Prompts" [ref=e55] [cursor=pointer]:
+                                - /url: /prompts
+                        - listitem [ref=e56]:
+                            - link "Categories" [ref=e57] [cursor=pointer]:
+                                - /url: /categories
+                        - listitem [ref=e58]:
+                            - link "Submit a Prompt" [ref=e59] [cursor=pointer]:
+                                - /url: /submit
+                        - listitem [ref=e60]:
+                            - link "About Us" [ref=e61] [cursor=pointer]:
+                                - /url: /about
+                        - listitem [ref=e62]:
+                            - link "Contact" [ref=e63] [cursor=pointer]:
+                                - /url: /contact
+                        - listitem [ref=e64]:
+                            - link "FAQ" [ref=e65] [cursor=pointer]:
+                                - /url: /faq
+                - generic [ref=e66]:
+                    - heading "Legal" [level=2] [ref=e67]
+                    - list [ref=e68]:
+                        - listitem [ref=e69]:
+                            - link "Privacy Policy" [ref=e70] [cursor=pointer]:
+                                - /url: /privacy
+                        - listitem [ref=e71]:
+                            - link "Terms of Service" [ref=e72] [cursor=pointer]:
+                                - /url: /terms
+                        - listitem [ref=e73]:
+                            - link "Cookie Policy" [ref=e74] [cursor=pointer]:
+                                - /url: /cookie-policy
+            - generic [ref=e75]:
+                - paragraph [ref=e76]: © 2025 Prompt Hub. All rights reserved.
+                - paragraph [ref=e77]: Designed with ❤️ for the AI community
+    - button "Open Next.js Dev Tools" [ref=e83] [cursor=pointer]:
+        - img [ref=e84] [cursor=pointer]
+    - alert [ref=e88]
+```
