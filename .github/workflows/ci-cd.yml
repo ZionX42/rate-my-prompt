@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-nextjs-
 
   deploy-staging:
-    needs: build
+    needs: build-and-test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
