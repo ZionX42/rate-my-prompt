@@ -46,8 +46,8 @@ export class RequestMonitor {
     const startTime = Date.now();
     const requestId = this.generateRequestId();
 
-    // Start performance measurement
-    PerformanceMonitor.startMeasurement(`request_${req.method}_${req.url}`);
+    // Start performance measurement and store the measurement ID
+    const perfId = PerformanceMonitor.startMeasurement(`request_${req.method}_${req.url}`);
 
     // Extract request metadata
     const metadata = {
@@ -70,9 +70,16 @@ export class RequestMonitor {
     // Update request counts
     this.incrementRequestCount(req.method);
 
-    // Store start time for response logging
-    (req as NextRequest & { __startTime?: number; __requestId?: string }).__startTime = startTime;
-    (req as NextRequest & { __startTime?: number; __requestId?: string }).__requestId = requestId;
+    // Store start time and performance ID for response logging
+    (
+      req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string }
+    ).__startTime = startTime;
+    (
+      req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string }
+    ).__requestId = requestId;
+    (
+      req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string }
+    ).__perfId = perfId;
 
     return requestId;
   }
@@ -82,15 +89,25 @@ export class RequestMonitor {
    */
   static logResponse(req: NextRequest, res: NextResponse, userId?: string) {
     const startTime =
-      (req as NextRequest & { __startTime?: number; __requestId?: string }).__startTime ||
-      Date.now();
+      (req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string })
+        .__startTime || Date.now();
     const requestId =
-      (req as NextRequest & { __startTime?: number; __requestId?: string }).__requestId ||
-      this.generateRequestId();
+      (req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string })
+        .__requestId || this.generateRequestId();
+    const perfId = (
+      req as NextRequest & { __startTime?: number; __requestId?: string; __perfId?: string }
+    ).__perfId;
     const duration = Date.now() - startTime;
 
-    // Track response time with PerformanceMonitor
-    PerformanceMonitor.endMeasurement(`request_${req.method}_${req.url}`);
+    // Track response time with PerformanceMonitor (only if perfId exists)
+    if (perfId) {
+      try {
+        PerformanceMonitor.endMeasurement(perfId);
+      } catch (error) {
+        // Silently handle performance measurement errors
+        console.warn('Performance measurement failed:', error);
+      }
+    }
 
     // Track response time
     this.trackResponseTime(duration);

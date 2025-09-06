@@ -22,8 +22,12 @@ describe('Homepage E2E Tests', () => {
     // Check for navigation elements
     cy.get('nav').should('be.visible');
 
-    // Check for common navigation links
-    cy.contains('Home').should('be.visible');
+    // Check for brand/logo
+    cy.contains('Prompt Hub').should('be.visible');
+
+    // Check for navigation links that actually exist
+    cy.contains('Community').should('be.visible');
+    cy.contains('Academy').should('be.visible');
   });
 
   it('should have responsive layout', () => {

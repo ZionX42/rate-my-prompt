@@ -12,8 +12,21 @@ const nextConfig = {
 
   // Image optimization settings
   images: {
-    // Define allowed domains for external images
-    domains: ['example.com', 'cdn.example.com'],
+    // Define allowed remote patterns for external images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.example.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     // Set device sizes for responsive images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     // Set image sizes for different breakpoints
