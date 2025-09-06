@@ -11,12 +11,12 @@ export default function AcademyPage() {
   const tutorials = [
     {
       id: 1,
-      title: 'Mastering GPT-4 Prompt Engineering',
+      title: 'Mastering GPT-5 Prompt Engineering',
       excerpt:
-        'Learn advanced techniques for crafting effective prompts that produce consistent, high-quality results with GPT-4.',
+        'Learn advanced techniques for crafting effective prompts that produce consistent, high-quality results with GPT-5.',
       author: 'Dr. Sarah Chen',
       readTime: '15 min read',
-      tags: ['GPT-4', 'Advanced', 'Prompt Engineering'],
+      tags: ['GPT-5', 'Advanced', 'Prompt Engineering'],
       publishedAt: '2024-01-15',
       category: 'Advanced Techniques',
     },

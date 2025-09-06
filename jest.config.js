@@ -12,6 +12,8 @@ const customJestConfig = {
   watchman: false,
   watchPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.git/'],
   coverageDirectory: 'coverage',
+  // Load test environment variables
+  setupFiles: ['<rootDir>/jest.env.js'],
   collectCoverageFrom: [
     'app/**/*.{js,jsx,ts,tsx}',
     'components/**/*.{js,jsx,ts,tsx}',

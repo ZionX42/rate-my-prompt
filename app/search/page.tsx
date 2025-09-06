@@ -1,10 +1,7 @@
+'use client';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const Filters = dynamic(() => import('@/components/search/Filters'), {
-  ssr: false,
-  loading: () => <div className="mb-6 bg-card p-4 rounded-md shadow-soft">Loading filters...</div>,
-});
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
 
 interface PromptSearchResult {
   _id: string;
@@ -86,12 +83,9 @@ async function fetchSearchResults(params: Record<string, unknown>): Promise<Sear
     }
   });
 
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/search?${queryString}`,
-    {
-      cache: 'no-store', // Ensure fresh results
-    }
-  );
+  const response = await fetch(`/api/search?${queryString}`, {
+    cache: 'no-store',
+  });
 
   if (!response.ok) {
     throw new Error(`Search failed: ${response.status}`);
@@ -100,128 +94,168 @@ async function fetchSearchResults(params: Record<string, unknown>): Promise<Sear
   return response.json();
 }
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const resolvedSearchParams = await searchParams;
-  const params = parseParams(resolvedSearchParams);
+function SearchPageContent() {
+  const searchParams = useSearchParams();
+  const [results, setResults] = useState<SearchResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  let results: SearchResponse;
-  try {
-    results = await fetchSearchResults(params);
-  } catch (error) {
-    console.error('Search error:', error);
-    results = {
-      data: [],
-      meta: {
-        total: 0,
-        limit: params.limit,
-        offset: params.offset,
-        sort: params.sort,
-        collection: params.collection,
-        timestamp: new Date().toISOString(),
-      },
+  useEffect(() => {
+    const loadResults = async () => {
+      try {
+        setLoading(true);
+        const params = parseParams(Object.fromEntries(searchParams.entries()));
+        const searchResults = await fetchSearchResults(params);
+        setResults(searchResults);
+        setError(null);
+      } catch (err) {
+        console.error('Search error:', err);
+        setError(err instanceof Error ? err.message : 'Search failed');
+        setResults(null);
+      } finally {
+        setLoading(false);
+      }
     };
+
+    loadResults();
+  }, [searchParams]);
+
+  const params = parseParams(Object.fromEntries(searchParams.entries()));
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-6"></div>
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-20 bg-gray-200 rounded"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  const searchResults = results.data;
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <h1 className="text-2xl font-bold text-heading mb-4">Search Results</h1>
+        <div className="bg-red-50 border border-red-200 rounded-md p-4 mb-6">
+          <p className="text-red-800">Error: {error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const searchResults = results?.data || [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <h1 className="text-2xl font-bold text-heading mb-4">Search Results</h1>
-      <Filters />
+
       {params.q ? (
         <p className="text-subtext mb-6">Showing results for &quot;{params.q}&quot;</p>
       ) : (
         <p className="text-subtext mb-6">Browse recent prompts</p>
       )}
 
-      {/* Filters summary */}
-      <div className="flex flex-wrap gap-3 text-sm text-subtext mb-6">
-        {params.category && (
-          <span>
-            Category: <strong className="text-heading">{params.category}</strong>
-          </span>
-        )}
-        {typeof params.minRating === 'number' && (
-          <span>
-            Min rating: <strong className="text-heading">{params.minRating}⭐</strong>
-          </span>
-        )}
-        {params.dateFrom && (
-          <span>
-            From:{' '}
-            <strong className="text-heading">{params.dateFrom.toISOString().slice(0, 10)}</strong>
-          </span>
-        )}
-        {params.dateTo && (
-          <span>
-            To: <strong className="text-heading">{params.dateTo.toISOString().slice(0, 10)}</strong>
-          </span>
-        )}
+      {/* Results count */}
+      <div className="mb-6">
+        <p className="text-subtext">
+          {results?.meta.total || 0} results found
+          {params.limit && ` (showing ${Math.min(params.limit, searchResults.length)})`}
+        </p>
       </div>
 
-      {searchResults.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-subtext text-lg mb-2">No results found</div>
-          <p className="text-muted">Try adjusting your search criteria or browse all prompts.</p>
-        </div>
-      )}
-
-      {searchResults.length > 0 && (
-        <ul className="divide-y divide-border rounded-md overflow-hidden bg-card shadow-soft">
-          {searchResults.map((p) => (
-            <li key={p._id} className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <Link
-                    href={`/prompts/${p._id}`}
-                    className="text-lg font-semibold text-heading hover:underline"
-                  >
-                    {p.title}
-                  </Link>
-                  {p.category && (
-                    <div className="mt-1 text-xs text-subtext">Category: {p.category}</div>
-                  )}
-                  {p.authorId && (
-                    <div className="mt-1 text-xs text-subtext">Author: {p.authorId}</div>
-                  )}
-                  {p.tags && p.tags.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                      {p.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 bg-surface rounded-full text-subtext"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {p.score && (
-                    <div className="mt-1 text-xs text-accent-indigo">
-                      Relevance: {p.score.toFixed(1)}
-                    </div>
-                  )}
-                </div>
-                <div className="text-right text-sm text-subtext min-w-[120px]">
-                  {typeof p.avgRating === 'number' ? (
-                    <div>
-                      <span className="text-heading font-medium">{p.avgRating.toFixed(1)}</span> ⭐
-                      <div className="text-xs">{p.ratingCount || 0} ratings</div>
-                    </div>
-                  ) : (
-                    <div>No ratings</div>
-                  )}
-                </div>
+      {/* Search results */}
+      <div className="space-y-4">
+        {searchResults.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-subtext text-lg">No results found</p>
+            <p className="text-subtext mt-2">Try adjusting your search criteria</p>
+          </div>
+        ) : (
+          searchResults.map((result) => (
+            <div
+              key={result._id}
+              className="bg-card border border-border rounded-lg p-6 shadow-soft hover:shadow-medium transition-shadow"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <Link
+                  href={`/prompts/${result._id}`}
+                  className="text-xl font-semibold text-heading hover:text-primary transition-colors"
+                >
+                  {result.title}
+                </Link>
+                {result.avgRating && (
+                  <div className="flex items-center text-sm text-subtext">
+                    <span className="mr-1">★</span>
+                    {result.avgRating.toFixed(1)}
+                    {result.ratingCount && <span className="ml-1">({result.ratingCount})</span>}
+                  </div>
+                )}
               </div>
-              {p.description && <p className="mt-2 text-subtext">{p.description}</p>}
-            </li>
-          ))}
-        </ul>
-      )}
+
+              {result.description && (
+                <p className="text-subtext mb-3 line-clamp-2">{result.description}</p>
+              )}
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                {result.category && (
+                  <span className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">
+                    {result.category}
+                  </span>
+                )}
+                {result.tags &&
+                  result.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                {result.tags && result.tags.length > 3 && (
+                  <span className="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">
+                    +{result.tags.length - 3} more
+                  </span>
+                )}
+              </div>
+
+              <div className="flex justify-between items-center text-sm text-subtext">
+                <span>By {result.authorId || 'Anonymous'}</span>
+                {result.score && (
+                  <span className="text-primary font-medium">Score: {result.score.toFixed(2)}</span>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mb-6"></div>
+            <div className="space-y-4">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="h-20 bg-gray-200 rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <SearchPageContent />
+    </Suspense>
   );
 }

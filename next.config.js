@@ -74,40 +74,104 @@ const nextConfig = {
   // Server external packages
   serverExternalPackages: [],
 
-  // Custom webpack configuration
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Add custom webpack rules here
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    // Resolve aliases
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
-    };
-
-    return config;
-  },
-
-  // Headers for security and performance
+  // Enhanced security headers
   async headers() {
     return [
       {
         source: '/(.*)',
         headers: [
+          // Prevent clickjacking
           {
             key: 'X-Frame-Options',
             value: 'DENY',
           },
+          // Prevent MIME type sniffing
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
+          // Referrer policy
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
+          },
+          // XSS protection
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          // Additional XSS protection headers
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-origin',
+          },
+          // Prevent resource sniffing
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'off',
+          },
+          // Content Security Policy
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' https://js.sentry-cdn.com",
+              "style-src 'self' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com",
+              "img-src 'self' data: https: blob:",
+              "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io",
+              "media-src 'self'",
+              "object-src 'none'",
+              "frame-src 'none'",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+              'report-uri /api/security/csp-report',
+              'report-to /api/security/csp-report',
+            ].join('; '),
+          },
+          // HSTS (HTTP Strict Transport Security)
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          // Permissions Policy
+          {
+            key: 'Permissions-Policy',
+            value: [
+              'camera=()',
+              'microphone=()',
+              'geolocation=()',
+              'payment=()',
+              'usb=()',
+              'magnetometer=()',
+              'accelerometer=()',
+              'gyroscope=()',
+              'ambient-light-sensor=()',
+              'autoplay=()',
+              'encrypted-media=()',
+              'fullscreen=(self)',
+              'picture-in-picture=()',
+            ].join(', '),
+          },
+        ],
+      },
+      // API-specific headers
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'X-API-Version',
+            value: '1.0.0',
           },
         ],
       },

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'theme'; // 'dark' | 'light'
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ className = '' }: { className?: string }) {
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
@@ -39,10 +39,18 @@ export default function ThemeToggle() {
     <button
       aria-label="Toggle theme"
       onClick={toggle}
-      className="ml-2 rounded-full border border-border bg-surface/60 p-2 text-heading hover:bg-card hover-glow-yellow transition"
+      className={`rounded-full border border-border bg-surface/60 p-2 text-heading hover:bg-card hover-glow-yellow transition ${className}`}
       title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {theme === 'dark' ? <span role="img" aria-label="sun">🌞</span> : <span role="img" aria-label="moon">🌙</span>}
+      {theme === 'dark' ? (
+        <span role="img" aria-label="sun">
+          🌞
+        </span>
+      ) : (
+        <span role="img" aria-label="moon">
+          🌙
+        </span>
+      )}
     </button>
   );
 }

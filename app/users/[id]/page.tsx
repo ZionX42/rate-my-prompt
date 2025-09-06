@@ -30,7 +30,9 @@ export default async function UserProfilePage({ params }: { params: Promise<{ id
   const displayName = user?.displayName || `User ${id.slice(0, 6)}`;
   const bio = user?.bio || 'This is the user bio. Tell the world about yourself.';
   const avatarUrl = user?.avatarUrl || '/avatar-placeholder.png';
-  const joinedDate = user?.joinedAt ? new Date(user.joinedAt).toLocaleDateString() : 'recently';
+  const joinedDate = user?.joinedAt
+    ? new Date(user.joinedAt).toLocaleDateString('en-US')
+    : 'recently';
 
   return (
     <main className="container mx-auto px-4 py-8">

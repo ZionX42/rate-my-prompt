@@ -15,6 +15,9 @@ module.exports = {
         heading: 'rgb(var(--color-heading) / <alpha-value>)',
         subtext: 'rgb(var(--color-subtext) / <alpha-value>)',
         hfYellow: '#FFD21F',
+        accent: {
+          indigo: '#6A5CFF',
+        },
         // shadcn/ui colors
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -41,6 +44,7 @@ module.exports = {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          indigo: '#6A5CFF',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

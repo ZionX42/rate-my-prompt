@@ -37,6 +37,7 @@ export interface UserDoc extends Models.Document {
   role: string;
   isActive: boolean;
   joinedAt: string; // ISO datetime string from Appwrite
+  passwordHash?: string; // Hashed password for authentication
 }
 
 export async function getCollections() {

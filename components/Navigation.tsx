@@ -17,18 +17,6 @@ const Navigation = () => {
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
-                href="/prompts"
-                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Prompts
-              </Link>
-              <Link
-                href="/categories"
-                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Categories
-              </Link>
-              <Link
                 href="/community"
                 className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
@@ -46,26 +34,42 @@ const Navigation = () => {
               >
                 About
               </Link>
+              <Link
+                href="/contact"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/feedback"
+                className="border-transparent text-subtext hover:text-heading inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Feedback
+              </Link>
             </div>
           </div>
 
           {/* Right side navigation items */}
-          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
-            <SearchInput />
-            <Link
-              href="/login"
-              className="text-subtext hover:text-heading px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="ml-4 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
-              style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
-            >
-              Sign up
-            </Link>
-            <ThemeToggle />
+          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+            <div className="flex items-center">
+              <SearchInput />
+            </div>
+            <div className="flex items-center ml-4">
+              <Link
+                href="/login"
+                className="text-subtext hover:text-heading px-3 py-2 text-sm font-medium"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="ml-3 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
+                style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
+              >
+                Sign up
+              </Link>
+              <ThemeToggle className="ml-4" />
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -101,20 +105,8 @@ const Navigation = () => {
       <div className="hidden sm:hidden">
         <div className="pt-2 pb-3 space-y-1">
           <Link
-            href="/prompts"
-            className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-          >
-            Prompts
-          </Link>
-          <Link
-            href="/categories"
-            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-          >
-            Categories
-          </Link>
-          <Link
             href="/community"
-            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            className="bg-surface border-border text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             Community
           </Link>
@@ -129,6 +121,18 @@ const Navigation = () => {
             className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
           >
             About
+          </Link>
+          <Link
+            href="/contact"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Contact
+          </Link>
+          <Link
+            href="/feedback"
+            className="border-transparent text-subtext hover:bg-surface hover:border-border hover:text-heading block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+          >
+            Feedback
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-border">

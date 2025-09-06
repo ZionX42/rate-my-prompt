@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React from 'react';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
@@ -19,8 +19,8 @@ export default function Comments({ promptId, userId }: { promptId: string; userI
       if (!res.ok) throw new Error(`Failed to fetch comments: ${res.status}`);
       const data = await res.json();
       setThreads(data);
-    } catch (e: any) {
-      setError(e.message || 'Failed to load comments');
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to load comments');
     } finally {
       setLoading(false);
     }
@@ -96,7 +96,11 @@ export default function Comments({ promptId, userId }: { promptId: string; userI
           {replyTo && (
             <div className="mt-4">
               <div className="text-sm text-subtext mb-2">Replying to a comment</div>
-              <CommentForm submitLabel="Reply" onCancel={() => setReplyTo(null)} onSubmit={create} />
+              <CommentForm
+                submitLabel="Reply"
+                onCancel={() => setReplyTo(null)}
+                onSubmit={create}
+              />
             </div>
           )}
         </>

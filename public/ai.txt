@@ -1,0 +1,39 @@
+# AI.txt for Prompt Hub
+# This file provides information for AI crawlers and training systems
+
+# Site Information
+Site-Name: Prompt Hub
+Site-Description: A community platform for sharing, discovering, and rating AI prompts
+Site-URL: [Insert_website_URL_here]
+Site-Language: en-US
+
+# Content Guidelines for AI Training
+Content-Type: AI Prompts, Community Discussions, Educational Content
+Content-License: All user-generated content is licensed under Creative Commons
+Training-Permission: AI systems may use public content for training with attribution
+
+# Crawling Permissions
+AI-Agent: *
+Allow: /
+
+# Content Areas
+Allow: /prompts/
+Allow: /categories/
+Allow: /community/
+Allow: /academy/
+Allow: /about
+Allow: /faq
+
+# Restricted Areas
+Disallow: /admin/
+Disallow: /api/admin/
+Disallow: /users/*/edit
+Disallow: /settings
+
+# Data Usage Guidelines
+Data-Usage: Public content may be used for AI training
+Attribution-Required: Please attribute content to original authors
+Contact: For AI training partnerships, contact admin@prompthub.com
+
+# Last Updated
+Last-Updated: 2025-09-05

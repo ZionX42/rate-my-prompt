@@ -2,11 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import FeaturedPrompts from '@/components/prompts/FeaturedPrompts';
 import CategoryNavigation from '@/components/prompts/CategoryNavigation';
+import Container from '@/components/layout/Container';
 import { PromptModel } from '@/lib/models/prompt';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <section className={`px-6 md:px-10 lg:px-16 py-12 md:py-16 ${className}`}>{children}</section>
+    <section className={`py-12 md:py-16 ${className}`}>
+      <Container maxWidth="7xl">{children}</Container>
+    </section>
   );
 }
 
@@ -103,6 +106,27 @@ export default async function HomePage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+        {/* Newsletter Signup */}
+        <div
+          className="card p-8 text-center bg-gradient-to-r from-primary/5 to-secondary/5"
+          style={{ marginTop: '130px' }}
+        >
+          <h3 className="text-2xl font-bold text-heading mb-4">Stay Updated</h3>
+          <p className="text-subtext mb-6 max-w-2xl mx-auto">
+            Get notified when we publish new tutorials and learning resources. Join our community of
+            learners and stay ahead of the curve.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+              Subscribe
+            </button>
           </div>
         </div>
       </Section>

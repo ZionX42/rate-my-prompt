@@ -74,8 +74,12 @@ describe('FeaturedPrompts', () => {
     expect(screen.getByText('By user123')).toBeInTheDocument();
     expect(screen.getByText('By user456')).toBeInTheDocument();
     // Use more flexible date matching to handle different locale formats
-    expect(screen.getByText(new Date('2024-01-15').toLocaleDateString())).toBeInTheDocument();
-    expect(screen.getByText(new Date('2024-01-16').toLocaleDateString())).toBeInTheDocument();
+    expect(
+      screen.getByText(new Date('2024-01-15').toLocaleDateString('en-US'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(new Date('2024-01-16').toLocaleDateString('en-US'))
+    ).toBeInTheDocument();
   });
 
   it('shows view details links', () => {

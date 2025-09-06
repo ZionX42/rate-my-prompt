@@ -1,15 +1,20 @@
 import { Client, Databases, ID } from '@/lib/appwrite/sdk';
+import { serverConfig, validateServerConfig } from '@/lib/config/server';
+import 'server-only';
 
-// Appwrite client configuration
+// Appwrite client configuration - SERVER SIDE ONLY
 let client: Client;
 let databases: Databases;
 
 export function getAppwriteClient(): Client {
   if (!client) {
+    // Validate configuration before creating client
+    validateServerConfig();
+
     client = new Client()
-      .setEndpoint(process.env.APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1')
-      .setProject(process.env.APPWRITE_PROJECT_ID || '')
-      .setKey(process.env.APPWRITE_API_KEY || '');
+      .setEndpoint(serverConfig.appwrite.endpoint)
+      .setProject(serverConfig.appwrite.projectId)
+      .setKey(serverConfig.appwrite.apiKey);
   }
   return client;
 }
@@ -23,14 +28,7 @@ export function getAppwriteDatabases(): Databases {
 
 export async function getAppwriteDb() {
   const client = getAppwriteClient();
-  const databaseId = process.env.APPWRITE_DATABASE_ID || 'prompt-hub';
-
-  // Ensure we have the required environment variables
-  if (!process.env.APPWRITE_PROJECT_ID || !process.env.APPWRITE_API_KEY) {
-    throw new Error(
-      'Appwrite configuration missing: APPWRITE_PROJECT_ID and APPWRITE_API_KEY are required'
-    );
-  }
+  const databaseId = serverConfig.appwrite.databaseId;
 
   return {
     client,

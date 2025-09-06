@@ -1,0 +1,17 @@
+{
+  "low": true,
+  "moderate": true,
+  "high": true,
+  "critical": true,
+  "allowlist": [],
+  "path-allowlist": [],
+  "report": {
+    "type": "full",
+    "path": "./audit-results"
+  },
+  "output-format": "text",
+  "retry": {
+    "count": 3,
+    "delay": 1000
+  }
+}

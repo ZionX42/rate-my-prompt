@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import React from 'react';
 import './globals.css';
+import '@/lib/polyfills'; // Import polyfills for Edge Runtime compatibility
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
