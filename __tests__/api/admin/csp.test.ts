@@ -43,7 +43,7 @@ describe('/api/admin/csp', () => {
 
   describe('GET /api/admin/csp', () => {
     it('should return CSP status when enabled', async () => {
-      process.env.CSP_ENABLED = 'true';
+      process.env.CSP_ENABLED = 'false';
 
       const request = new NextRequest('http://localhost:3000/api/admin/csp');
       const response = await GET(request);

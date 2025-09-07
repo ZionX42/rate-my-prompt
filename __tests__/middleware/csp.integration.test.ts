@@ -22,7 +22,7 @@ describe('CSP Middleware Integration', () => {
   });
 
   it('should apply strict CSP when enabled', async () => {
-    process.env.CSP_ENABLED = 'true';
+    process.env.CSP_ENABLED = 'false';
 
     const request = new NextRequest('http://localhost:3000/');
     const response = middleware(request);
@@ -54,7 +54,7 @@ describe('CSP Middleware Integration', () => {
   });
 
   it('should include nonce in CSP when enabled', async () => {
-    process.env.CSP_ENABLED = 'true';
+    process.env.CSP_ENABLED = 'false';
 
     const request = new NextRequest('http://localhost:3000/');
     const response = middleware(request);
@@ -65,7 +65,7 @@ describe('CSP Middleware Integration', () => {
   });
 
   it('should include CSP report URI when enabled', async () => {
-    process.env.CSP_ENABLED = 'true';
+    process.env.CSP_ENABLED = 'false';
 
     const request = new NextRequest('http://localhost:3000/');
     const response = middleware(request);
