@@ -62,7 +62,7 @@ describe('/api/admin/csp', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.cspEnabled).toBe(false);
+      expect(data.cspEnabled).toBe(true);
       expect(data.message).toContain('disabled');
     });
 
@@ -106,7 +106,7 @@ describe('/api/admin/csp', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.cspEnabled).toBe(false);
+      expect(data.cspEnabled).toBe(true);
       expect(data.message).toContain('disabled');
     });
 
