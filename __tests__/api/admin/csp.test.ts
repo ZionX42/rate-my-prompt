@@ -43,7 +43,7 @@ describe('/api/admin/csp', () => {
 
   describe('GET /api/admin/csp', () => {
     it('should return CSP status when enabled', async () => {
-      process.env.CSP_ENABLED = 'false';
+      process.env.CSP_ENABLED = 'true';
 
       const request = new NextRequest('http://localhost:3000/api/admin/csp');
       const response = await GET(request);
@@ -62,7 +62,7 @@ describe('/api/admin/csp', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.cspEnabled).toBe(true);
+      expect(data.cspEnabled).toBe(false);
       expect(data.message).toContain('disabled');
     });
 
@@ -106,7 +106,7 @@ describe('/api/admin/csp', () => {
       const data = await response.json();
 
       expect(response.status).toBe(200);
-      expect(data.cspEnabled).toBe(true);
+      expect(data.cspEnabled).toBe(false);
       expect(data.message).toContain('disabled');
     });
 
