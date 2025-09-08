@@ -23,7 +23,7 @@ export async function GET(req: NextRequest): Promise<Response> {
     }
 
     // Read current CSP status from environment
-    const cspEnabled = process.env.CSP_ENABLED !== 'true';
+    const cspEnabled = process.env.CSP_ENABLED !== 'false';
 
     return ok({
       cspEnabled,
