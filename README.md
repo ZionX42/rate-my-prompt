@@ -1,26 +1,16 @@
 # AI Project
 
-## Environment Variables
+An AI-based solution designed to address specific user needs, built with Next.js, Tailwind CSS, and Appwrite.
 
-Ensure you have a `.env.local` file with required variables. Example:
+## Table of Contents
 
-```env
-# Database
-DATABASE_URL="..."
-
-# Appwrite Configuration
-NEXT_PUBLIC_APPWRITE_ENDPOINT="https://cloud.appwrite.io/v1"
-NEXT_PUBLIC_APPWRITE_PROJECT_ID="your-project-id"
-APPWRITE_API_KEY="your-api-key"
-```
-
-## Setup
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env.local` and configure your Appwrite settings
-4. Set up Appwrite collections: `npm run appwrite:setup`
-5. Start development server: `npm run dev`
+- [Overview](#overview)
+- [Project Structure](#project-structure)
+- [Setup](#setup)
+- [Scripts](#scripts)
+- [Testing](#testing)
+- [Dependencies](#dependencies)
+- [Contribution](#contribution)
 
 ## Scripts
 
