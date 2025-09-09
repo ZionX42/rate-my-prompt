@@ -189,8 +189,8 @@ export function middleware(request: NextRequest) {
   if (cspEnabled) {
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com`,
-      `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net`,
+      `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com`,
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: https: blob:",
       "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io",

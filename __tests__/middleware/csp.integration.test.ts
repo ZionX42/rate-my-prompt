@@ -60,8 +60,12 @@ describe('CSP Middleware Integration', () => {
     const response = middleware(request);
 
     const csp = response.headers.get('Content-Security-Policy');
-    expect(csp).toMatch(/script-src 'self' 'nonce-[^']+'/);
-    expect(csp).toMatch(/style-src 'self' 'nonce-[^']+'/);
+    expect(csp).toMatch(
+      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net/
+    );
+    expect(csp).toMatch(
+      /style-src 'self' 'nonce-[^']+' 'unsafe-inline' https:\/\/fonts\.googleapis\.com/
+    );
   });
 
   it('should include CSP report URI when enabled', async () => {
