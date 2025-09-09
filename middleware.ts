@@ -187,18 +187,21 @@ export function middleware(request: NextRequest) {
   const cspEnabled = process.env.CSP_ENABLED !== 'false';
 
   if (cspEnabled) {
+    // Environment-specific allowances
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://prompts3.appwrite.network`,
-      `script-src-elem 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://prompts3.appwrite.network`,
-      `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
-      `style-src-attr 'nonce-${nonce}'`,
+      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network ${isDevelopment ? "'unsafe-eval'" : ''}`,
+      `script-src-elem 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network ${isDevelopment ? "'unsafe-eval'" : ''}`,
+      `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdn.jsdelivr.net`,
+      `style-src-attr 'nonce-${nonce}' 'unsafe-inline'`,
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: https: blob:",
-      "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io",
-      "media-src 'self'",
+      "img-src 'self' data: https: blob: https://images.unsplash.com https://avatars.githubusercontent.com",
+      "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io https://api.github.com wss://ws.pusherapp.com",
+      "media-src 'self' https:",
       "object-src 'none'",
-      "frame-src 'none'",
+      'frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io',
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

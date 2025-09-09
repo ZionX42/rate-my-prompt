@@ -61,13 +61,25 @@ describe('CSP Middleware Integration', () => {
 
     const csp = response.headers.get('Content-Security-Policy');
     expect(csp).toMatch(
-      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/prompts3\.appwrite\.network/
+      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
     );
     expect(csp).toMatch(
-      /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/prompts3\.appwrite\.network/
+      /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
     );
-    expect(csp).toMatch(/style-src 'self' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com/);
-    expect(csp).toMatch(/style-src-attr 'nonce-[^']+'/);
+    expect(csp).toMatch(
+      /style-src 'self' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com https:\/\/cdn\.jsdelivr\.net/
+    );
+    expect(csp).toMatch(/style-src-attr 'nonce-[^']+' 'unsafe-inline'/);
+    expect(csp).toMatch(
+      /img-src 'self' data: https: blob: https:\/\/images\.unsplash\.com https:\/\/avatars\.githubusercontent\.com/
+    );
+    expect(csp).toMatch(
+      /connect-src 'self' https:\/\/api\.sentry\.io https:\/\/cloud\.appwrite\.io https:\/\/api\.github\.com wss:\/\/ws\.pusherapp\.com/
+    );
+    expect(csp).toMatch(/media-src 'self' https:/);
+    expect(csp).toMatch(
+      /frame-src https:\/\/www\.youtube\.com https:\/\/player\.vimeo\.com https:\/\/codesandbox\.io/
+    );
   });
 
   it('should include CSP report URI when enabled', async () => {
