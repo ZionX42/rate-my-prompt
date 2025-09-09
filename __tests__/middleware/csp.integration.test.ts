@@ -61,10 +61,12 @@ describe('CSP Middleware Integration', () => {
 
     const csp = response.headers.get('Content-Security-Policy');
     expect(csp).toMatch(
-      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net/
+      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/prompts3\.appwrite\.network/
+    );
+    expect(csp).toMatch(
+      /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/prompts3\.appwrite\.network/
     );
     expect(csp).toMatch(/style-src 'self' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com/);
-    expect(csp).toMatch(/script-src-elem 'nonce-[^']+'/);
     expect(csp).toMatch(/style-src-attr 'nonce-[^']+'/);
   });
 
