@@ -3,12 +3,20 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
   // Enable React Strict Mode for better development experience
   reactStrictMode: true,
+
+  // GitHub Pages configuration
+  ...(isGithubPages && {
+    assetPrefix: '/rate-my-prompt/',
+    basePath: '/rate-my-prompt',
+  }),
 
   // Image optimization settings
   images: {
@@ -31,40 +39,40 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     // Set image sizes for different breakpoints
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Enable image optimization for local images
-    unoptimized: false,
+    // Disable image optimization for static export
+    unoptimized: true,
     // Set minimum cache TTL for images
     minimumCacheTTL: 60,
   },
 
-  // Redirects and rewrites
-  async redirects() {
-    return [
-      {
-        source: '/old-path',
-        destination: '/new-path',
-        permanent: true,
-      },
-      {
-        source: '/temporary-redirect',
-        destination: '/new-destination',
-        permanent: false,
-      },
-    ];
-  },
+  // Redirects and rewrites - disabled for static export
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/old-path',
+  //       destination: '/new-path',
+  //       permanent: true,
+  //     },
+  //     {
+  //       source: '/temporary-redirect',
+  //       destination: '/new-destination',
+  //       permanent: false,
+  //     },
+  //   ];
+  // },
 
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*',
-      },
-      {
-        source: '/external/:path*',
-        destination: 'https://external-api.com/:path*',
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       destination: '/api/:path*',
+  //     },
+  //     {
+  //       source: '/external/:path*',
+  //       destination: 'https://external-api.com/:path*',
+  //     },
+  //   ];
+  // },
 
   // Environment variables
   env: {
@@ -87,8 +95,8 @@ const nextConfig = {
   // Server external packages
   serverExternalPackages: [],
 
-  // Enhanced security headers
-  async headers() {
+  // Enhanced security headers - disabled for static export
+  /* async headers() {
     return [
       {
         source: '/(.*)',
@@ -189,10 +197,11 @@ const nextConfig = {
         ],
       },
     ];
-  },
+  }, */
 
   // Output configuration
-  output: 'standalone',
+  output: 'export',
+  trailingSlash: true,
 
   // Compression
   compress: true,
