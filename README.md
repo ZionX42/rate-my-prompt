@@ -76,6 +76,10 @@ ai-project
 
 Please follow the guidelines outlined in the `ai/RULES.md` file for coding standards and collaboration protocols.
 
+## Project Journal
+
+A detailed log of the project's journey, including progress, setbacks, and key decisions, is maintained in [`JOURNAL.md`](JOURNAL.md).
+
 ## API responses and middleware
 
 All API routes use a standardized JSON response contract:
