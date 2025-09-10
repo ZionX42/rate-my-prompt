@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-import { SecurityUtils } from '@/lib/security/utils';
-
-// Generate a nonce for this request
-const nonce = SecurityUtils.generateNonce();
 
 export const metadata: Metadata = {
   title: 'Secure Page Example',
@@ -18,7 +14,7 @@ export default function SecurePageExample() {
       <p>This page demonstrates how to use CSP nonces for inline scripts/styles.</p>
 
       {/* Example of inline style with nonce (if needed) */}
-      <style nonce={nonce}>
+      <style>
         {`
           .secure-content {
             background-color: #f0f0f0;
@@ -34,7 +30,6 @@ export default function SecurePageExample() {
 
       {/* Example of inline script with nonce (if needed) */}
       <script
-        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: `
             console.log('This inline script is protected by CSP nonce');

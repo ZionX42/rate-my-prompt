@@ -109,8 +109,8 @@
   .hover-glow-blue:hover {
     box-shadow: 0 0 28px rgba(74, 144, 226, 0.45);
   }
-  .hover-glow-pink:hover {
-    box-shadow: 0 0 28px rgba(255, 75, 145, 0.45);
+  .newsletter-signup {
+    margin-top: 130px;
   }
 }
 

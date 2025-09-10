@@ -63,8 +63,7 @@ const Navigation = () => {
               </Link>
               <Link
                 href="/signup"
-                className="ml-3 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white"
-                style={{ backgroundImage: 'linear-gradient(90deg, #FF4B91, #5F5CFF)' }}
+                className="ml-3 inline-flex items-center px-4 py-2 rounded-2xl text-sm font-medium shadow-soft text-white cta--pink"
               >
                 Sign up
               </Link>
@@ -148,8 +147,7 @@ const Navigation = () => {
             <div className="mt-3">
               <Link
                 href="/signup"
-                className="block w-full px-4 py-2 text-base font-medium text-center text-white rounded-2xl"
-                style={{ backgroundImage: 'linear-gradient(90deg, #4A90E2, #34D399)' }}
+                className="block w-full px-4 py-2 text-base font-medium text-center text-white rounded-2xl cta--blue"
               >
                 Sign up
               </Link>

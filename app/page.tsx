@@ -109,10 +109,7 @@ export default async function HomePage() {
           </div>
         </div>
         {/* Newsletter Signup */}
-        <div
-          className="card p-8 text-center bg-gradient-to-r from-primary/5 to-secondary/5"
-          style={{ marginTop: '130px' }}
-        >
+        <div className="card p-8 text-center bg-gradient-to-r from-primary/5 to-secondary/5 newsletter-signup">
           <h3 className="text-2xl font-bold text-heading mb-4">Stay Updated</h3>
           <p className="text-subtext mb-6 max-w-2xl mx-auto">
             Get notified when we publish new tutorials and learning resources. Join our community of
