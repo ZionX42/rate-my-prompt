@@ -66,7 +66,7 @@ describe('CSP Middleware Integration', () => {
     expect(csp).toMatch(
       /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
     );
-    expect(csp).toMatch(/style-src 'self' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com/);
+    expect(csp).toMatch(/style-src 'self' 'unsafe-inline' https:\/\/fonts\.googleapis\.com/);
     expect(csp).toMatch(/style-src-attr 'unsafe-inline'/);
     expect(csp).toMatch(/img-src 'self' data: blob: https:/);
     expect(csp).toMatch(

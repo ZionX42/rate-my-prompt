@@ -201,8 +201,7 @@ export function middleware(request: NextRequest) {
       "default-src 'self'",
       `script-src 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
       `script-src-elem 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
-      // No 'unsafe-inline' for scripts. For styles, allow nonce + Google Fonts; keep style attributes allowed initially.
-      `style-src 'self' 'nonce-${nonce}' ${REQUIRED_FONTS}`,
+      `style-src 'self' 'unsafe-inline' ${REQUIRED_FONTS}`,
       `style-src-attr 'unsafe-inline'`,
       `font-src 'self' ${REQUIRED_FONT_ASSETS} data:`,
       `img-src 'self' data: blob: https: ${extraImgSrc}`.trim(),
