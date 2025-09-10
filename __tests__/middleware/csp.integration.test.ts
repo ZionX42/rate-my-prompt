@@ -66,13 +66,9 @@ describe('CSP Middleware Integration', () => {
     expect(csp).toMatch(
       /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
     );
-    expect(csp).toMatch(
-      /style-src 'self' 'unsafe-inline' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com https:\/\/cdn\.jsdelivr\.net/
-    );
+    expect(csp).toMatch(/style-src 'self' 'nonce-[^']+' https:\/\/fonts\.googleapis\.com/);
     expect(csp).toMatch(/style-src-attr 'unsafe-inline'/);
-    expect(csp).toMatch(
-      /img-src 'self' data: https: blob: https:\/\/images\.unsplash\.com https:\/\/avatars\.githubusercontent\.com/
-    );
+    expect(csp).toMatch(/img-src 'self' data: blob: https:/);
     expect(csp).toMatch(
       /connect-src 'self' https:\/\/api\.sentry\.io https:\/\/cloud\.appwrite\.io https:\/\/api\.github\.com wss:\/\/ws\.pusherapp\.com/
     );

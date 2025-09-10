@@ -38,22 +38,13 @@ const CORS_HEADERS = {
 };
 
 function getClientIP(request: NextRequest): string {
-  // Try different headers to get the real client IP
   const forwarded = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const clientIP = request.headers.get('x-client-ip');
 
-  if (forwarded) {
-    return forwarded.split(',')[0].trim();
-  }
-  if (realIP) {
-    return realIP;
-  }
-  if (clientIP) {
-    return clientIP;
-  }
-
-  // Fallback to unknown if no IP found
+  if (forwarded) return forwarded.split(',')[0].trim();
+  if (realIP) return realIP;
+  if (clientIP) return clientIP;
   return 'unknown';
 }
 
@@ -63,29 +54,20 @@ function isRateLimited(clientIP: string, isStrictEndpoint = false): boolean {
   const maxRequests = isStrictEndpoint ? RATE_LIMIT.strictMaxRequests : RATE_LIMIT.maxRequests;
 
   if (!clientData || now > clientData.resetTime) {
-    // First request or window expired
-    rateLimitStore.set(clientIP, {
-      count: 1,
-      resetTime: now + RATE_LIMIT.windowMs,
-    });
+    rateLimitStore.set(clientIP, { count: 1, resetTime: now + RATE_LIMIT.windowMs });
     return false;
   }
 
-  if (clientData.count >= maxRequests) {
-    return true;
-  }
+  if (clientData.count >= maxRequests) return true;
 
-  // Increment counter
   clientData.count++;
   return false;
 }
 
 function handleCORS(request: NextRequest): NextResponse | null {
-  // Handle preflight requests
   if (request.method === 'OPTIONS') {
     const origin = request.headers.get('origin');
 
-    // Check if origin is allowed
     const allowedOrigins = CORS_HEADERS['Access-Control-Allow-Origin'] as string[];
     const isAllowed = allowedOrigins.includes(origin || '');
 
@@ -95,7 +77,6 @@ function handleCORS(request: NextRequest): NextResponse | null {
 
     const response = new NextResponse(null, { status: 200 });
 
-    // Set CORS headers
     Object.entries(CORS_HEADERS).forEach(([key, value]) => {
       if (key === 'Access-Control-Allow-Origin') {
         response.headers.set(key, origin || allowedOrigins[0]);
@@ -113,7 +94,6 @@ function handleCORS(request: NextRequest): NextResponse | null {
 }
 
 function addSecurityHeaders(response: NextResponse, clientIP: string): void {
-  // Add rate limiting headers
   const clientData = rateLimitStore.get(clientIP);
   const remaining = clientData
     ? Math.max(0, RATE_LIMIT.maxRequests - clientData.count)
@@ -181,65 +161,86 @@ export function middleware(request: NextRequest) {
   // Create a new response
   const response = NextResponse.next();
 
-  // Enhanced Security Headers
-
-  // Enhanced Content Security Policy with nonce (conditionally applied)
+  // Central, minimal‑yet‑safe CSP configuration
   const cspEnabled = process.env.CSP_ENABLED !== 'false';
+  const isDev = process.env.NODE_ENV === 'development';
+
+  // Optional environment-driven extensions
+  const extraScriptSrc = (process.env.CSP_EXTRA_SCRIPT_SRC || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(' ');
+  const extraConnectSrc = (process.env.CSP_EXTRA_CONNECT_SRC || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(' ');
+  const extraImgSrc = (process.env.CSP_EXTRA_IMG_SRC || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(' ');
+  const extraFrameSrc = (process.env.CSP_EXTRA_FRAME_SRC || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(' ');
 
   if (cspEnabled) {
-    // Environment-specific allowances
-    const isDevelopment = process.env.NODE_ENV === 'development';
+    // Required third-party hosts used by the app
+    const REQUIRED_SCRIPT_CDNS =
+      'https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network';
+    const REQUIRED_CONNECT =
+      'https://api.sentry.io https://cloud.appwrite.io https://api.github.com wss://ws.pusherapp.com';
+    const REQUIRED_FONTS = 'https://fonts.googleapis.com';
+    const REQUIRED_FONT_ASSETS = 'https://fonts.gstatic.com';
 
+    // Lowest safe production policy:
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network ${isDevelopment ? "'unsafe-eval'" : ''}`,
-      `script-src-elem 'self' 'nonce-${nonce}' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network ${isDevelopment ? "'unsafe-eval'" : ''}`,
-      `style-src 'self' 'unsafe-inline' 'nonce-${nonce}' https://fonts.googleapis.com https://cdn.jsdelivr.net`,
+      `script-src 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
+      `script-src-elem 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
+      // No 'unsafe-inline' for scripts. For styles, allow nonce + Google Fonts; keep style attributes allowed initially.
+      `style-src 'self' 'nonce-${nonce}' ${REQUIRED_FONTS}`,
       `style-src-attr 'unsafe-inline'`,
-      "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: https: blob: https://images.unsplash.com https://avatars.githubusercontent.com",
-      "connect-src 'self' https://api.sentry.io https://cloud.appwrite.io https://api.github.com wss://ws.pusherapp.com",
+      `font-src 'self' ${REQUIRED_FONT_ASSETS} data:`,
+      `img-src 'self' data: blob: https: ${extraImgSrc}`.trim(),
+      `connect-src 'self' ${REQUIRED_CONNECT} ${extraConnectSrc}`.trim(),
       "media-src 'self' https:",
       "object-src 'none'",
-      'frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io',
+      // Only allow frames if actually needed; otherwise replace with: frame-src 'none'
+      `frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io ${extraFrameSrc}`.trim(),
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
       'upgrade-insecure-requests',
-      `report-uri /api/security/csp-report`,
-      `report-to /api/security/csp-report`,
+      'report-uri /api/security/csp-report',
+      'report-to /api/security/csp-report',
     ].join('; ');
 
     response.headers.set('Content-Security-Policy', csp);
   } else {
-    // When CSP is disabled, set a permissive policy for development/testing
+    // Dev/test-only permissive policy
     response.headers.set(
       'Content-Security-Policy',
       "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:"
     );
   }
 
-  // Prevent clickjacking
+  // Other security headers (centralized here)
   response.headers.set('X-Frame-Options', 'DENY');
-
-  // Prevent MIME type sniffing
   response.headers.set('X-Content-Type-Options', 'nosniff');
-
-  // XSS Protection (legacy but still useful)
   response.headers.set('X-XSS-Protection', '1; mode=block');
 
-  // Additional XSS protection headers
-  response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+  // More compatible than require-corp for third-party embeds
+  response.headers.set('Cross-Origin-Embedder-Policy', 'credentialless');
   response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
   response.headers.set('Cross-Origin-Resource-Policy', 'same-origin');
 
-  // Prevent resource sniffing
   response.headers.set('X-DNS-Prefetch-Control', 'off');
-
-  // Referrer Policy
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  // Enhanced Permissions Policy
   response.headers.set(
     'Permissions-Policy',
     'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), ' +
@@ -247,7 +248,6 @@ export function middleware(request: NextRequest) {
       'encrypted-media=(), fullscreen=(self), picture-in-picture=()'
   );
 
-  // HSTS (only in production)
   if (process.env.NODE_ENV === 'production') {
     response.headers.set(
       'Strict-Transport-Security',
@@ -255,7 +255,6 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // Remove server header
   response.headers.delete('X-Powered-By');
 
   // Add rate limiting headers
@@ -278,7 +277,7 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  // Admin route protection with proper authentication check
+  // Admin route protection (placeholder)
   if (request.nextUrl.pathname.startsWith('/admin')) {
     const sessionCookie = request.cookies.get('session')?.value;
     if (!sessionCookie) {
@@ -288,9 +287,6 @@ export function middleware(request: NextRequest) {
       RequestMonitor.logResponse(request, redirectResponse);
       return redirectResponse;
     }
-
-    // TODO: Add proper JWT verification for admin routes
-    // For now, we have basic session check
   }
 
   // Log the response
@@ -301,15 +297,5 @@ export function middleware(request: NextRequest) {
 
 // Configure which paths the middleware runs on
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api/health (health check endpoint)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public (public files)
-     */
-    '/((?!api/health|_next/static|_next/image|favicon.ico|public).*)',
-  ],
+  matcher: ['/((?!api/health|_next/static|_next/image|favicon.ico|public).*)'],
 };
