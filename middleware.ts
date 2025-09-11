@@ -160,7 +160,7 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   // Central, minimal‑yet‑safe CSP configuration
-  const cspEnabled = process.env.CSP_ENABLED !== 'false';
+  const cspEnabled = process.env.CSP_ENABLED !== 'true';
   const isDev = process.env.NODE_ENV === 'development';
 
   // Optional environment-driven extensions
