@@ -216,14 +216,14 @@ export function middleware(request: NextRequest) {
       'https://cdn.jsdelivr.net',
       'https://unpkg.com',
     ].join(' ');
-    const scriptHashes = [].join(' ');
+
     // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
     const csp = [
       "default-src 'self'",
       "base-uri 'self'",
       "object-src 'none'",
-      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${scriptHashes} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
-      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${scriptHashes} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
       `style-src 'self' 'unsafe-inline' ${REQUIRED_STYLE_CDNS}`,
       `style-src-attr 'unsafe-inline'`,
       `img-src 'self' data: blob: https: https://*.appwrite.network https://*.vercel.app ${extraImgSrc}`.trim(),
