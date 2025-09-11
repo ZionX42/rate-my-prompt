@@ -237,6 +237,7 @@ export function middleware(request: NextRequest) {
       "'sha256-lcRQORL3ymWWWs0UvQJi6i0nPYAd+1I3G0AdnKzzZTg='",
       "'sha256-T+340Sjn3lOmjA5Pv9eVI8xzVQuUQVELcY1k2uS6HpI='",
       "'sha256-tS3N62V+mW3nXmGWmYGen3F9PBnJ6DPC1J+Djri1YOE='",
+      "'sha256-XXeBUx4jdmTMjEOetmjsh9Gu35uN5+2a4W0QkB8Fpnk='", // New hash from error
     ].join(' ');
 
     // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
