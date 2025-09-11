@@ -53,7 +53,7 @@ describe('CSP Middleware Integration', () => {
     expect(response.headers.get('Content-Security-Policy')).toContain("script-src 'self'");
   });
 
-  it('should include nonce in CSP when enabled', async () => {
+  it('should include strict CSP without nonce and with wildcard hosts when enabled', async () => {
     process.env.CSP_ENABLED = 'true';
 
     const request = new NextRequest('http://localhost:3000/');
@@ -61,16 +61,16 @@ describe('CSP Middleware Integration', () => {
 
     const csp = response.headers.get('Content-Security-Policy');
     expect(csp).toMatch(
-      /script-src 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
+      /script-src 'self' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/\*\.appwrite\.network https:\/\/\*\.vercel\.app/
     );
     expect(csp).toMatch(
-      /script-src-elem 'self' 'nonce-[^']+' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/prompts3\.appwrite\.network/
+      /script-src-elem 'self' https:\/\/js\.sentry-cdn\.com https:\/\/cdn\.jsdelivr\.net https:\/\/unpkg\.com https:\/\/\*\.appwrite\.network https:\/\/\*\.vercel\.app/
     );
     expect(csp).toMatch(/style-src 'self' 'unsafe-inline' https:\/\/fonts\.googleapis\.com/);
     expect(csp).toMatch(/style-src-attr 'unsafe-inline'/);
     expect(csp).toMatch(/img-src 'self' data: blob: https:/);
     expect(csp).toMatch(
-      /connect-src 'self' https:\/\/api\.sentry\.io https:\/\/cloud\.appwrite\.io https:\/\/api\.github\.com wss:\/\/ws\.pusherapp\.com/
+      /connect-src 'self' https:\/\/api\.sentry\.io https:\/\/cloud\.appwrite\.io https:\/\/api\.github\.com wss:\/\/ws\.pusherapp\.com https:\/\/\*\.appwrite\.network https:\/\/\*\.vercel\.app/
     );
     expect(csp).toMatch(/media-src 'self' https:/);
     expect(csp).toMatch(

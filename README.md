@@ -104,3 +104,22 @@ Error body examples:
 - 400: `{ "error": "Validation failed", "details": [{ "path": "rating", "message": "Must be <= 5" }], "issues": [...] }`
 - 404: `{ "error": "Prompt not found" }`
 - 503: `{ "error": "Storage not configured" }`
+
+## Content Security Policy
+
+This app enforces a strict, nonce-free CSP for scripts. Inline JavaScript and HTML event attributes are disallowed. The policy supports multi-environment deployments via wildcard hosts for Appwrite and Vercel, and allows safe CDNs used in the app.
+
+- Script sources: `'self'`, `https://js.sentry-cdn.com`, `https://cdn.jsdelivr.net`, `https://unpkg.com`, `https://*.appwrite.network`, `https://*.vercel.app`
+- Styles: `'self' 'unsafe-inline'` plus Google Fonts and common CDNs
+- Images: `'self' data: blob: https:` plus Appwrite/Vercel wildcards
+- Connect: `'self'` plus Sentry, Appwrite, GitHub API, Pusher, and Appwrite/Vercel wildcards
+
+You can extend sources without code changes using env vars:
+
+```
+CSP_EXTRA_SCRIPT_SRC="https://example.cdn.com"
+CSP_EXTRA_CONNECT_SRC="https://api.example.com wss://ws.example.com"
+CSP_EXTRA_IMG_SRC="https://images.example.com"
+```
+
+See `docs/SECURITY.md` for the full policy and details.

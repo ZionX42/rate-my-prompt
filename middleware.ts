@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { RequestMonitor } from '@/lib/monitoring/requestMonitor';
 import { CSRFProtection } from '@/lib/security/csrf';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 
 export const runtime = 'nodejs';
 
@@ -74,7 +74,6 @@ function handleCORS(request: NextRequest): NextResponse | null {
     if (!isAllowed && process.env.NODE_ENV === 'production') {
       return new NextResponse('CORS policy violation', { status: 403 });
     }
-
     const response = new NextResponse(null, { status: 200 });
 
     Object.entries(CORS_HEADERS).forEach(([key, value]) => {
@@ -110,8 +109,7 @@ function addSecurityHeaders(response: NextResponse, clientIP: string): void {
 export function middleware(request: NextRequest) {
   const clientIP = getClientIP(request);
 
-  // Generate CSP nonce for this request
-  const nonce = crypto.randomBytes(16).toString('base64');
+  // Note: We avoid inline scripts and therefore do not generate a CSP nonce.
 
   // Log the incoming request
   RequestMonitor.logRequest(request);
@@ -181,38 +179,55 @@ export function middleware(request: NextRequest) {
     .map((s) => s.trim())
     .filter(Boolean)
     .join(' ');
-  const extraFrameSrc = (process.env.CSP_EXTRA_FRAME_SRC || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .join(' ');
+  // const extraFrameSrc = (process.env.CSP_EXTRA_FRAME_SRC || '')
+  //   .split(',')
+  //   .map((s) => s.trim())
+  //   .filter(Boolean)
+  //   .join(' ');
 
   if (cspEnabled) {
-    // Required third-party hosts used by the app
-    const REQUIRED_SCRIPT_CDNS =
-      'https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://prompts3.appwrite.network';
-    const REQUIRED_CONNECT =
-      'https://api.sentry.io https://cloud.appwrite.io https://api.github.com wss://ws.pusherapp.com';
-    const REQUIRED_FONTS = 'https://fonts.googleapis.com';
-    const REQUIRED_FONT_ASSETS = 'https://fonts.gstatic.com';
+    // Required third-party hosts used by the app (wildcards for multi-env deployments)
+    const REQUIRED_SCRIPT_CDNS = [
+      'https://js.sentry-cdn.com',
+      'https://cdn.jsdelivr.net',
+      'https://unpkg.com',
+      'https://*.appwrite.network',
+      'https://*.vercel.app',
+    ].join(' ');
+    const REQUIRED_CONNECT = [
+      'https://api.sentry.io',
+      'https://cloud.appwrite.io',
+      'https://api.github.com',
+      'wss://ws.pusherapp.com',
+      'https://*.appwrite.network',
+      'https://*.vercel.app',
+    ].join(' ');
+    const REQUIRED_STYLE_CDNS = [
+      'https://fonts.googleapis.com',
+      'https://cdn.jsdelivr.net',
+      'https://unpkg.com',
+    ].join(' ');
+    const REQUIRED_FONT_ASSETS = [
+      'https://fonts.gstatic.com',
+      'https://cdn.jsdelivr.net',
+      'https://unpkg.com',
+    ].join(' ');
 
-    // Lowest safe production policy:
+    // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
-      `script-src-elem 'self' 'nonce-${nonce}' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval'" : ''}`.trim(),
-      `style-src 'self' 'unsafe-inline' ${REQUIRED_FONTS}`,
-      `style-src-attr 'unsafe-inline'`,
-      `font-src 'self' ${REQUIRED_FONT_ASSETS} data:`,
-      `img-src 'self' data: blob: https: ${extraImgSrc}`.trim(),
-      `connect-src 'self' ${REQUIRED_CONNECT} ${extraConnectSrc}`.trim(),
-      "media-src 'self' https:",
-      "object-src 'none'",
-      // Only allow frames if actually needed; otherwise replace with: frame-src 'none'
-      `frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io ${extraFrameSrc}`.trim(),
-      "frame-ancestors 'none'",
       "base-uri 'self'",
-      "form-action 'self'",
+      "object-src 'none'",
+      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `style-src 'self' 'unsafe-inline' ${REQUIRED_STYLE_CDNS}`,
+      `style-src-attr 'unsafe-inline'`,
+      `img-src 'self' data: blob: https: https://*.appwrite.network https://*.vercel.app ${extraImgSrc}`.trim(),
+      `connect-src 'self' ${REQUIRED_CONNECT} ${extraConnectSrc}`.trim(),
+      `font-src 'self' ${REQUIRED_FONT_ASSETS} data:`,
+      `media-src 'self' https:`,
+      `frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io`,
+      "frame-ancestors 'self'",
       'upgrade-insecure-requests',
       'report-uri /api/security/csp-report',
       'report-to /api/security/csp-report',

@@ -23,17 +23,25 @@ Security headers are implemented in `middleware.ts` and applied globally to all 
 
 #### Content Security Policy (CSP)
 
+This project enforces a strict, nonce-free CSP for scripts. No inline JavaScript or HTML event attributes are allowed. Styles may use `'unsafe-inline'` to support React style attributes.
+
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.sentry-cdn.com;
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src 'self' https://fonts.gstatic.com;
-img-src 'self' data: https: blob:;
-connect-src 'self' https://api.sentry.io https://cloud.appwrite.io;
-frame-ancestors 'none';
 base-uri 'self';
-form-action 'self';
+object-src 'none';
+script-src 'self' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://*.appwrite.network https://*.vercel.app;
+script-src-elem 'self' https://js.sentry-cdn.com https://cdn.jsdelivr.net https://unpkg.com https://*.appwrite.network https://*.vercel.app;
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com;
+style-src-attr 'unsafe-inline';
+img-src 'self' data: blob: https: https://*.appwrite.network https://*.vercel.app;
+connect-src 'self' https://api.sentry.io https://cloud.appwrite.io https://api.github.com wss://ws.pusherapp.com https://*.appwrite.network https://*.vercel.app;
+font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com data:;
+media-src 'self' https:;
+frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io;
+frame-ancestors 'self';
 upgrade-insecure-requests;
+report-uri /api/security/csp-report;
+report-to /api/security/csp-report;
 ```
 
 #### Additional Security Headers
@@ -44,6 +52,9 @@ upgrade-insecure-requests;
 - **Referrer-Policy**: `strict-origin-when-cross-origin` - Controls referrer information
 - **Permissions-Policy**: `camera=(), microphone=(), geolocation=()` - Disables unnecessary APIs
 - **Strict-Transport-Security**: `max-age=31536000; includeSubDomains; preload` (Production only)
+- **Cross-Origin-Embedder-Policy**: `credentialless`
+- **Cross-Origin-Opener-Policy**: `same-origin`
+- **Cross-Origin-Resource-Policy**: `same-origin`
 
 ## Input Sanitization
 
@@ -215,10 +226,13 @@ npm test __tests__/security/sanitize.test.ts
 ### Environment Variables
 
 ```env
-# Security headers only apply in production
-NODE_ENV=production
+# CSP is enabled by default; set to 'false' to relax during local dev only
+CSP_ENABLED=true
 
-# CSP can be customized per environment
+# Optionally extend sources without code changes (space-separated URL list)
+CSP_EXTRA_SCRIPT_SRC="https://example.cdn.com"
+CSP_EXTRA_CONNECT_SRC="https://api.example.com wss://ws.example.com"
+CSP_EXTRA_IMG_SRC="https://images.example.com"
 ```
 
 ### DOMPurify Configuration
