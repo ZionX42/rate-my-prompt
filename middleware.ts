@@ -216,7 +216,7 @@ export function middleware(request: NextRequest) {
       'https://cdn.jsdelivr.net',
       'https://unpkg.com',
     ].join(' ');
-
+    const scriptHashes = [].join(' ');
     // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
     const csp = [
       "default-src 'self'",
