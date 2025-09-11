@@ -160,7 +160,7 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   // Central, minimal‑yet‑safe CSP configuration
-  const cspEnabled = process.env.CSP_ENABLED !== 'true';
+  const cspEnabled = process.env.CSP_ENABLED !== 'false';
   const isDev = process.env.NODE_ENV === 'development';
 
   // Optional environment-driven extensions
@@ -193,6 +193,8 @@ export function middleware(request: NextRequest) {
       'https://unpkg.com',
       'https://*.appwrite.network',
       'https://*.vercel.app',
+      'https://rate-my-prompt.appwrite.network/',
+      'https://rate-my-prompt.vercel.app/',
     ].join(' ');
     const REQUIRED_CONNECT = [
       'https://api.sentry.io',
@@ -201,6 +203,8 @@ export function middleware(request: NextRequest) {
       'wss://ws.pusherapp.com',
       'https://*.appwrite.network',
       'https://*.vercel.app',
+      'https://rate-my-prompt.appwrite.network/',
+      'https://rate-my-prompt.vercel.app/',
     ].join(' ');
     const REQUIRED_STYLE_CDNS = [
       'https://fonts.googleapis.com',
@@ -213,13 +217,35 @@ export function middleware(request: NextRequest) {
       'https://unpkg.com',
     ].join(' ');
 
+    // Add hashes for blocked inline scripts (from console errors)
+    const scriptHashes = [
+      "'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU='",
+      "'sha256-OBTN3RiyCV4Bq7dFqZ5a2pAXjnCcCYeTJMO2I/LYKeo='",
+      "'sha256-m9d33N9yporkS45E14qnqHNCjvth/qdHhph+uSpeYfM='",
+      "'sha256-yaIgRkB9ieE42b+Of8jSnb64hEUgXq1/OdrJm+KC51Y='",
+      "'sha256-iA/gqfxatIQCCron3pJz1WP6ISRq1+w8E5gUTJlrAjw='",
+      "'sha256-qZEXHcuHtR7GuA7Zf3UiFNj64AxhF7nfAvLL7qU6IvM='",
+      "'sha256-CFv1fp+aZJGRUvH0zWU1aZ/JlzepJQyRzbplli0+GRg='",
+      "'sha256-QObipNy/9a3K4Oi7L/cxNmaZ7VL9CWLB6VhTyAQmg9A='",
+      "'sha256-2pyIgP62O+V3QIPk1ma1i+6L0yk3Xt6pNjNKMtsQI0o='",
+      "'sha256-R1W55fQXxyvba/OaK+FgIzzyFPOEohQ3Nebe/6OoNm8='",
+      "'sha256-8GC9ZlOLy7x8R/VVjIuRf4zQpjI/giwaMEnpc7ESC9s='",
+      "'sha256-uPFcq4d4DccCX5vpbwhR8eQZeiQJayR2e0XPVCcyOJw='",
+      "'sha256-S0ZaRjMi1KwBVf85A1ZOwY1Z9R/1VS2iBJKgtJ1QQ0A='",
+      "'sha256-MGXKdnMNNU/cX38La4guWOn/IgbYGr4dR7sp3D+GcTw='",
+      "'sha256-YEvPJ8hdcg2un5vSN4dOU7yIDGjv974OfXL85V+G1IU='",
+      "'sha256-lcRQORL3ymWWWs0UvQJi6i0nPYAd+1I3G0AdnKzzZTg='",
+      "'sha256-T+340Sjn3lOmjA5Pv9eVI8xzVQuUQVELcY1k2uS6HpI='",
+      "'sha256-tS3N62V+mW3nXmGWmYGen3F9PBnJ6DPC1J+Djri1YOE='",
+    ].join(' ');
+
     // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
     const csp = [
       "default-src 'self'",
       "base-uri 'self'",
       "object-src 'none'",
-      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
-      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${scriptHashes} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
+      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${scriptHashes} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
       `style-src 'self' 'unsafe-inline' ${REQUIRED_STYLE_CDNS}`,
       `style-src-attr 'unsafe-inline'`,
       `img-src 'self' data: blob: https: https://*.appwrite.network https://*.vercel.app ${extraImgSrc}`.trim(),
