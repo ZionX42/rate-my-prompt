@@ -258,7 +258,7 @@ export function middleware(request: NextRequest) {
   response.headers.set(
     'Permissions-Policy',
     'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), ' +
-      'accelerometer=(), gyroscope=(), ambient-light-sensor=(), autoplay=(), ' +
+      'accelerometer=(), gyroscope=(), autoplay=(), ' +
       'encrypted-media=(), fullscreen=(self), picture-in-picture=()'
   );
 
