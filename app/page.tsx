@@ -4,6 +4,7 @@ import FeaturedPrompts from '@/components/prompts/FeaturedPrompts';
 import CategoryNavigation from '@/components/prompts/CategoryNavigation';
 import Container from '@/components/layout/Container';
 import { PromptModel } from '@/lib/models/prompt';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
@@ -109,22 +110,8 @@ export default async function HomePage() {
           </div>
         </div>
         {/* Newsletter Signup */}
-        <div className="card p-8 text-center bg-gradient-to-r from-primary/5 to-secondary/5 newsletter-signup">
-          <h3 className="text-2xl font-bold text-heading mb-4">Stay Updated</h3>
-          <p className="text-subtext mb-6 max-w-2xl mx-auto">
-            Get notified when we publish new tutorials and learning resources. Join our community of
-            learners and stay ahead of the curve.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-              Subscribe
-            </button>
-          </div>
+        <div className="mt-16">
+          <NewsletterSignup />
         </div>
       </Section>
 

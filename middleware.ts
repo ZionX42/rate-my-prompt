@@ -161,98 +161,20 @@ export function middleware(request: NextRequest) {
 
   // Central, minimal‑yet‑safe CSP configuration
   const cspEnabled = process.env.CSP_ENABLED !== 'false';
-  const isDev = process.env.NODE_ENV === 'development';
-
-  // Optional environment-driven extensions
-  const extraScriptSrc = (process.env.CSP_EXTRA_SCRIPT_SRC || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .join(' ');
-  const extraConnectSrc = (process.env.CSP_EXTRA_CONNECT_SRC || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .join(' ');
-  const extraImgSrc = (process.env.CSP_EXTRA_IMG_SRC || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .join(' ');
-  // const extraFrameSrc = (process.env.CSP_EXTRA_FRAME_SRC || '')
-  //   .split(',')
-  //   .map((s) => s.trim())
-  //   .filter(Boolean)
-  //   .join(' ');
 
   if (cspEnabled) {
-    // Required third-party hosts used by the app (wildcards for multi-env deployments)
-    const REQUIRED_SCRIPT_CDNS = [
-      'https://js.sentry-cdn.com',
-      'https://cdn.jsdelivr.net',
-      'https://unpkg.com',
-      'https://*.appwrite.network',
-      'https://*.vercel.app',
-      'https://rate-my-prompt.appwrite.network/',
-      'https://rate-my-prompt.vercel.app/',
-    ].join(' ');
-    const REQUIRED_CONNECT = [
-      'https://api.sentry.io',
-      'https://cloud.appwrite.io',
-      'https://api.github.com',
-      'wss://ws.pusherapp.com',
-      'https://*.appwrite.network',
-      'https://*.vercel.app',
-      'https://rate-my-prompt.appwrite.network/',
-      'https://rate-my-prompt.vercel.app/',
-    ].join(' ');
-    const REQUIRED_STYLE_CDNS = [
-      'https://fonts.googleapis.com',
-      'https://cdn.jsdelivr.net',
-      'https://unpkg.com',
-    ].join(' ');
-    const REQUIRED_FONT_ASSETS = [
-      'https://fonts.gstatic.com',
-      'https://cdn.jsdelivr.net',
-      'https://unpkg.com',
-    ].join(' ');
-    const scriptHashes = [
-      "'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU='",
-      "'sha256-OBTN3RiyCV4Bq7dFqZ5a2pAXjnCcCYeTJMO2I/LYKeo='",
-      "'sha256-m9d33N9yporkS45E14qnqHNCjvth/qdHhph+uSpeYfM='",
-      "'sha256-yaIgRkB9ieE42b+Of8jSnb64hEUgXq1/OdrJm+KC51Y='",
-      "'sha256-iA/gqfxatIQCCron3pJz1WP6ISRq1+w8E5gUTJlrAjw='",
-      "'sha256-qZEXHcuHtR7GuA7Zf3UiFNj64AxhF7nfAvLL7qU6IvM='",
-      "'sha256-CFv1fp+aZJGRUvH0zWU1aZ/JlzepJQyRzbplli0+GRg='",
-      "'sha256-QObipNy/9a3K4Oi7L/cxNmaZ7VL9CWLB6VhTyAQmg9A='",
-      "'sha256-2pyIgP62O+V3QIPk1ma1i+6L0yk3Xt6pNjNKMtsQI0o='",
-      "'sha256-R1W55fQXxyvba/OaK+FgIzzyFPOEohQ3Nebe/6OoNm8='",
-      "'sha256-8GC9ZlOLy7x8R/VVjIuRf4zQpjI/giwaMEnpc7ESC9s='",
-      "'sha256-uPFcq4d4DccCX5vpbwhR8eQZeiQJayR2e0XPVCcyOJw='",
-      "'sha256-S0ZaRjMi1KwBVf85A1ZOwY1Z9R/1VS2iBJKgtJ1QQ0A='",
-      "'sha256-MGXKdnMNNU/cX38La4guWOn/IgbYGr4dR7sp3D+GcTw='",
-      "'sha256-YEvPJ8hdcg2un5vSN4dOU7yIDGjv974OfXL85V+G1IU='",
-      "'sha256-lcRQORL3ymWWWs0UvQJi6i0nPYAd+1I3G0AdnKzzZTg='",
-      "'sha256-T+340Sjn3lOmjA5Pv9eVI8xzVQuUQVELcY1k2uS6HpI='",
-      "'sha256-tS3N62V+mW3nXmGWmYGen3F9PBnJ6DPC1J+Djri1YOE='",
-      "'sha256-XXeBUx4jdmTMjEOetmjsh9Gu35uN5+2a4W0QkB8Fpnk='", // New hash added
-    ].join(' ');
-
-    // Strict policy without inline scripts or nonces. Allow unsafe-eval only in dev if needed by tooling.
+    // Minimal permissive CSP for production (allows most resources)
     const csp = [
-      "default-src 'self'",
-      "base-uri 'self'",
+      "default-src 'self' *",
+      "script-src 'self' * 'unsafe-inline' 'unsafe-eval'",
+      "style-src 'self' * 'unsafe-inline'",
+      "img-src 'self' * data: blob:",
+      "connect-src 'self' *",
+      "font-src 'self' *",
+      "frame-src 'self' *",
       "object-src 'none'",
-      `script-src 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
-      `script-src-elem 'self' ${REQUIRED_SCRIPT_CDNS} ${extraScriptSrc} ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ''}`.trim(),
-      `style-src 'self' 'unsafe-inline' ${REQUIRED_STYLE_CDNS}`,
-      `style-src-attr 'unsafe-inline'`,
-      `img-src 'self' data: blob: https: https://*.appwrite.network https://*.vercel.app ${extraImgSrc}`.trim(),
-      `connect-src 'self' ${REQUIRED_CONNECT} ${extraConnectSrc}`.trim(),
-      `font-src 'self' ${REQUIRED_FONT_ASSETS} data:`,
-      `media-src 'self' https:`,
-      `frame-src https://www.youtube.com https://player.vimeo.com https://codesandbox.io`,
-      "frame-ancestors 'self'",
+      "base-uri 'self'",
+      "form-action 'self'",
       'upgrade-insecure-requests',
       'report-uri /api/security/csp-report',
       'report-to /api/security/csp-report',
