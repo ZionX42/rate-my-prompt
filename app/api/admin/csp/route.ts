@@ -12,28 +12,15 @@ import path from 'path';
  * POST /api/admin/csp - Toggle CSP on/off
  */
 
-export async function GET(req: NextRequest): Promise<Response> {
-  logRequest(req);
-
-  try {
-    // Check admin authentication
-    const adminCheck = await isCurrentUserAdmin();
-    if (!adminCheck) {
-      return unauthorized('Admin access required');
-    }
-
-    // Read current CSP status from environment
-    const cspEnabled = process.env.CSP_ENABLED !== 'true';
-
-    return ok({
+export async function GET(request: NextRequest) {
+  const cspEnabled = process.env.CSP_ENABLED === 'true' || !('CSP_ENABLED' in process.env);
+  return Response.json(
+    {
       cspEnabled,
-      message: `Content Security Policy is currently ${cspEnabled ? 'enabled' : 'disabled'}`,
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    console.error('CSP status check error:', error);
-    return badRequest('Failed to check CSP status');
-  }
+      message: cspEnabled ? 'CSP is enabled.' : 'CSP is disabled.',
+    },
+    { status: 200 }
+  );
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
