@@ -38,9 +38,12 @@ const Navigation: React.FC = () => {
         <div className="flex h-16 justify-between">
           <div className="flex">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" className="text-xl font-bold text-heading">
-                Prompt Hub
-              </Link>
+              <div className="flex flex-col">
+                <Link href="/" className="text-xl font-bold text-heading">
+                  Prompt Hub
+                </Link>
+                <span className="text-xs text-subtext">(Beta)</span>
+              </div>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {NAV_LINKS.map(({ href, label }) => {
