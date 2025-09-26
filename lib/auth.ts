@@ -1,8 +1,10 @@
-import { User, Role } from './models/user';
-import { serverConfig } from './config/server';
-import jwt from 'jsonwebtoken';
 import { SignJWT, jwtVerify } from 'jose';
-import { SessionManager } from './auth/sessionManager';
+import jwt from 'jsonwebtoken';
+import { serverConfig } from './config/server';
+import { missingAppwriteEnvVars } from './appwrite';
+import { getUserById } from './repos/userRepo';
+import { Role, User } from './models/user';
+import type { NextRequest } from 'next/server';
 
 // JWT payload interface
 interface CustomJWTPayload {
@@ -50,10 +52,30 @@ function _decodeUserFromToken(token: string): { userId: string } | null {
 }
 
 // Get current user from request
-export async function getCurrentUser(): Promise<User | null> {
+export async function getCurrentUser(request: NextRequest): Promise<User | null> {
   try {
-    const session = await SessionManager.getCurrentSession();
-    return session.user;
+    const account = await fetchCurrentAccount(request);
+    if (!account) {
+      return null;
+    }
+
+    const profile = await getUserById(account.$id);
+    if (profile) {
+      return profile;
+    }
+
+    const now = new Date();
+    return {
+      _id: account.$id,
+      displayName: account.name ?? account.email ?? 'User',
+      email: account.email,
+      bio: undefined,
+      avatarUrl: undefined,
+      role: Role.USER,
+      isActive: true,
+      joinedAt: now,
+      updatedAt: now,
+    };
   } catch (error) {
     console.error('Error getting current user:', error);
     return null;
@@ -61,14 +83,17 @@ export async function getCurrentUser(): Promise<User | null> {
 }
 
 // Check if current user has admin role
-export async function isCurrentUserAdmin(): Promise<boolean> {
-  const user = await getCurrentUser();
+export async function isCurrentUserAdmin(request: NextRequest): Promise<boolean> {
+  const user = await getCurrentUser(request);
   return user?.role === Role.ADMIN && user.isActive;
 }
 
 // Check if current user has permission
-export async function currentUserHasPermission(permission: string): Promise<boolean> {
-  const user = await getCurrentUser();
+export async function currentUserHasPermission(
+  permission: string,
+  request: NextRequest
+): Promise<boolean> {
+  const user = await getCurrentUser(request);
   if (!user || !user.isActive) {
     return false;
   }
@@ -83,4 +108,47 @@ export async function currentUserHasPermission(permission: string): Promise<bool
   }
 
   return hasPermission(user.role, permissionEnum);
+}
+
+interface AppwriteAccount {
+  $id: string;
+  email: string;
+  name?: string;
+}
+
+async function fetchCurrentAccount(request: NextRequest): Promise<AppwriteAccount | null> {
+  const missing = missingAppwriteEnvVars();
+  if (missing.length > 0) {
+    return null;
+  }
+
+  const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
+  const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string;
+
+  const cookieHeader = request.headers.get('cookie') ?? '';
+  const sessionName = `a_session_${projectId}`;
+  if (!cookieHeader.includes(sessionName)) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${endpoint}/account`, {
+      method: 'GET',
+      headers: {
+        cookie: cookieHeader,
+        'X-Appwrite-Project': projectId,
+        accept: 'application/json',
+      },
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    return (await response.json()) as AppwriteAccount;
+  } catch (error) {
+    console.error('Failed to fetch Appwrite account', error);
+    return null;
+  }
 }

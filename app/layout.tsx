@@ -5,6 +5,7 @@ import './globals.css';
 import '@/lib/polyfills'; // Import polyfills for Edge Runtime compatibility
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { AuthModalProvider } from '@/components/auth/AuthModalProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,10 +32,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} flex flex-col min-h-screen bg-bg`}>
-        <Navigation />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+      <body className={`${inter.className} flex min-h-screen flex-col bg-bg`}>
+        <AuthModalProvider>
+          <Navigation />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </AuthModalProvider>
       </body>
     </html>
   );

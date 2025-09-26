@@ -12,7 +12,7 @@ import path from 'path';
  * POST /api/admin/csp - Toggle CSP on/off
  */
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const cspEnabled = process.env.CSP_ENABLED === 'true' || !('CSP_ENABLED' in process.env);
   return Response.json(
     {
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest): Promise<Response> {
 
   try {
     // Check admin authentication
-    const adminCheck = await isCurrentUserAdmin();
+    const adminCheck = await isCurrentUserAdmin(req);
     if (!adminCheck) {
       return unauthorized('Admin access required');
     }

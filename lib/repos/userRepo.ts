@@ -68,7 +68,8 @@ export async function getUserByEmail(email: string): Promise<UserProfile | null>
 }
 
 export async function createUser(
-  userData: Omit<UserProfile, '_id' | 'joinedAt' | 'updatedAt'>
+  userData: Omit<UserProfile, '_id' | 'joinedAt' | 'updatedAt'>,
+  options?: { documentId?: string }
 ): Promise<UserProfile> {
   try {
     const { users } = await getCollections();
@@ -90,7 +91,7 @@ export async function createUser(
       joinedAt: new Date().toISOString(),
     };
 
-    const result = await users.create(userDoc);
+    const result = await users.create(userDoc, options?.documentId);
     return convertToUserProfile(result);
   } catch (error: unknown) {
     console.error('Error creating user:', error);

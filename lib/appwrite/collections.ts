@@ -85,8 +85,8 @@ export async function getCollections() {
     },
     users: {
       collectionId: COLLECTIONS.USERS,
-      create: (data: Omit<UserDoc, keyof Models.Document>) =>
-        databases.createDocument<UserDoc>(databaseId, COLLECTIONS.USERS, ID.unique(), data),
+      create: (data: Omit<UserDoc, keyof Models.Document>, documentId: string = ID.unique()) =>
+        databases.createDocument<UserDoc>(databaseId, COLLECTIONS.USERS, documentId, data),
       get: (documentId: string) =>
         databases.getDocument<UserDoc>(databaseId, COLLECTIONS.USERS, documentId),
       list: (queries: string[] = []) =>

@@ -5,10 +5,10 @@ import { currentUserHasPermission } from '@/lib/auth';
 import { Role } from '@/lib/models/user';
 import { Query } from '@/lib/appwrite/sdk';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     // Check permission
-    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS);
+    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS, request);
     if (!hasPermission) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
@@ -31,7 +31,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     // Check permission
-    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS);
+    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS, request);
     if (!hasPermission) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
