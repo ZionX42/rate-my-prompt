@@ -61,6 +61,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const sanitizedData = {
       ...data,
       content: contentValidation.sanitized,
+      promptId: resolvedParams.id,
     };
 
     const newComment = await commentRepo.create(resolvedParams.id, sanitizedData);

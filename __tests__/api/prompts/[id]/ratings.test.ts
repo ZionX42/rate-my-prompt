@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
-import '@testing-library/jest-dom';
+import { NextRequest } from 'next/server';
 
 describe('/api/prompts/[id]/ratings', () => {
   const originalProjectId = process.env.APPWRITE_PROJECT_ID;
@@ -14,11 +14,13 @@ describe('/api/prompts/[id]/ratings', () => {
   describe('POST endpoint', () => {
     it('returns 400 for invalid prompt ID', async () => {
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {
-        json: async () => ({}),
-      } as any;
+      const req = new NextRequest('http://localhost/api/prompts//ratings', {
+        method: 'POST',
+        body: JSON.stringify({}),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      const response = await POST(req, { params: { id: '' } });
+      const response = await POST(req, { params: Promise.resolve({ id: '' }) });
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -30,11 +32,13 @@ describe('/api/prompts/[id]/ratings', () => {
       delete process.env.APPWRITE_API_KEY;
 
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {
-        json: async () => ({}),
-      } as any;
+      const req = new NextRequest('http://localhost/api/prompts/test-id/ratings', {
+        method: 'POST',
+        body: JSON.stringify({}),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      const response = await POST(req, { params: { id: 'test-id' } });
+      const response = await POST(req, { params: Promise.resolve({ id: 'test-id' }) });
       const data = await response.json();
 
       expect(response.status).toBe(503);
@@ -46,13 +50,13 @@ describe('/api/prompts/[id]/ratings', () => {
       process.env.APPWRITE_API_KEY = 'test-key';
 
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {
-        json: async () => {
-          throw new Error('Invalid JSON');
-        },
-      } as any;
+      const req = new NextRequest('http://localhost/api/prompts/test-id/ratings', {
+        method: 'POST',
+        body: 'invalid',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      const response = await POST(req, { params: { id: 'test-id' } });
+      const response = await POST(req, { params: Promise.resolve({ id: 'test-id' }) });
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -64,14 +68,16 @@ describe('/api/prompts/[id]/ratings', () => {
       process.env.APPWRITE_API_KEY = 'test-key';
 
       const { POST } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {
-        json: async () => ({
+      const req = new NextRequest('http://localhost/api/prompts/test-id/ratings', {
+        method: 'POST',
+        body: JSON.stringify({
           userId: 'user-1',
-          rating: 6, // Invalid rating (above 5)
+          rating: 6,
         }),
-      } as any;
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      const response = await POST(req, { params: { id: 'test-id' } });
+      const response = await POST(req, { params: Promise.resolve({ id: 'test-id' }) });
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -83,9 +89,9 @@ describe('/api/prompts/[id]/ratings', () => {
   describe('GET endpoint', () => {
     it('returns 400 for invalid prompt ID', async () => {
       const { GET } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {} as any;
+      const req = new NextRequest('http://localhost/api/prompts//ratings');
 
-      const response = await GET(req, { params: { id: '' } });
+      const response = await GET(req, { params: Promise.resolve({ id: '' }) });
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -97,9 +103,9 @@ describe('/api/prompts/[id]/ratings', () => {
       delete process.env.APPWRITE_API_KEY;
 
       const { GET } = await import('@/app/api/prompts/[id]/ratings/route');
-      const req = {} as any;
+      const req = new NextRequest('http://localhost/api/prompts/test-id/ratings');
 
-      const response = await GET(req, { params: { id: 'test-id' } });
+      const response = await GET(req, { params: Promise.resolve({ id: 'test-id' }) });
       const data = await response.json();
 
       expect(response.status).toBe(503);

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
-import '@testing-library/jest-dom';
+import { NextRequest } from 'next/server';
 
 describe('/api/prompts/[id]', () => {
   const originalEnv = {
@@ -20,9 +20,9 @@ describe('/api/prompts/[id]', () => {
 
   it('returns 400 for invalid ID', async () => {
     const { GET } = await import('@/app/api/prompts/[id]/route');
-    const req = {} as any;
+    const req = new NextRequest('http://localhost/api/prompts/');
 
-    const response = await GET(req, { params: { id: '' } });
+    const response = await GET(req, { params: Promise.resolve({ id: '' }) });
     const data = await response.json();
 
     expect(response.status).toBe(400);
@@ -34,9 +34,9 @@ describe('/api/prompts/[id]', () => {
     delete process.env.APPWRITE_API_KEY;
 
     const { GET } = await import('@/app/api/prompts/[id]/route');
-    const req = {} as any;
+    const req = new NextRequest('http://localhost/api/prompts/123');
 
-    const response = await GET(req, { params: { id: '123' } });
+    const response = await GET(req, { params: Promise.resolve({ id: '123' }) });
     const data = await response.json();
 
     expect(response.status).toBe(503);

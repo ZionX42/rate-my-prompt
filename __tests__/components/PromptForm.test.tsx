@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { expect } from '@jest/globals';
 import '@testing-library/jest-dom';
 import PromptForm from '@/components/prompts/PromptForm';
 
@@ -25,8 +26,7 @@ describe('PromptForm', () => {
       ok: true,
       json: async () => ({ prompt: { _id: 'abc123' } }),
     });
-    // @ts-expect-error: Mocking global.fetch for testing
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof global.fetch;
 
     render(<PromptForm />);
 
@@ -51,8 +51,7 @@ describe('PromptForm', () => {
         issues: [{ path: 'title', message: 'bad' }],
       }),
     });
-    // @ts-expect-error: Mocking global.fetch for testing
-    global.fetch = mockFetch;
+    global.fetch = mockFetch as unknown as typeof global.fetch;
 
     render(<PromptForm />);
     // Provide valid client-side values so submission proceeds and server returns validation errors

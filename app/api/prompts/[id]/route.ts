@@ -5,8 +5,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const resolvedParams = await params;
-  const { id } = resolvedParams;
+  const { id } = await params;
 
   if (!id || typeof id !== 'string') {
     return badRequest('Invalid prompt ID');

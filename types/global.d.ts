@@ -1,11 +1,13 @@
 /// <reference types="jest" />
-/// <reference types="@testing-library/jest-dom" />
 
 declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeInTheDocument(): R;
-    }
+  interface Assertion {
+    toBeInTheDocument(): this;
+    toHaveAttribute(attr: string, value?: string): this;
+    toHaveClass(...classNames: string[]): this;
+    toBeDisabled(): this;
+    toHaveBeenCalled(): this;
+    toHaveBeenCalledWith(...expected: unknown[]): this;
   }
 }
 

@@ -14,8 +14,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const resolvedParams = await params;
-  const { id: promptId } = resolvedParams;
+  const { id: promptId } = await params;
 
   if (!promptId || typeof promptId !== 'string') {
     return badRequest('Invalid prompt ID');
@@ -86,8 +85,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
-  const resolvedParams = await params;
-  const { id: promptId } = resolvedParams;
+  const { id: promptId } = await params;
 
   if (!promptId || typeof promptId !== 'string') {
     return badRequest('Invalid prompt ID');

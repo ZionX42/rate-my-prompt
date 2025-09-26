@@ -5,6 +5,12 @@
 
 import { jest } from '@jest/globals';
 
+const createListMock = () =>
+  jest.fn(async () => ({
+    documents: [] as unknown[],
+    total: 0,
+  }));
+
 // Mock the entire node-appwrite module
 export const mockAppwrite = () => {
   jest.mock('node-appwrite', () => ({
@@ -14,7 +20,7 @@ export const mockAppwrite = () => {
       setKey: jest.fn().mockReturnThis(),
     })),
     Databases: jest.fn().mockImplementation(() => ({
-      listDocuments: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+      listDocuments: createListMock(),
       getDocument: jest.fn(),
       createDocument: jest.fn(),
       updateDocument: jest.fn(),
@@ -46,14 +52,14 @@ export const mockAppwrite = () => {
 export const mockAppwriteClient = () => {
   jest.mock('@/lib/appwrite/client', () => ({
     __esModule: true,
-    getAppwriteDb: jest.fn().mockResolvedValue({
+    getAppwriteDb: jest.fn(async () => ({
       databases: {
-        listDocuments: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+        listDocuments: createListMock(),
         getDocument: jest.fn(),
         createDocument: jest.fn(),
       },
       databaseId: 'test-database-id',
-    }),
+    })),
     COLLECTIONS: {
       PROMPTS: 'prompts',
       COMMENTS: 'comments',
@@ -68,10 +74,10 @@ export const mockAppwriteClient = () => {
 export const mockAppwriteCollections = () => {
   jest.mock('@/lib/appwrite/collections', () => ({
     __esModule: true,
-    getCollections: jest.fn().mockResolvedValue({
+    getCollections: jest.fn(async () => ({
       prompts: {
         collectionId: 'prompts',
-        list: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+        list: createListMock(),
         get: jest.fn(),
         create: jest.fn(),
         update: jest.fn(),
@@ -79,23 +85,23 @@ export const mockAppwriteCollections = () => {
       },
       ratings: {
         collectionId: 'ratings',
-        list: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+        list: createListMock(),
         get: jest.fn(),
         create: jest.fn(),
       },
       comments: {
         collectionId: 'comments',
-        list: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+        list: createListMock(),
         get: jest.fn(),
         create: jest.fn(),
       },
       users: {
         collectionId: 'users',
-        list: jest.fn().mockResolvedValue({ documents: [], total: 0 }),
+        list: createListMock(),
         get: jest.fn(),
         create: jest.fn(),
       },
-    }),
+    })),
   }));
 };
 
@@ -123,8 +129,10 @@ export const setupAppwriteMocks = () => {
 
 // Test environment setup
 export const setupTestEnv = () => {
-  process.env.NODE_ENV = 'test';
-  process.env.APPWRITE_PROJECT_ID = 'test-project-id';
-  process.env.APPWRITE_API_KEY = 'test-api-key';
-  process.env.APPWRITE_ENDPOINT = 'https://test.appwrite.io/v1';
+  Object.assign(process.env, {
+    NODE_ENV: 'test',
+    APPWRITE_PROJECT_ID: 'test-project-id',
+    APPWRITE_API_KEY: 'test-api-key',
+    APPWRITE_ENDPOINT: 'https://test.appwrite.io/v1',
+  });
 };

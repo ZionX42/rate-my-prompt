@@ -8,7 +8,7 @@ setupAppwriteMocks();
 setupTestEnv();
 
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
-import { Request as UndiciRequest } from 'undici';
+import { NextRequest } from 'next/server';
 
 describe('GET /api/search', () => {
   beforeEach(() => {
@@ -32,9 +32,7 @@ describe('GET /api/search', () => {
   it('validates minRating must be a number', async () => {
     const { GET } = await import('@/app/api/search/route');
 
-    const req = new UndiciRequest('http://localhost/api/search?minRating=abc', {
-      method: 'GET',
-    }) as unknown as Request;
+    const req = new NextRequest('http://localhost/api/search?minRating=abc');
 
     const res = await GET(req);
     const body = await res.json();
@@ -50,9 +48,7 @@ describe('GET /api/search', () => {
 
     const { GET } = await import('@/app/api/search/route');
 
-    const req = new UndiciRequest('http://localhost/api/search?q=test', {
-      method: 'GET',
-    }) as unknown as Request;
+    const req = new NextRequest('http://localhost/api/search?q=test');
 
     const res = await GET(req);
     const body = await res.json();

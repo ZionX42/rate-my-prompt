@@ -22,7 +22,9 @@ describe('Comments API', () => {
     it('should return threaded comments', async () => {
       jest.spyOn(commentRepo, 'getByPromptId').mockResolvedValue([] as any);
 
-      const response = await GET(new NextRequest('http://localhost/api/prompts/123/comments'), { params: { id: '123' } });
+      const response = await GET(new NextRequest('http://localhost/api/prompts/123/comments'), {
+        params: Promise.resolve({ id: '123' }),
+      });
       const body = await response.json();
 
       expect(response.status).toBe(200);
@@ -34,9 +36,15 @@ describe('Comments API', () => {
   describe('POST /api/prompts/[id]/comments', () => {
     it('should create a comment and return it', async () => {
       const newComment = { userId: 'user1', content: 'A new comment' };
-      jest
-        .spyOn(commentRepo, 'create')
-        .mockResolvedValue({ ...newComment, _id: 'cm1', promptId: '123', createdAt: new Date(), updatedAt: new Date(), isEdited: false, isDeleted: false } as any);
+      jest.spyOn(commentRepo, 'create').mockResolvedValue({
+        ...newComment,
+        _id: 'cm1',
+        promptId: '123',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        isEdited: false,
+        isDeleted: false,
+      } as any);
 
       const request = new NextRequest('http://localhost/api/prompts/123/comments', {
         method: 'POST',
@@ -44,21 +52,31 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await POST(request, { params: { id: '123' } });
+      const response = await POST(request, { params: Promise.resolve({ id: '123' }) });
       const body = await response.json();
 
       expect(response.status).toBe(201);
       expect(body).toHaveProperty('_id', 'cm1');
-      expect(commentRepo.create).toHaveBeenCalledWith('123', newComment);
+      expect(commentRepo.create).toHaveBeenCalledWith(
+        '123',
+        expect.objectContaining({ ...newComment, promptId: '123' })
+      );
     });
   });
 
   describe('PATCH /api/prompts/[id]/comments/[commentId]', () => {
     it('should update a comment', async () => {
       const updatePayload = { content: 'Updated content', userId: 'user1' };
-      jest
-        .spyOn(commentRepo, 'update')
-        .mockResolvedValue({ _id: 'c1', promptId: 'p1', userId: 'user1', content: 'Updated content', isEdited: true, isDeleted: false, createdAt: new Date(), updatedAt: new Date() } as any);
+      jest.spyOn(commentRepo, 'update').mockResolvedValue({
+        _id: 'c1',
+        promptId: 'p1',
+        userId: 'user1',
+        content: 'Updated content',
+        isEdited: true,
+        isDeleted: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      } as any);
 
       const request = new NextRequest('http://localhost/api/prompts/p1/comments/c1', {
         method: 'PATCH',
@@ -66,12 +84,16 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await PATCH(request, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await PATCH(request, {
+        params: Promise.resolve({ id: 'p1', commentId: 'c1' }),
+      });
       const body = await response.json();
 
       expect(response.status).toBe(200);
       expect(body.content).toBe('Updated content');
-      expect(commentRepo.update).toHaveBeenCalledWith('c1', 'user1', { content: 'Updated content' });
+      expect(commentRepo.update).toHaveBeenCalledWith('c1', 'user1', {
+        content: 'Updated content',
+      });
     });
   });
 
@@ -85,7 +107,9 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await DELETE(request, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await DELETE(request, {
+        params: Promise.resolve({ id: 'p1', commentId: 'c1' }),
+      });
 
       expect(response.status).toBe(204);
       expect(commentRepo.softDelete).toHaveBeenCalledWith('c1', 'user1');
@@ -100,7 +124,9 @@ describe('Comments API', () => {
         headers: { 'Content-Type': 'application/json' },
       });
 
-      const response = await DELETE(request, { params: { id: 'p1', commentId: 'c1' } });
+      const response = await DELETE(request, {
+        params: Promise.resolve({ id: 'p1', commentId: 'c1' }),
+      });
       const body = await response.json();
 
       expect(response.status).toBe(404);

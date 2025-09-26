@@ -1,4 +1,6 @@
 import { render } from '@testing-library/react';
+import { expect } from '@jest/globals';
+import '@testing-library/jest-dom';
 import { Container, Grid, Section } from '@/components/layout';
 
 describe('Layout Components', () => {
@@ -35,9 +37,7 @@ describe('Layout Components', () => {
     });
 
     it('accepts custom columns config', () => {
-      const { container } = render(
-        <Grid cols={{ default: 2, md: 4 }}>Test content</Grid>
-      );
+      const { container } = render(<Grid cols={{ default: 2, md: 4 }}>Test content</Grid>);
       const div = container.firstChild;
       expect(div).toHaveClass('grid-cols-2');
       expect(div).toHaveClass('md:grid-cols-4');
