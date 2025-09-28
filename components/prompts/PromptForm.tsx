@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { type PromptCategory } from '@/lib/models/prompt';
 
 type FormState = {
@@ -18,11 +18,18 @@ type SubmitResult =
   | { status: 'success'; id?: string }
   | { status: 'error'; message: string; issues?: { path: string; message: string }[] };
 
-export function PromptForm() {
+interface PromptFormProps {
+  currentUserId?: string;
+  lockAuthorField?: boolean;
+}
+
+export function PromptForm({ currentUserId, lockAuthorField }: PromptFormProps = {}) {
+  const shouldLockAuthor = lockAuthorField ?? Boolean(currentUserId);
+
   const [form, setForm] = useState<FormState>({
     title: '',
     content: '',
-    authorId: '',
+    authorId: currentUserId ?? '',
     description: '',
     category: 'general',
     tags: '',
@@ -30,6 +37,17 @@ export function PromptForm() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [result, setResult] = useState<SubmitResult>({ status: 'idle' });
+
+  useEffect(() => {
+    if (currentUserId) {
+      setForm((prev) => ({ ...prev, authorId: currentUserId }));
+      setErrors((prev) => {
+        if (!prev.authorId) return prev;
+        const { authorId: _removed, ...rest } = prev;
+        return rest;
+      });
+    }
+  }, [currentUserId]);
 
   const categories: PromptCategory[] = useMemo(
     () => ['general', 'coding', 'writing', 'design', 'marketing', 'data', 'other'],
@@ -145,9 +163,13 @@ export function PromptForm() {
             name="authorId"
             value={form.authorId}
             onChange={(e) => onChange('authorId', e.target.value)}
-            className="mt-1 w-full rounded-xl bg-surface border border-border px-3 py-2 outline-none focus:ring-2 focus:ring-accent-green/60"
+            readOnly={shouldLockAuthor}
+            className={`mt-1 w-full rounded-xl border border-border px-3 py-2 outline-none focus:ring-2 focus:ring-accent-green/60 ${shouldLockAuthor ? 'bg-muted/40 text-subtext' : 'bg-surface'}`}
             placeholder="your-user-id"
           />
+          {shouldLockAuthor && (
+            <p className="mt-1 text-xs text-subtext">Automatically using your account ID.</p>
+          )}
           {errors.authorId && <p className="mt-1 text-sm text-red-500">{errors.authorId}</p>}
         </div>
         <div>

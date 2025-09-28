@@ -242,9 +242,11 @@ export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
     const sessionCookie = request.cookies.get('session')?.value;
     if (!sessionCookie) {
-      const redirectResponse = NextResponse.redirect(
-        new URL('/api/auth?action=login', request.url)
-      );
+      const loginUrl = new URL('/login', request.url);
+      const returnPath = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+      loginUrl.searchParams.set('next', returnPath || '/admin');
+
+      const redirectResponse = NextResponse.redirect(loginUrl);
       RequestMonitor.logResponse(request, redirectResponse);
       return redirectResponse;
     }

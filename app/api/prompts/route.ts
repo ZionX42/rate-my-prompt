@@ -5,11 +5,14 @@ import {
   badRequest,
   serviceUnavailable,
   internalError,
+  unauthorized,
 } from '@/lib/api/responses';
 import { requireJson, logRequest } from '@/lib/api/middleware';
 import { logUserAction } from '@/lib/logger';
 import { validateServerConfig } from '@/lib/config/server';
 import { InputValidation } from '@/lib/security/validation';
+import { SessionManager } from '@/lib/auth/sessionManager';
+import { hasPermission, Permission } from '@/lib/permissions';
 
 export async function POST(req: NextRequest): Promise<Response> {
   // Log the API request
@@ -98,10 +101,28 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
   }
 
+  // Validate server configuration
+  try {
+    validateServerConfig();
+  } catch (error) {
+    console.error('Server configuration validation failed:', error);
+    return serviceUnavailable('Server configuration error');
+  }
+
+  const session = await SessionManager.getCurrentSession();
+  if (!session.isValid || !session.user) {
+    return unauthorized('You must be signed in to create a prompt');
+  }
+
+  const actor = session.user;
+  if (!hasPermission(actor.role, Permission.CREATE_PROMPT)) {
+    return unauthorized('You do not have permission to create prompts');
+  }
+
   const payload: Partial<NewPromptInput> = {
     title: sanitizedTitle,
     content: sanitizedContent,
-    authorId: typeof requestBody?.authorId === 'string' ? requestBody.authorId : undefined,
+    authorId: actor._id,
     description: sanitizedDescription,
     category:
       typeof requestBody?.category === 'string'
@@ -117,21 +138,13 @@ export async function POST(req: NextRequest): Promise<Response> {
     return badRequest('Validation failed', validation.issues);
   }
 
-  // Validate server configuration
-  try {
-    validateServerConfig();
-  } catch (error) {
-    console.error('Server configuration validation failed:', error);
-    return serviceUnavailable('Server configuration error');
-  }
-
   try {
     // Defer importing the Appwrite-backed repo until we know storage is configured
     const { createPrompt } = await import('@/lib/repos/promptRepo');
     const createdPrompt = await createPrompt(payload as NewPromptInput);
 
     // Log the user action
-    logUserAction('prompt_created', String(payload.authorId), {
+    logUserAction('prompt_created', actor._id, {
       promptId: createdPrompt._id,
       title: createdPrompt.title,
       category: createdPrompt.category,

@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server';
 // Mock the Appwrite-backed repo to avoid requiring actual Appwrite configuration in Jest
 jest.mock('@/lib/repos/promptRepo', () => {
   return {
-  createPrompt: jest.fn(async (input: any) => ({
+    createPrompt: jest.fn(async (input: Record<string, unknown>) => ({
       ...input,
       _id: 'mock-id-123',
       createdAt: new Date(),
@@ -13,10 +13,26 @@ jest.mock('@/lib/repos/promptRepo', () => {
   };
 });
 
-// Import the route handler after mocks
-import { POST } from '../../app/api/prompts/route';
+jest.mock('@/lib/auth/sessionManager', () => ({
+  SessionManager: {
+    getCurrentSession: jest.fn(),
+  },
+}));
 
-function makeRequest(body: any): NextRequest {
+import { Role } from '@/lib/models/user';
+
+type SessionManagerModule = typeof import('@/lib/auth/sessionManager');
+const { SessionManager } = jest.requireMock('@/lib/auth/sessionManager') as {
+  SessionManager: { getCurrentSession: jest.Mock };
+};
+const getCurrentSession = SessionManager.getCurrentSession as jest.MockedFunction<
+  SessionManagerModule['SessionManager']['getCurrentSession']
+>;
+
+type PromptRouteModule = typeof import('../../app/api/prompts/route');
+let POST: PromptRouteModule['POST'];
+
+function makeRequest(body: Record<string, unknown>): NextRequest {
   return new NextRequest('http://localhost/api/prompts', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -30,22 +46,44 @@ const hasAppwrite = !!(process.env.APPWRITE_PROJECT_ID && process.env.APPWRITE_A
   const originalProjectId = process.env.APPWRITE_PROJECT_ID;
   const originalApiKey = process.env.APPWRITE_API_KEY;
 
-  beforeAll(() => {
+  beforeAll(async () => {
+    const route = await import('../../app/api/prompts/route');
+    POST = route.POST;
+
     // Ensure storage path is exercised
     process.env.APPWRITE_PROJECT_ID = process.env.APPWRITE_PROJECT_ID || 'test-project';
     process.env.APPWRITE_API_KEY = process.env.APPWRITE_API_KEY || 'test-key';
+    getCurrentSession.mockResolvedValue({
+      isValid: true,
+      expiresAt: null,
+      user: {
+        _id: 'session-user-1',
+        displayName: 'Integration User',
+        email: 'integration@example.com',
+        bio: undefined,
+        avatarUrl: undefined,
+        role: Role.USER,
+        isActive: true,
+        joinedAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
   });
 
   afterAll(() => {
     process.env.APPWRITE_PROJECT_ID = originalProjectId;
     process.env.APPWRITE_API_KEY = originalApiKey;
+    jest.resetAllMocks();
   });
 
   it('creates a prompt (201) and persists it in Appwrite', async () => {
+    if (!POST) {
+      throw new Error('Route handler not loaded');
+    }
+
     const payload = {
       title: 'Test Prompt Title',
       content: 'This is some sufficiently long test content for the prompt.',
-      authorId: 'test-user-123',
       description: 'A test prompt description',
       category: 'general',
       tags: ['test', 'integration'],

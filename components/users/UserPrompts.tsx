@@ -5,7 +5,12 @@ import Link from 'next/link';
 import { PromptModel } from '@/lib/models/prompt';
 
 interface UserPromptsProps {
-  prompts: PromptModel[];
+  prompts: Array<
+    Omit<PromptModel, 'createdAt' | 'updatedAt'> & {
+      createdAt: Date | string;
+      updatedAt: Date | string;
+    }
+  >;
 }
 
 export default function UserPrompts({ prompts }: UserPromptsProps) {
@@ -33,7 +38,13 @@ export default function UserPrompts({ prompts }: UserPromptsProps) {
               </p>
 
               <div className="flex items-center justify-between mt-4 text-xs text-subtext">
-                <span>{new Date(prompt.createdAt).toLocaleDateString('en-US')}</span>
+                <span>
+                  {new Date(prompt.createdAt).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </span>
                 <span className="px-2 py-1 bg-muted rounded-full">{prompt.category}</span>
               </div>
             </Link>

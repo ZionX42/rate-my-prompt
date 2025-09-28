@@ -2,13 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updateUserProfile, getUserById } from '@/lib/repos/userRepo';
 import { validateProfileUpdate } from '@/lib/models/user';
 import { internalError, unauthorized, badRequest, notFound } from '@/lib/api/responses';
-
-// Mock authentication until auth system is implemented
-const getUserIdFromRequest = (req: NextRequest): string | null => {
-  // In a real implementation, this would extract the user ID from the session/token
-  // For now, we'll use a header for testing purposes
-  return req.headers.get('x-user-id') || null;
-};
+import { SessionManager } from '@/lib/auth/sessionManager';
+import { hasPermission, Permission, canManageUser } from '@/lib/permissions';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -29,24 +24,54 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const requestUserId = getUserIdFromRequest(req);
+    const session = await SessionManager.getCurrentSession();
 
-    // Simple authorization check - users can only update their own profiles
-    if (!requestUserId || requestUserId !== id) {
-      return unauthorized('You can only update your own profile');
+    if (!session.isValid || !session.user) {
+      return unauthorized('Authentication required');
+    }
+
+    const actor = session.user;
+    const targetUser = await getUserById(id);
+
+    if (!targetUser) {
+      return notFound('User not found');
+    }
+
+    const isEditingSelf = actor._id === targetUser._id;
+
+    if (isEditingSelf) {
+      if (!hasPermission(actor.role, Permission.EDIT_OWN_PROFILE)) {
+        return unauthorized('You do not have permission to edit your profile');
+      }
+    } else {
+      if (!canManageUser(actor.role, targetUser.role)) {
+        return unauthorized('You do not have permission to update this user');
+      }
     }
 
     // Parse the request body
     const body = await req.json();
 
+    const allowedFields = new Set(['displayName', 'bio', 'avatarUrl']);
+    const filteredBody = Object.keys(body).reduce<Record<string, unknown>>((acc, key) => {
+      if (allowedFields.has(key)) {
+        acc[key] = body[key];
+      }
+      return acc;
+    }, {});
+
+    if (Object.keys(filteredBody).length === 0) {
+      return badRequest('No editable fields provided');
+    }
+
     // Validate the input
-    const validation = validateProfileUpdate(body);
+    const validation = validateProfileUpdate(filteredBody);
     if (!validation.ok) {
       return badRequest('Invalid profile data', validation.issues);
     }
 
     // Update the profile
-    const updatedUser = await updateUserProfile(id, body);
+    const updatedUser = await updateUserProfile(id, filteredBody);
 
     return NextResponse.json(updatedUser);
   } catch (error) {

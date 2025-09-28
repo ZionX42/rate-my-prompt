@@ -1,19 +1,46 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProfileUpdateInput } from '@/lib/models/user';
+
+type ProfileUpdateResponse = {
+  _id: string;
+  displayName: string;
+  bio?: string | null;
+  avatarUrl?: string | null;
+  updatedAt?: string;
+};
 
 interface ProfileEditFormProps {
   userId: string;
   initialData: ProfileUpdateInput;
+  canEdit?: boolean;
+  onProfileUpdated?: (payload: ProfileUpdateResponse) => void;
 }
 
-export default function ProfileEditForm({ userId, initialData }: ProfileEditFormProps) {
+export default function ProfileEditForm({
+  userId,
+  initialData,
+  canEdit = true,
+  onProfileUpdated,
+}: ProfileEditFormProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<ProfileUpdateInput>(initialData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
+
+  if (!canEdit) {
+    return (
+      <div className="rounded-xl border border-border bg-muted/30 p-4 text-sm text-subtext">
+        You don&apos;t have permission to edit this profile.
+      </div>
+    );
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,8 +61,8 @@ export default function ProfileEditForm({ userId, initialData }: ProfileEditForm
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'x-user-id': userId, // For testing purposes
         },
+        credentials: 'include',
         body: JSON.stringify(formData),
       });
 
@@ -44,8 +71,17 @@ export default function ProfileEditForm({ userId, initialData }: ProfileEditForm
         throw new Error(data.error || 'Failed to update profile');
       }
 
+      const updatedUser: ProfileUpdateResponse = await response.json();
+
+      setFormData({
+        displayName: updatedUser.displayName ?? '',
+        bio: updatedUser.bio ?? '',
+        avatarUrl: updatedUser.avatarUrl ?? '',
+      });
+
       setSuccess('Profile updated successfully!');
       setIsEditing(false);
+      onProfileUpdated?.(updatedUser);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {

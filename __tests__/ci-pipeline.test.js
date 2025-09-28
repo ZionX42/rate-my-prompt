@@ -1,4 +1,3 @@
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // This is a placeholder test to verify our CI pipeline

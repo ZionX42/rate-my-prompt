@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: '/community', label: 'Community' },
   { href: '/academy', label: 'Academy' },
   { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/prompts', label: 'Prompts' },
   { href: '/feedback', label: 'Feedback' },
 ];
 

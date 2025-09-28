@@ -36,10 +36,20 @@ async function syncProfile() {
 
 function normaliseErrorMessage(error: unknown, fallback: string): string {
   if (!error) return fallback;
+
+  if (typeof error === 'object' && error !== null && 'code' in error) {
+    const code = Number((error as { code?: number }).code);
+    if (Number.isFinite(code) && code === 401) {
+      return 'Invalid email or password. Please double-check your credentials and try again.';
+    }
+  }
+
   if (error instanceof Error) {
     return error.message || fallback;
   }
+
   if (typeof error === 'string') return error;
+
   try {
     return JSON.stringify(error);
   } catch {
@@ -123,9 +133,10 @@ export function useAppwriteAuth(auto = true): UseAppwriteAuthResponse {
         await loadUser();
       } catch (err) {
         const message = normaliseErrorMessage(err, 'Sign up failed');
-        setStatus('error');
+        setUser(null);
+        setStatus('unauthenticated');
         setError(message);
-        throw err;
+        throw err instanceof Error ? err : new Error(message);
       }
     },
     [ensureReady, loadUser]
@@ -143,9 +154,10 @@ export function useAppwriteAuth(auto = true): UseAppwriteAuthResponse {
         await loadUser();
       } catch (err) {
         const message = normaliseErrorMessage(err, 'Login failed');
-        setStatus('error');
+        setUser(null);
+        setStatus('unauthenticated');
         setError(message);
-        throw err;
+        throw err instanceof Error ? err : new Error(message);
       }
     },
     [ensureReady, loadUser]

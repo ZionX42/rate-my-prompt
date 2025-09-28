@@ -6,6 +6,7 @@ import type { OAuthProvider } from 'appwrite';
 import { useAppwriteAuth } from '@/hooks/useAppwriteAuth';
 import { getAppwriteAccount } from '@/lib/appwriteAccount';
 import type { AuthModalMode } from '@/components/auth/AuthModalProvider';
+import { useSearchParams } from 'next/navigation';
 
 type OAuthProviderId = 'github' | 'google' | 'azure' | 'discord';
 
@@ -120,6 +121,14 @@ export default function AuthForm({
   const [feedback, setFeedback] = useState<string | null>(null);
   const [localError, setLocalError] = useState<string | null>(null);
   const [oauthInFlight, setOauthInFlight] = useState<OAuthProviderId | null>(null);
+  const searchParams = useSearchParams();
+
+  const nextPath = useMemo(() => {
+    const raw = searchParams?.get('next');
+    if (!raw) return '/';
+    if (!raw.startsWith('/')) return '/';
+    return raw;
+  }, [searchParams]);
 
   const loading = status === 'loading';
   const disableOAuth = loading || !ready;
@@ -155,23 +164,32 @@ export default function AuthForm({
         return;
       }
 
-      const trimmedEmail = email.trim();
+      const trimmedEmail = email.trim().toLowerCase();
       const trimmedName = name.trim();
+      const sanitizedPassword = password.trim();
+
+      if (sanitizedPassword.length < 8) {
+        setLocalError('Password must be at least 8 characters.');
+        return;
+      }
 
       try {
         if (mode === 'signup') {
-          await signup(trimmedEmail, password, trimmedName || undefined);
+          await signup(trimmedEmail, sanitizedPassword, trimmedName || undefined);
           setFeedback('Account created! You can now log in.');
           onSuccess?.('signup');
           updateMode('login');
           return;
         }
 
-        await login(trimmedEmail, password);
+        await login(trimmedEmail, sanitizedPassword);
         setFeedback('Logged in successfully. Redirecting...');
         onSuccess?.('login');
       } catch (err) {
         setLocalError(err instanceof Error ? err.message : 'Something went wrong');
+        if (mode === 'login') {
+          setPassword('');
+        }
       }
     },
     [ready, email, password, name, mode, signup, login, onSuccess, updateMode]
@@ -187,13 +205,21 @@ export default function AuthForm({
       setLocalError(null);
       try {
         const account = getAppwriteAccount();
-        await account.createOAuth2Session(provider as OAuthProvider, '/');
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        if (!origin) {
+          throw new Error('Unable to determine site origin for OAuth redirect');
+        }
+
+        const successUrl = `${origin}/auth/callback?next=${encodeURIComponent(nextPath)}`;
+        const failureUrl = `${origin}/login?error=oauth`;
+
+        await account.createOAuth2Session(provider as OAuthProvider, successUrl, failureUrl);
       } catch (err) {
         setOauthInFlight(null);
         setLocalError(err instanceof Error ? err.message : `OAuth with ${provider} failed`);
       }
     },
-    [ready]
+    [ready, nextPath]
   );
 
   return (

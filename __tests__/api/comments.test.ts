@@ -4,6 +4,7 @@ import { describe, it, expect, jest, afterEach, beforeAll } from '@jest/globals'
 import { GET, POST } from '@/app/api/prompts/[id]/comments/route';
 import { PATCH, DELETE } from '@/app/api/prompts/[id]/comments/[commentId]/route';
 import { commentRepo } from '@/lib/repos/commentRepo';
+import { Comment, CommentThread } from '@/lib/models/comment';
 import { NextRequest } from 'next/server';
 
 // Ensure storage env is present for route handlers
@@ -20,7 +21,8 @@ describe('Comments API', () => {
 
   describe('GET /api/prompts/[id]/comments', () => {
     it('should return threaded comments', async () => {
-      jest.spyOn(commentRepo, 'getByPromptId').mockResolvedValue([] as any);
+      const threadedComments: CommentThread[] = [];
+      jest.spyOn(commentRepo, 'getByPromptId').mockResolvedValue(threadedComments);
 
       const response = await GET(new NextRequest('http://localhost/api/prompts/123/comments'), {
         params: Promise.resolve({ id: '123' }),
@@ -36,7 +38,7 @@ describe('Comments API', () => {
   describe('POST /api/prompts/[id]/comments', () => {
     it('should create a comment and return it', async () => {
       const newComment = { userId: 'user1', content: 'A new comment' };
-      jest.spyOn(commentRepo, 'create').mockResolvedValue({
+      const createdComment: Comment = {
         ...newComment,
         _id: 'cm1',
         promptId: '123',
@@ -44,7 +46,8 @@ describe('Comments API', () => {
         updatedAt: new Date(),
         isEdited: false,
         isDeleted: false,
-      } as any);
+      };
+      jest.spyOn(commentRepo, 'create').mockResolvedValue(createdComment);
 
       const request = new NextRequest('http://localhost/api/prompts/123/comments', {
         method: 'POST',
@@ -67,7 +70,7 @@ describe('Comments API', () => {
   describe('PATCH /api/prompts/[id]/comments/[commentId]', () => {
     it('should update a comment', async () => {
       const updatePayload = { content: 'Updated content', userId: 'user1' };
-      jest.spyOn(commentRepo, 'update').mockResolvedValue({
+      const updatedComment: Comment = {
         _id: 'c1',
         promptId: 'p1',
         userId: 'user1',
@@ -76,7 +79,8 @@ describe('Comments API', () => {
         isDeleted: false,
         createdAt: new Date(),
         updatedAt: new Date(),
-      } as any);
+      };
+      jest.spyOn(commentRepo, 'update').mockResolvedValue(updatedComment);
 
       const request = new NextRequest('http://localhost/api/prompts/p1/comments/c1', {
         method: 'PATCH',
