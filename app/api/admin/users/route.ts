@@ -1,16 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCollections } from '@/lib/appwrite/collections';
 import { Permission } from '@/lib/permissions';
-import { currentUserHasPermission } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
+import { hasPermission } from '@/lib/permissions';
 import { Role } from '@/lib/models/user';
 import { Query } from '@/lib/appwrite/sdk';
 
 export async function GET(request: NextRequest) {
   try {
-    // Check permission
-    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS, request);
-    if (!hasPermission) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    // Check permission using Appwrite session
+    const user = await getCurrentUser(request);
+    if (!user || !user.isActive) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const hasManagePermission = hasPermission(user.role, Permission.MANAGE_USERS);
+    if (!hasManagePermission) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const { users } = await getCollections();
@@ -30,10 +36,15 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check permission
-    const hasPermission = await currentUserHasPermission(Permission.MANAGE_USERS, request);
-    if (!hasPermission) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    // Check permission using Appwrite session
+    const user = await getCurrentUser(request);
+    if (!user || !user.isActive) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const hasManagePermission = hasPermission(user.role, Permission.MANAGE_USERS);
+    if (!hasManagePermission) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     const body = await request.json();

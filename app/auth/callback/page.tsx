@@ -28,6 +28,7 @@ export default function OAuthCallbackPage() {
         });
 
         if (!cancelled && response.ok) {
+          console.log('Appwrite OAuth: Sync successful, redirecting to:', nextPath);
           setStatus('success');
           router.replace(nextPath);
           return;

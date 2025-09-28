@@ -10,6 +10,7 @@ import React, {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import AuthForm from '@/components/auth/AuthForm';
 
 export type AuthModalMode = 'login' | 'signup';
@@ -106,6 +107,9 @@ interface AuthModalProps {
 }
 
 function AuthModal({ mode, onClose, onSwitchMode }: AuthModalProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
@@ -118,13 +122,26 @@ function AuthModal({ mode, onClose, onSwitchMode }: AuthModalProps) {
   }, [onClose]);
 
   const handleSuccess = useCallback(
-    (nextMode: AuthModalMode) => {
+    async (nextMode: AuthModalMode) => {
+      console.log('Appwrite Auth: Authentication successful, mode:', nextMode);
+
       if (nextMode === 'signup') {
         onSwitchMode('login');
       }
+
+      // Get the next path from URL parameters
+      const nextPath = searchParams?.get('next');
+      const redirectPath = nextPath && nextPath.startsWith('/') ? nextPath : '/';
+
+      console.log('Appwrite Auth: Redirecting to:', redirectPath);
+
+      // Add a small delay to ensure session cookies are set before redirect
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      router.push(redirectPath);
+
       onClose();
     },
-    [onClose, onSwitchMode]
+    [onClose, onSwitchMode, router, searchParams]
   );
 
   return (

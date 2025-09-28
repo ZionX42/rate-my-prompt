@@ -183,6 +183,7 @@ export default function AuthForm({
         }
 
         await login(trimmedEmail, sanitizedPassword);
+        console.log('AuthForm: Login successful, calling onSuccess with login mode');
         setFeedback('Logged in successfully. Redirecting...');
         onSuccess?.('login');
       } catch (err) {

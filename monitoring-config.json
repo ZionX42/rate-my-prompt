@@ -1,0 +1,88 @@
+{
+  "authentication": {
+    "metrics": {
+      "login_success_rate": {
+        "threshold": 0.95,
+        "description": "Percentage of successful login attempts",
+        "alert_on_breach": true
+      },
+      "session_creation_rate": {
+        "threshold": 100,
+        "description": "Number of new sessions per hour",
+        "alert_on_breach": false
+      },
+      "oauth_completion_rate": {
+        "threshold": 0.9,
+        "description": "Percentage of OAuth flows that complete successfully",
+        "alert_on_breach": true
+      },
+      "profile_sync_time": {
+        "threshold": 1000,
+        "description": "Time to sync user profile (ms)",
+        "alert_on_breach": true
+      }
+    },
+    "logs": {
+      "authentication_events": {
+        "pattern": "Appwrite Auth:",
+        "retention_days": 30,
+        "alert_keywords": ["failed", "error", "unauthorized"]
+      },
+      "profile_events": {
+        "pattern": "ProfilePage:",
+        "retention_days": 7,
+        "alert_keywords": ["redirecting", "error"]
+      },
+      "sync_events": {
+        "pattern": "auth/sync",
+        "retention_days": 14,
+        "alert_keywords": ["failed", "timeout"]
+      }
+    },
+    "alerts": {
+      "critical": {
+        "auth_service_down": {
+          "condition": "login_success_rate < 0.5 for 5 minutes",
+          "action": "page_on_call_developer"
+        },
+        "sync_failures": {
+          "condition": "profile_sync_failures > 10 in 10 minutes",
+          "action": "email_dev_team"
+        }
+      },
+      "warning": {
+        "slow_auth": {
+          "condition": "profile_sync_time > 2000ms for 5 minutes",
+          "action": "log_warning"
+        },
+        "oauth_issues": {
+          "condition": "oauth_completion_rate < 0.8 for 15 minutes",
+          "action": "email_dev_team"
+        }
+      }
+    }
+  },
+  "performance": {
+    "thresholds": {
+      "auth_response_time": 500,
+      "profile_load_time": 2000,
+      "session_validation_time": 100
+    }
+  },
+  "security": {
+    "monitors": {
+      "suspicious_login_patterns": {
+        "enabled": true,
+        "description": "Detect multiple failed login attempts from same IP"
+      },
+      "session_hijacking_attempts": {
+        "enabled": true,
+        "description": "Monitor for session cookie tampering"
+      },
+      "unauthorized_api_access": {
+        "enabled": true,
+        "description": "Track attempts to access protected API routes"
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { validateServerConfig } from '@/lib/config/server';
 import { ok, created, badRequest, unauthorized, internalError } from '@/lib/api/responses';
 import { requireJson, logRequest } from '@/lib/api/middleware';
 import { InputValidation } from '@/lib/security/validation';
-import { SessionManager } from '@/lib/auth/sessionManager';
+import { getCurrentUser } from '@/lib/auth';
 
 export async function POST(req: NextRequest): Promise<Response> {
   logRequest(req);
@@ -65,8 +65,9 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
       return unauthorized('Invalid credentials');
     }
 
-    // Create session using SessionManager
-    await SessionManager.createSession(user);
+    // Note: Session creation is now handled by the Appwrite client
+    // The /api/auth/sync endpoint will create the necessary user profile
+    // when the client calls it after successful Appwrite authentication
 
     return ok({
       user: {
@@ -75,6 +76,7 @@ async function handleLogin(body: Record<string, unknown>): Promise<Response> {
         email: user.email,
         role: user.role,
       },
+      message: 'Login initiated. Complete authentication via Appwrite.',
     });
   } catch (error) {
     console.error('Login error:', error);
@@ -125,8 +127,8 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
 
     const createdUser = await createUserWithPassword(newUser, password);
 
-    // Create session using SessionManager
-    await SessionManager.createSession(createdUser);
+    // Note: Session creation is now handled by Appwrite client
+    // User will need to login via the Appwrite auth flow
 
     return created({
       user: {
@@ -135,6 +137,7 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
         email: createdUser.email,
         role: createdUser.role,
       },
+      message: 'User created. Please login via the Appwrite authentication flow.',
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -144,8 +147,9 @@ async function handleRegister(body: Record<string, unknown>): Promise<Response> 
 
 async function handleLogout(): Promise<Response> {
   try {
-    await SessionManager.destroySession();
-    return ok({ message: 'Logged out successfully' });
+    // Logout is now handled by the Appwrite client
+    // This endpoint is deprecated in favor of Appwrite logout
+    return ok({ message: 'Please use Appwrite logout method' });
   } catch (error) {
     console.error('Logout error:', error);
     return internalError('Logout failed');
@@ -154,18 +158,19 @@ async function handleLogout(): Promise<Response> {
 
 async function handleVerify(): Promise<Response> {
   try {
-    const session = await SessionManager.getCurrentSession();
+    // Session verification is now handled by getCurrentUser
+    const user = await getCurrentUser({} as NextRequest);
 
-    if (!session.isValid || !session.user) {
+    if (!user || !user.isActive) {
       return unauthorized('Invalid session');
     }
 
     return ok({
       user: {
-        _id: session.user._id,
-        displayName: session.user.displayName,
-        email: session.user.email,
-        role: session.user.role,
+        _id: user._id,
+        displayName: user.displayName,
+        email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {

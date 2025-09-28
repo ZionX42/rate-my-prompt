@@ -205,10 +205,105 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
   // Enhanced multi-field text search
   if (q && q.trim().length) {
     const searchTerm = q.trim();
-    // Try searching across multiple fields
-    // Note: Appwrite Query.search can only search one field at a time
-    // We'll prioritize title, then fall back to description and content
-    queries.push(Query.search('title', searchTerm));
+    // Search both title and description fields
+    // Since Appwrite Query.search can only search one field at a time,
+    // we'll search both fields separately and combine results
+    const titleResults = await prompts.list([
+      Query.equal('isPublished', true),
+      Query.search('title', searchTerm),
+    ]);
+
+    const descriptionResults = await prompts.list([
+      Query.equal('isPublished', true),
+      Query.search('description', searchTerm),
+    ]);
+
+    // Combine results and remove duplicates
+    const combinedDocuments = [...titleResults.documents, ...descriptionResults.documents];
+
+    // Remove duplicates by ID
+    const uniqueDocuments = combinedDocuments.filter(
+      (doc, index, self) => index === self.findIndex((d) => d.$id === doc.$id)
+    );
+
+    let promptModels = uniqueDocuments.map((doc) => convertToPromptModel(doc));
+    const promptIds = promptModels.map((p) => p._id).filter((id): id is string => !!id);
+
+    // Apply other filters to the combined results
+    if (category && category !== 'all') {
+      promptModels = promptModels.filter((p) => p.category === category);
+    }
+
+    if (author) {
+      promptModels = promptModels.filter((p) => p.authorId === author);
+    }
+
+    if (tags && tags.length > 0) {
+      promptModels = promptModels.filter((p) => tags.some((tag) => p.tags?.includes(tag)));
+    }
+
+    if (dateFrom) {
+      promptModels = promptModels.filter((p) => p.createdAt >= dateFrom);
+    }
+
+    if (dateTo) {
+      promptModels = promptModels.filter((p) => p.createdAt <= dateTo);
+    }
+
+    // Apply pagination to filtered results
+    const startIndex = offset;
+    const endIndex = startIndex + limit;
+    const paginatedModels = promptModels.slice(startIndex, endIndex);
+
+    // Fetch ratings for paginated results
+    const allRatings = new Map<string, { total: number; count: number }>();
+    if (promptIds.length > 0) {
+      const ratingQueries = [Query.equal('promptId', promptIds)];
+      const ratingsResult = await ratings.list(ratingQueries);
+      for (const r of ratingsResult.documents) {
+        const ratingDoc = r as RatingDoc;
+        const current = allRatings.get(ratingDoc.promptId) ?? { total: 0, count: 0 };
+        current.total += ratingDoc.rating;
+        current.count++;
+        allRatings.set(ratingDoc.promptId, current);
+      }
+    }
+
+    // Enrich results with ratings
+    const enrichedResults: SearchResult = [];
+
+    for (const prompt of paginatedModels) {
+      if (!prompt._id) continue;
+
+      const ratingData = allRatings.get(prompt._id);
+      const avgRating =
+        ratingData && ratingData.count > 0 ? ratingData.total / ratingData.count : undefined;
+      const ratingCount = ratingData ? ratingData.count : 0;
+
+      // Apply minimum rating filter
+      if (typeof minRating === 'number' && avgRating !== undefined && avgRating < minRating) {
+        continue;
+      }
+
+      enrichedResults.push({
+        ...prompt,
+        avgRating,
+        ratingCount,
+        score: calculateSearchScore(prompt, q),
+      });
+    }
+
+    // Apply sorting for rating-based sorts
+    if (sort === 'rating') {
+      enrichedResults.sort((a, b) => {
+        const aRating = a.avgRating || 0;
+        const bRating = b.avgRating || 0;
+        if (aRating !== bRating) return bRating - aRating;
+        return (b.ratingCount || 0) - (a.ratingCount || 0);
+      });
+    }
+
+    return enrichedResults;
   }
 
   // Add sorting
@@ -294,6 +389,7 @@ function calculateSearchScore(prompt: PromptModel, query: string): number {
   const searchTerm = query.toLowerCase();
   const title = prompt.title.toLowerCase();
   const description = prompt.description?.toLowerCase() || '';
+  const content = prompt.content.toLowerCase();
 
   let score = 0;
 
@@ -305,14 +401,20 @@ function calculateSearchScore(prompt: PromptModel, query: string): number {
 
   // Description matches get medium score
   if (description.includes(searchTerm)) {
-    score += 5;
+    score += 7;
+    if (description.startsWith(searchTerm)) score += 3; // Exact prefix match in description
+  }
+
+  // Content matches get lower score (since content is longer)
+  if (content.includes(searchTerm)) {
+    score += 3;
   }
 
   // Tag matches get additional score
   if (prompt.tags) {
     prompt.tags.forEach((tag) => {
       if (tag.toLowerCase().includes(searchTerm)) {
-        score += 3;
+        score += 5;
       }
     });
   }

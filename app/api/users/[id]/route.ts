@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updateUserProfile, getUserById } from '@/lib/repos/userRepo';
 import { validateProfileUpdate } from '@/lib/models/user';
 import { internalError, unauthorized, badRequest, notFound } from '@/lib/api/responses';
-import { SessionManager } from '@/lib/auth/sessionManager';
+import { getCurrentUser } from '@/lib/auth';
 import { hasPermission, Permission, canManageUser } from '@/lib/permissions';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -24,13 +24,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const session = await SessionManager.getCurrentSession();
+    const currentUser = await getCurrentUser(req);
 
-    if (!session.isValid || !session.user) {
+    if (!currentUser || !currentUser.isActive) {
       return unauthorized('Authentication required');
     }
 
-    const actor = session.user;
+    const actor = currentUser;
     const targetUser = await getUserById(id);
 
     if (!targetUser) {

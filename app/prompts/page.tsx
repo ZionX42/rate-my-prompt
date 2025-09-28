@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { searchPrompts, getCategoryStats } from '@/lib/repos/promptRepo';
+import { getCategoryStats } from '@/lib/repos/promptRepo';
 import type { SearchResult } from '@/lib/repos/promptRepo';
+import Filters from '@/components/search/Filters';
 
 export const metadata: Metadata = {
   title: 'Browse Prompts',
@@ -11,20 +12,67 @@ export const metadata: Metadata = {
 type PageSearchParams = {
   q?: string;
   category?: string;
+  tags?: string;
+  author?: string;
+  minRating?: string;
+  dateFrom?: string;
+  dateTo?: string;
+  sort?: string;
+  limit?: string;
   page?: string;
 };
 
 const PROMPTS_PER_PAGE = 12;
 
-export default async function PromptsPage({ searchParams }: { searchParams?: PageSearchParams }) {
-  const query = typeof searchParams?.q === 'string' ? searchParams.q.trim() : '';
-  const categoryParam = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
-  const pageParam = parseInt(searchParams?.page ?? '1', 10);
+export default async function PromptsPage({
+  searchParams,
+}: {
+  searchParams: Promise<PageSearchParams>;
+}) {
+  const params = await searchParams;
+  const query = typeof params?.q === 'string' ? params.q.trim() : '';
+  const categoryParam = typeof params?.category === 'string' ? params.category : 'all';
+  const tagsParam = typeof params?.tags === 'string' ? params.tags : '';
+  const authorParam = typeof params?.author === 'string' ? params.author : '';
+  const minRatingParam = typeof params?.minRating === 'string' ? parseFloat(params.minRating) : NaN;
+  const dateFromParam = typeof params?.dateFrom === 'string' ? params.dateFrom : '';
+  const dateToParam = typeof params?.dateTo === 'string' ? params.dateTo : '';
+  const sortParam = typeof params?.sort === 'string' ? params.sort : 'newest';
+  const limitParam = parseInt(params?.limit ?? '12', 10);
+  const pageParam = parseInt(params?.page ?? '1', 10);
+
   const currentPage = Number.isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
+  const limit = Number.isNaN(limitParam) || limitParam < 1 ? 12 : Math.min(limitParam, 100);
+
+  // Parse tags into array
+  const tags = tagsParam
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
+  // Parse dates
+  const dateFrom = dateFromParam ? new Date(dateFromParam) : undefined;
+  const dateTo = dateToParam ? new Date(dateToParam) : undefined;
+
+  // Validate dates
+  if (dateFromParam && (!dateFrom || isNaN(dateFrom.getTime()))) {
+    console.warn('Invalid dateFrom parameter:', dateFromParam);
+  }
+  if (dateToParam && (!dateTo || isNaN(dateTo.getTime()))) {
+    console.warn('Invalid dateTo parameter:', dateToParam);
+  }
 
   const filters = {
     q: query.length > 0 ? query : undefined,
     category: categoryParam !== 'all' ? categoryParam : undefined,
+    tags: tags.length > 0 ? tags : undefined,
+    author: authorParam.length > 0 ? authorParam : undefined,
+    minRating: !Number.isNaN(minRatingParam) && minRatingParam > 0 ? minRatingParam : undefined,
+    dateFrom: dateFrom && !Number.isNaN(dateFrom.getTime()) ? dateFrom : undefined,
+    dateTo: dateTo && !Number.isNaN(dateTo.getTime()) ? dateTo : undefined,
+    sort: (sortParam as 'relevance' | 'newest' | 'rating' | 'popularity') || 'newest',
+    limit,
+    offset: (currentPage - 1) * limit,
   };
 
   let prompts: SearchResult = [];
@@ -35,16 +83,37 @@ export default async function PromptsPage({ searchParams }: { searchParams?: Pag
 
   if (envReady) {
     try {
-      const [searchResults, categoryStats] = await Promise.all([
-        searchPrompts({
-          ...filters,
-          sort: 'newest',
-          limit: PROMPTS_PER_PAGE,
-          offset: (currentPage - 1) * PROMPTS_PER_PAGE,
-        }),
+      // Build search URL with all filter parameters
+      const searchUrl = new URL(
+        '/api/search',
+        process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+      );
+
+      if (filters.q) searchUrl.searchParams.set('q', filters.q);
+      if (filters.category) searchUrl.searchParams.set('category', filters.category);
+      if (filters.tags && filters.tags.length > 0)
+        searchUrl.searchParams.set('tags', filters.tags.join(','));
+      if (filters.author) searchUrl.searchParams.set('author', filters.author);
+      if (filters.minRating) searchUrl.searchParams.set('minRating', filters.minRating.toString());
+      if (filters.dateFrom) searchUrl.searchParams.set('dateFrom', filters.dateFrom.toISOString());
+      if (filters.dateTo) searchUrl.searchParams.set('dateTo', filters.dateTo.toISOString());
+      if (filters.sort) searchUrl.searchParams.set('sort', filters.sort);
+      searchUrl.searchParams.set('limit', filters.limit?.toString() || '12');
+      searchUrl.searchParams.set('offset', filters.offset?.toString() || '0');
+      searchUrl.searchParams.set('collection', 'prompts');
+
+      const [searchResponse, categoryStats] = await Promise.all([
+        fetch(searchUrl.toString()),
         getCategoryStats(),
       ]);
-      prompts = searchResults;
+
+      if (searchResponse.ok) {
+        const searchData = await searchResponse.json();
+        prompts = searchData.data || [];
+      } else {
+        throw new Error(`Search API returned ${searchResponse.status}`);
+      }
+
       categories = categoryStats;
     } catch (error) {
       console.error('Failed to load prompts:', error);
@@ -55,7 +124,7 @@ export default async function PromptsPage({ searchParams }: { searchParams?: Pag
       'Prompt data is not available because Appwrite credentials are missing. Please configure the environment variables to enable browsing.';
   }
 
-  const hasNextPage = prompts.length === PROMPTS_PER_PAGE;
+  const hasNextPage = prompts.length === limit;
   const hasPrevPage = currentPage > 1;
 
   const categoryOptions = ['all', ...Array.from(new Set(categories.map((item) => item.category)))];
@@ -70,12 +139,18 @@ export default async function PromptsPage({ searchParams }: { searchParams?: Pag
             the Prompt Hub community.
           </p>
 
-          <PromptFilters
-            query={query}
-            category={categoryParam}
-            categories={categoryOptions}
-            isDisabled={!envReady}
-          />
+          <div className="space-y-4">
+            <Filters />
+            {/* Fallback simple filters for server-side rendering */}
+            <div className="hidden">
+              <PromptFilters
+                query={query}
+                category={categoryParam}
+                categories={categoryOptions}
+                isDisabled={!envReady}
+              />
+            </div>
+          </div>
         </header>
 
         <section className="space-y-6">
@@ -103,6 +178,13 @@ export default async function PromptsPage({ searchParams }: { searchParams?: Pag
           <PaginationControls
             query={query}
             category={categoryParam}
+            tags={tags}
+            author={authorParam}
+            minRating={minRatingParam}
+            dateFrom={dateFromParam}
+            dateTo={dateToParam}
+            sort={sortParam}
+            limit={limit}
             currentPage={currentPage}
             hasPrev={hasPrevPage}
             hasNext={hasNextPage}
@@ -253,6 +335,13 @@ function PromptResultsGrid({ prompts }: PromptResultsGridProps) {
 type PaginationControlsProps = {
   query: string;
   category: string;
+  tags: string[];
+  author: string;
+  minRating: number;
+  dateFrom: string;
+  dateTo: string;
+  sort: string;
+  limit: number;
   currentPage: number;
   hasPrev: boolean;
   hasNext: boolean;
@@ -261,6 +350,13 @@ type PaginationControlsProps = {
 function PaginationControls({
   query,
   category,
+  tags,
+  author,
+  minRating,
+  dateFrom,
+  dateTo,
+  sort,
+  limit,
   currentPage,
   hasPrev,
   hasNext,
@@ -268,7 +364,14 @@ function PaginationControls({
   const buildSearch = (page: number) => {
     const params = new URLSearchParams();
     if (query) params.set('q', query);
-    if (category) params.set('category', category);
+    if (category && category !== 'all') params.set('category', category);
+    if (tags && tags.length > 0) params.set('tags', tags.join(','));
+    if (author) params.set('author', author);
+    if (minRating && minRating > 0) params.set('minRating', minRating.toString());
+    if (dateFrom) params.set('dateFrom', dateFrom);
+    if (dateTo) params.set('dateTo', dateTo);
+    if (sort && sort !== 'newest') params.set('sort', sort);
+    if (limit && limit !== 12) params.set('limit', limit.toString());
     if (page > 1) params.set('page', page.toString());
     return `?${params.toString()}`;
   };

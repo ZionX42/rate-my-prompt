@@ -24,13 +24,21 @@ const SYNC_ENDPOINT = '/api/auth/sync';
 
 async function syncProfile() {
   try {
-    await fetch(SYNC_ENDPOINT, {
+    console.log('Appwrite Auth: Syncing user profile');
+    const response = await fetch(SYNC_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
+
+    if (!response.ok) {
+      console.warn('Appwrite Auth: Profile sync failed with status:', response.status);
+      return;
+    }
+
+    console.log('Appwrite Auth: Profile sync completed');
   } catch (error) {
-    console.warn('User profile sync failed', error);
+    console.warn('Appwrite Auth: User profile sync failed', error);
   }
 }
 
@@ -144,16 +152,27 @@ export function useAppwriteAuth(auto = true): UseAppwriteAuthResponse {
 
   const login = useCallback(
     async (email: string, password: string) => {
+      console.log('useAppwriteAuth: Starting login process for', email);
       ensureReady();
       setStatus('loading');
       setError(null);
       try {
         const account = getAppwriteAccount();
+        console.log('useAppwriteAuth: Creating email password session');
         await account.createEmailPasswordSession({ email, password });
+        console.log('useAppwriteAuth: Session created, waiting for cookie to be set');
+
+        // Wait for session cookie to be set
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        console.log('useAppwriteAuth: Syncing profile');
         await syncProfile();
+        console.log('useAppwriteAuth: Profile synced, loading user');
         await loadUser();
+        console.log('useAppwriteAuth: Login process completed successfully');
       } catch (err) {
         const message = normaliseErrorMessage(err, 'Login failed');
+        console.error('useAppwriteAuth: Login failed:', message);
         setUser(null);
         setStatus('unauthenticated');
         setError(message);

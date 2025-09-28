@@ -238,10 +238,17 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  // Admin route protection (placeholder)
+  // Admin route protection using Appwrite sessions
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    const sessionCookie = request.cookies.get('session')?.value;
-    if (!sessionCookie) {
+    const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+    const appwriteSessionCookie = request.cookies.get(`a_session_${projectId}`)?.value;
+
+    console.log(
+      'Middleware: Admin route access, Appwrite session present:',
+      !!appwriteSessionCookie
+    );
+
+    if (!appwriteSessionCookie) {
       const loginUrl = new URL('/login', request.url);
       const returnPath = `${request.nextUrl.pathname}${request.nextUrl.search}`;
       loginUrl.searchParams.set('next', returnPath || '/admin');

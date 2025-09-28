@@ -11,7 +11,7 @@ import { requireJson, logRequest } from '@/lib/api/middleware';
 import { logUserAction } from '@/lib/logger';
 import { validateServerConfig } from '@/lib/config/server';
 import { InputValidation } from '@/lib/security/validation';
-import { SessionManager } from '@/lib/auth/sessionManager';
+import { getCurrentUser } from '@/lib/auth';
 import { hasPermission, Permission } from '@/lib/permissions';
 
 export async function POST(req: NextRequest): Promise<Response> {
@@ -109,12 +109,12 @@ export async function POST(req: NextRequest): Promise<Response> {
     return serviceUnavailable('Server configuration error');
   }
 
-  const session = await SessionManager.getCurrentSession();
-  if (!session.isValid || !session.user) {
+  const currentUser = await getCurrentUser(req);
+  if (!currentUser || !currentUser.isActive) {
     return unauthorized('You must be signed in to create a prompt');
   }
 
-  const actor = session.user;
+  const actor = currentUser;
   if (!hasPermission(actor.role, Permission.CREATE_PROMPT)) {
     return unauthorized('You do not have permission to create prompts');
   }

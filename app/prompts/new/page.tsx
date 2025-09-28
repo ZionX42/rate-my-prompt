@@ -1,21 +1,27 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
 import PromptForm from '@/components/prompts/PromptForm';
-import { SessionManager } from '@/lib/auth/sessionManager';
+import { getCurrentUser } from '@/lib/auth';
 import { hasPermission, Permission } from '@/lib/permissions';
+import type { NextRequest } from 'next/server';
 
 export const metadata = {
   title: 'Submit a Prompt',
 };
 
 export default async function NewPromptPage() {
-  const session = await SessionManager.getCurrentSession();
+  // Create a mock request object for getCurrentUser
+  const mockRequest = {
+    headers: { get: () => undefined },
+    cookies: { get: () => undefined },
+  } as unknown as NextRequest;
 
-  if (!session.user || !session.isValid) {
+  const user = await getCurrentUser(mockRequest);
+
+  if (!user || !user.isActive) {
     redirect('/login?next=/prompts/new');
   }
 
-  const user = session.user;
   if (!hasPermission(user.role, Permission.CREATE_PROMPT)) {
     redirect('/prompts');
   }

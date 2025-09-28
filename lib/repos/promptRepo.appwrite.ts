@@ -174,11 +174,88 @@ export async function searchPrompts(params: SearchParams): Promise<SearchResult>
     queries.push(Query.lessThanEqual('createdAt', dateTo.toISOString()));
   }
 
-  // Add text search (Appwrite full-text search)
+  // Add text search (Appwrite full-text search across title and description)
   if (q && q.trim().length) {
-    queries.push(Query.search('title', q.trim()));
-    // Note: Appwrite search is more limited than MongoDB's $text search
-    // You might need to implement custom search logic or use multiple queries
+    const searchTerm = q.trim();
+
+    // Search both title and description fields
+    const titleResults = await prompts.list([
+      Query.equal('isPublished', true),
+      Query.search('title', searchTerm),
+    ]);
+
+    const descriptionResults = await prompts.list([
+      Query.equal('isPublished', true),
+      Query.search('description', searchTerm),
+    ]);
+
+    // Combine results and remove duplicates
+    const combinedDocuments = [...titleResults.documents, ...descriptionResults.documents];
+
+    // Remove duplicates by ID
+    const uniqueDocuments = combinedDocuments.filter(
+      (doc, index, self) => index === self.findIndex((d) => d.$id === doc.$id)
+    );
+
+    let promptModels = uniqueDocuments.map((doc) => convertToPromptModel(doc));
+
+    // Apply category filter if specified
+    if (category && category !== 'all') {
+      promptModels = promptModels.filter((p) => p.category === category);
+    }
+
+    // Apply date filters if specified
+    if (dateFrom) {
+      promptModels = promptModels.filter((p) => p.createdAt >= dateFrom);
+    }
+
+    if (dateTo) {
+      promptModels = promptModels.filter((p) => p.createdAt <= dateTo);
+    }
+
+    // Apply pagination
+    const paginatedModels = promptModels.slice(0, limit);
+
+    // Enrich with ratings
+    const enrichedResults: SearchResult = [];
+
+    for (const prompt of paginatedModels) {
+      if (!prompt._id) continue;
+
+      const ratingQueries = [Query.equal('promptId', prompt._id)];
+      const ratingsResult = await ratings.list(ratingQueries);
+
+      const promptRatings = ratingsResult.documents.map((doc) => doc.rating);
+      const avgRating =
+        promptRatings.length > 0
+          ? promptRatings.reduce((sum, rating) => sum + rating, 0) / promptRatings.length
+          : undefined;
+      const ratingCount = promptRatings.length;
+
+      // Apply minimum rating filter
+      if (typeof minRating === 'number' && avgRating !== undefined && avgRating < minRating) {
+        continue;
+      }
+
+      enrichedResults.push({
+        ...prompt,
+        avgRating,
+        ratingCount,
+        score: undefined, // Appwrite doesn't provide text score
+      });
+    }
+
+    // Apply sorting for rating-based sorts
+    if (sort === 'rating') {
+      enrichedResults.sort((a, b) => {
+        const aRating = a.avgRating || 0;
+        const bRating = b.avgRating || 0;
+        if (aRating !== bRating) return bRating - aRating;
+        return (b.ratingCount || 0) - (a.ratingCount || 0);
+      });
+    }
+
+    return enrichedResults;
   }
 
   // Add sorting
