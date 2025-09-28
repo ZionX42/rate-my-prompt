@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "appwrite": {
+      "command": "npm",
+      "args": ["run", "mcp:appwrite"],
+      "cwd": "."
+    }
+  }
+}

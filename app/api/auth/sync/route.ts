@@ -28,14 +28,24 @@ export async function POST(request: NextRequest) {
     const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string;
     const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
     const cookieHeader = request.headers.get('cookie') ?? '';
+    const authHeader = request.headers.get('authorization') ?? '';
+    const jwtHeader = request.headers.get('x-appwrite-jwt') ?? '';
     const sessionCookieName = `a_session_${projectId}`;
 
-    console.log('Appwrite Auth: Checking for session cookie:', sessionCookieName);
-    console.log('Appwrite Auth: Cookie header length:', cookieHeader.length);
-    console.log('Appwrite Auth: Session cookie found:', cookieHeader.includes(sessionCookieName));
+    const bearerMatch = authHeader.match(/^Bearer\s+(.+)$/i);
+    const jwtToken = (jwtHeader || (bearerMatch ? bearerMatch[1] : '')).trim();
+    const hasSessionCookie = cookieHeader
+      .split(';')
+      .some((cookie) => cookie.trim().startsWith(`${sessionCookieName}=`));
 
-    if (!cookieHeader.includes(sessionCookieName)) {
-      console.log('Appwrite Auth: No valid Appwrite session found');
+    console.log('Appwrite Auth: Checking for session token');
+    console.log('Appwrite Auth: JWT provided:', jwtToken.length > 0);
+    console.log('Appwrite Auth: Session cookie name:', sessionCookieName);
+    console.log('Appwrite Auth: Cookie header length:', cookieHeader.length);
+    console.log('Appwrite Auth: Session cookie found:', hasSessionCookie);
+
+    if (!jwtToken && !hasSessionCookie) {
+      console.log('Appwrite Auth: No valid Appwrite session token provided');
       console.log('Appwrite Auth: Available cookies:', cookieHeader.substring(0, 200) + '...');
       return NextResponse.json({ ok: false, reason: 'no-session' }, { status: 401 });
     }
@@ -44,7 +54,11 @@ export async function POST(request: NextRequest) {
     const accountResponse = await fetch(`${endpoint}/account`, {
       method: 'GET',
       headers: {
-        cookie: cookieHeader,
+        ...(jwtToken
+          ? { 'X-Appwrite-JWT': jwtToken }
+          : hasSessionCookie
+            ? { cookie: cookieHeader }
+            : {}),
         'X-Appwrite-Project': projectId,
         accept: 'application/json',
       },

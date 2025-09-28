@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Models } from 'appwrite';
-import { missingAppwriteEnvVars } from '@/lib/appwrite';
+import { missingAppwriteEnvVars, appwriteCreateJWT } from '@/lib/appwrite';
 import { getAppwriteAccount } from '@/lib/appwriteAccount';
 
 export type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'unauthenticated' | 'error';
@@ -25,9 +25,16 @@ const SYNC_ENDPOINT = '/api/auth/sync';
 async function syncProfile() {
   try {
     console.log('Appwrite Auth: Syncing user profile');
+    const jwt = await appwriteCreateJWT();
+    if (!jwt) {
+      console.warn('Appwrite Auth: Failed to obtain Appwrite JWT before sync request');
+    }
     const response = await fetch(SYNC_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+      },
       credentials: 'include',
     });
 

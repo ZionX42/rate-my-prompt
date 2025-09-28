@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { appwriteCreateJWT } from '@/lib/appwrite';
 
 export default function OAuthCallbackPage() {
   const router = useRouter();
@@ -21,9 +22,16 @@ export default function OAuthCallbackPage() {
     async function syncAndRedirect() {
       try {
         setStatus('pending');
+        const jwt = await appwriteCreateJWT();
+        if (!jwt) {
+          console.warn('OAuth Callback: Unable to obtain Appwrite JWT before sync request');
+        }
         const response = await fetch('/api/auth/sync', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+          },
           credentials: 'include',
         });
 

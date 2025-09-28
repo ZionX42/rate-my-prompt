@@ -137,6 +137,14 @@ function AuthModal({ mode, onClose, onSwitchMode }: AuthModalProps) {
 
       // Add a small delay to ensure session cookies are set before redirect
       await new Promise((resolve) => setTimeout(resolve, 200));
+
+      // Dispatch custom event to notify other components of successful auth
+      window.dispatchEvent(
+        new CustomEvent('auth-success', {
+          detail: { redirectPath, timestamp: Date.now() },
+        })
+      );
+
       router.push(redirectPath);
 
       onClose();

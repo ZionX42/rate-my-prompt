@@ -50,6 +50,20 @@ export async function appwriteLogout() {
   }
 }
 
+export async function appwriteCreateJWT(): Promise<string | null> {
+  try {
+    const account = getAccount();
+    const result = await account.createJWT();
+    if (!result || typeof result.jwt !== 'string' || result.jwt.length === 0) {
+      return null;
+    }
+    return result.jwt;
+  } catch (error) {
+    console.warn('Appwrite: Failed to create JWT for session sync', error);
+    return null;
+  }
+}
+
 export async function appwriteCurrentUser() {
   try {
     const account = getAccount();

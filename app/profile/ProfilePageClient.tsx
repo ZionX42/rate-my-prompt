@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ProfileDashboard from '@/components/users/ProfileDashboard';
 import { hasPermission, Permission } from '@/lib/permissions';
-import { appwriteCurrentUser } from '@/lib/appwrite';
+import { appwriteCurrentUser, appwriteCreateJWT } from '@/lib/appwrite';
 import { Role } from '@/lib/models/user';
 import type { PromptModel } from '@/lib/models/prompt';
 
@@ -24,12 +24,91 @@ export default function ProfilePageClient() {
   const [prompts, setPrompts] = useState<PromptModel[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [authCheckCount, setAuthCheckCount] = useState(0);
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Check authentication on mount and when auth state might have changed
   useEffect(() => {
     checkAuthAndLoadProfile();
+  }, [authCheckCount]);
+
+  // Listen for focus events to re-check auth when user returns to tab
+  useEffect(() => {
+    const handleFocus = () => {
+      console.log('ProfilePage: Window focused, re-checking authentication');
+      setAuthCheckCount((prev) => prev + 1);
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
+
+  // Listen for storage events (in case auth state changes in another tab)
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key?.includes('session') || e.key?.includes('auth')) {
+        console.log('ProfilePage: Storage event detected, re-checking authentication');
+        setAuthCheckCount((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
+  // Listen for popstate events (browser back/forward navigation)
+  useEffect(() => {
+    const handlePopState = () => {
+      console.log('ProfilePage: Navigation detected, re-checking authentication');
+      setAuthCheckCount((prev) => prev + 1);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Listen for successful authentication events
+  useEffect(() => {
+    const handleAuthSuccess = (event: CustomEvent) => {
+      console.log('ProfilePage: Auth success event received:', event.detail);
+      // Small delay to ensure cookies are set, then re-check auth
+      setTimeout(() => {
+        console.log('ProfilePage: Re-checking authentication after successful login');
+        setAuthCheckCount((prev) => prev + 1);
+      }, 500);
+    };
+
+    window.addEventListener('auth-success', handleAuthSuccess as EventListener);
+    return () => window.removeEventListener('auth-success', handleAuthSuccess as EventListener);
+  }, []);
+
+  // Listen for visibility changes (tab switches, minimize/maximize)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('ProfilePage: Page became visible, re-checking authentication');
+        setAuthCheckCount((prev) => prev + 1);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  // Check authentication when component mounts or when triggered
+  const triggerAuthCheck = () => {
+    console.log('ProfilePage: Manual auth check triggered');
+    setAuthCheckCount((prev) => prev + 1);
+  };
+
+  // Expose trigger function globally for debugging
+  useEffect(() => {
+    (window as any).triggerProfileAuthCheck = triggerAuthCheck;
+    return () => {
+      delete (window as any).triggerProfileAuthCheck;
+    };
+  }, [triggerAuthCheck]);
 
   const checkAuthAndLoadProfile = async (retryCount = 0) => {
     try {
@@ -55,9 +134,17 @@ export default function ProfilePageClient() {
 
       // Sync user profile with backend
       console.log('ProfilePage: Attempting to sync user profile');
+      const jwt = await appwriteCreateJWT();
+      if (!jwt) {
+        console.warn('ProfilePage: Unable to obtain Appwrite JWT before sync request');
+      }
+
       const syncResponse = await fetch('/api/auth/sync', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+        },
         credentials: 'include',
       });
 

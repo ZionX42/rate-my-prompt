@@ -23,9 +23,11 @@
     "audit": "npm audit",
     "audit:ci": "audit-ci --config audit-ci.json",
     "audit:fix": "npm audit fix",
+    "mcp:appwrite": "tsx mcp/servers/appwrite/server.ts",
     "security:check": "npm run audit:ci && npm run lint && npm run test:no-coverage"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.2",
     "@prisma/client": "^6.15.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@sentry/nextjs": "^10.8.0",
