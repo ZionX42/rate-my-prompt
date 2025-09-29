@@ -157,8 +157,15 @@ export default function ProfilePageClient() {
       console.log('ProfilePage: Sync response status:', syncResponse.status);
 
       if (!syncResponse.ok) {
+        const responseText = await syncResponse.text();
+        console.error('ProfilePage: Sync response text:', responseText);
         const errorData = await syncResponse.json().catch(() => ({}));
         console.error('ProfilePage: Sync failed:', errorData);
+        console.error('ProfilePage: Sync response status:', syncResponse.status);
+        console.error(
+          'ProfilePage: Sync response headers:',
+          Object.fromEntries(syncResponse.headers.entries())
+        );
 
         // If it's a "no-session" error and we haven't retried yet, try again
         if (errorData.reason === 'no-session' && retryCount < 2) {

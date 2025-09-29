@@ -25,6 +25,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, reason: 'config-missing', missing }, { status: 503 });
     }
 
+    console.log('Appwrite Auth: Configuration validated successfully');
+
     const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string;
     const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
     const cookieHeader = request.headers.get('cookie') ?? '';
@@ -51,6 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch current user account from Appwrite
+    console.log('Appwrite Auth: Fetching current user account from Appwrite');
     const accountResponse = await fetch(`${endpoint}/account`, {
       method: 'GET',
       headers: {
@@ -73,6 +76,11 @@ export async function POST(request: NextRequest) {
 
       const errorText = await accountResponse.text();
       console.error('Appwrite Auth: Failed to fetch account:', errorText);
+      console.error('Appwrite Auth: Account response status:', accountResponse.status);
+      console.error(
+        'Appwrite Auth: Account response headers:',
+        Object.fromEntries(accountResponse.headers.entries())
+      );
       return NextResponse.json(
         { ok: false, reason: 'appwrite-error', error: errorText },
         { status: 502 }
@@ -81,12 +89,19 @@ export async function POST(request: NextRequest) {
 
     const account = (await accountResponse.json()) as AppwriteAccount;
     console.log('Appwrite Auth: Retrieved account for:', account.email);
+    console.log('Appwrite Auth: Account ID:', account.$id);
 
     // Check if user profile exists
+    console.log('Appwrite Auth: Checking if user profile exists for ID:', account.$id);
     const user = await getUserById(account.$id);
 
     if (user) {
       console.log('Appwrite Auth: Existing user profile found');
+      console.log('Appwrite Auth: User details:', {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      });
       return NextResponse.json({
         ok: true,
         user: {
@@ -100,21 +115,36 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    console.log('Appwrite Auth: No existing user profile found, will create new one');
+
     // Create new user profile
     const displayName = account.name?.trim() || account.email.split('@')[0];
     console.log('Appwrite Auth: Creating new user profile for:', account.email);
+    console.log('Appwrite Auth: Display name:', displayName);
+    console.log('Appwrite Auth: Document ID:', account.$id);
 
-    const newUser = await createUser(
-      {
-        displayName,
-        email: account.email,
-        role: Role.USER,
-        isActive: true,
-      },
-      { documentId: account.$id }
-    );
+    let newUser;
+    try {
+      newUser = await createUser(
+        {
+          displayName,
+          email: account.email,
+          role: Role.USER,
+          isActive: true,
+        },
+        { documentId: account.$id }
+      );
 
-    console.log('Appwrite Auth: User profile created successfully');
+      console.log('Appwrite Auth: User profile created successfully');
+      console.log('Appwrite Auth: New user ID:', newUser._id);
+    } catch (createError) {
+      console.error('Appwrite Auth: Failed to create user profile:', createError);
+      console.error('Appwrite Auth: Create error details:', {
+        message: createError instanceof Error ? createError.message : String(createError),
+        stack: createError instanceof Error ? createError.stack : undefined,
+      });
+      throw createError;
+    }
 
     return NextResponse.json({
       ok: true,
@@ -129,6 +159,19 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Appwrite Auth: Sync failed:', error);
+    console.error('Appwrite Auth: Error type:', typeof error);
+    console.error('Appwrite Auth: Error constructor:', error?.constructor?.name);
+    console.error(
+      'Appwrite Auth: Error message:',
+      error instanceof Error ? error.message : String(error)
+    );
+    console.error('Appwrite Auth: Error stack:', error instanceof Error ? error.stack : undefined);
+
+    // If it's an Appwrite-related error, try to get more details
+    if (error && typeof error === 'object' && 'response' in error) {
+      console.error('Appwrite Auth: Error response:', (error as any).response);
+    }
+
     return NextResponse.json(
       { ok: false, reason: 'sync-failed', error: String(error) },
       { status: 500 }

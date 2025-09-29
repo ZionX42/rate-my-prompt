@@ -89,6 +89,7 @@ export async function createUser(
       role: userData.role,
       isActive: userData.isActive ?? true,
       joinedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
     const result = await users.create(userDoc, options?.documentId);
@@ -132,6 +133,7 @@ export async function createUserWithPassword(
       role: userData.role,
       isActive: userData.isActive ?? true,
       joinedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       passwordHash,
     };
 

@@ -1,0 +1,143 @@
+/*
+ * Placeholder styles for the ProfilePage scaffold.
+ * Replace with your design system or remove the import if integrating elsewhere.
+ */
+
+.profile-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.profile-page__form,
+.profile-page__secondary {
+  background: color-mix(in srgb, var(--foreground, #0f172a) 5%, white 95%);
+  border: 1px solid color-mix(in srgb, var(--foreground, #0f172a) 8%, white 92%);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.1);
+}
+
+.profile-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-page__header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.profile-page__form section {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-page__form label {
+  font-weight: 600;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.profile-page__form input,
+.profile-page__form textarea,
+.profile-page__form button {
+  font: inherit;
+}
+
+.profile-page__form input,
+.profile-page__form textarea {
+  padding: 0.75rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.profile-page__form button,
+.profile-page__secondary button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.profile-page__form button:hover,
+.profile-page__secondary button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
+}
+
+.profile-page__secondary button.danger {
+  background: #dc2626;
+  color: white;
+}
+
+.profile-page__feedback {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(125, 211, 252, 0.2);
+  color: #0f172a;
+}
+
+.field-error,
+.helper-text.error {
+  color: #dc2626;
+  font-size: 0.9rem;
+}
+
+.helper-text.success {
+  color: #15803d;
+  font-size: 0.9rem;
+}
+
+.profile-page__loading,
+.profile-page__error {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.profile-page__avatar-preview {
+  max-width: 160px;
+}
+
+.profile-page__avatar-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 4px solid rgba(148, 163, 184, 0.45);
+}
+
+.profile-page__modal {
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 420px;
+}
+
+.profile-page__modal form {
+  display: grid;
+  gap: 1rem;
+}
+
+.profile-page__modal footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.profile-page__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}

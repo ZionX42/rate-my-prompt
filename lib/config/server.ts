@@ -9,7 +9,7 @@ export const serverConfig = {
     endpoint: process.env.APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1',
     projectId: process.env.APPWRITE_PROJECT_ID || '',
     apiKey: process.env.APPWRITE_API_KEY || '',
-    databaseId: process.env.APPWRITE_DATABASE_ID || 'prompt-hub',
+    databaseId: process.env.APPWRITE_DATABASE_ID || 'rate-my-prompt-db',
   },
 
   // Database Configuration
