@@ -38,11 +38,12 @@ export default async function PromptsPage({
   const dateFromParam = typeof params?.dateFrom === 'string' ? params.dateFrom : '';
   const dateToParam = typeof params?.dateTo === 'string' ? params.dateTo : '';
   const sortParam = typeof params?.sort === 'string' ? params.sort : 'newest';
-  const limitParam = parseInt(params?.limit ?? '12', 10);
+  const limitParam = parseInt(params?.limit ?? String(PROMPTS_PER_PAGE), 10);
   const pageParam = parseInt(params?.page ?? '1', 10);
 
   const currentPage = Number.isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
-  const limit = Number.isNaN(limitParam) || limitParam < 1 ? 12 : Math.min(limitParam, 100);
+  const limit =
+    Number.isNaN(limitParam) || limitParam < 1 ? PROMPTS_PER_PAGE : Math.min(limitParam, 100);
 
   // Parse tags into array
   const tags = tagsParam
@@ -98,7 +99,7 @@ export default async function PromptsPage({
       if (filters.dateFrom) searchUrl.searchParams.set('dateFrom', filters.dateFrom.toISOString());
       if (filters.dateTo) searchUrl.searchParams.set('dateTo', filters.dateTo.toISOString());
       if (filters.sort) searchUrl.searchParams.set('sort', filters.sort);
-      searchUrl.searchParams.set('limit', filters.limit?.toString() || '12');
+      searchUrl.searchParams.set('limit', filters.limit?.toString() || String(PROMPTS_PER_PAGE));
       searchUrl.searchParams.set('offset', filters.offset?.toString() || '0');
       searchUrl.searchParams.set('collection', 'prompts');
 
@@ -371,7 +372,7 @@ function PaginationControls({
     if (dateFrom) params.set('dateFrom', dateFrom);
     if (dateTo) params.set('dateTo', dateTo);
     if (sort && sort !== 'newest') params.set('sort', sort);
-    if (limit && limit !== 12) params.set('limit', limit.toString());
+    if (limit && limit !== PROMPTS_PER_PAGE) params.set('limit', limit.toString());
     if (page > 1) params.set('page', page.toString());
     return `?${params.toString()}`;
   };

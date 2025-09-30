@@ -10,6 +10,10 @@ export const serverConfig = {
     projectId: process.env.APPWRITE_PROJECT_ID || '',
     apiKey: process.env.APPWRITE_API_KEY || '',
     databaseId: process.env.APPWRITE_DATABASE_ID || 'rate-my-prompt-db',
+    profilesCollectionId: process.env.APPWRITE_PROFILES_COLLECTION_ID || '',
+    avatarBucketId: process.env.APPWRITE_AVATAR_BUCKET_ID || '',
+    promptsCollectionId: process.env.APPWRITE_PROMPTS_COLLECTION_ID || '',
+    gdprLogsCollectionId: process.env.APPWRITE_GDPR_LOGS_COLLECTION_ID || '',
   },
 
   // Database Configuration
@@ -37,7 +41,16 @@ export const serverConfig = {
 
 // Validation function to ensure all required environment variables are set
 export function validateServerConfig() {
-  const requiredVars = ['APPWRITE_PROJECT_ID', 'APPWRITE_API_KEY', 'DATABASE_URL', 'JWT_SECRET'];
+  const requiredVars = [
+    'APPWRITE_ENDPOINT',
+    'APPWRITE_PROJECT_ID',
+    'APPWRITE_API_KEY',
+    'APPWRITE_DATABASE_ID',
+    'APPWRITE_PROFILES_COLLECTION_ID',
+    'APPWRITE_AVATAR_BUCKET_ID',
+    'DATABASE_URL',
+    'JWT_SECRET',
+  ];
 
   const missing = requiredVars.filter((varName) => !process.env[varName]);
 

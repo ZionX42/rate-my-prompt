@@ -110,7 +110,8 @@ function SearchPageContent() {
     const loadResults = async () => {
       try {
         setLoading(true);
-        const params = parseParams(Object.fromEntries(searchParams.entries()));
+        const paramsRecord = searchParams ? Object.fromEntries(searchParams.entries()) : {};
+        const params = parseParams(paramsRecord);
         const searchResults = await fetchSearchResults(params);
         setResults(searchResults);
         setError(null);
@@ -126,7 +127,8 @@ function SearchPageContent() {
     loadResults();
   }, [searchParams]);
 
-  const params = parseParams(Object.fromEntries(searchParams.entries()));
+  const paramsRecord = searchParams ? Object.fromEntries(searchParams.entries()) : {};
+  const params = parseParams(paramsRecord);
 
   if (loading) {
     return (

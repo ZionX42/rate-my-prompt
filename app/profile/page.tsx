@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import ProfilePageClient from './ProfilePageClient';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default function ProfilePage() {
-  return <ProfilePageClient />;
+  return (
+    <Suspense fallback={<div className="profile-page__loading">Loading profile…</div>}>
+      <ProfilePageClient />
+    </Suspense>
+  );
 }

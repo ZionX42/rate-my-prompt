@@ -4,21 +4,23 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 function useFilterState() {
   const searchParams = useSearchParams();
-  const [q, setQ] = React.useState(searchParams.get('q') ?? '');
-  const [category, setCategory] = React.useState(searchParams.get('category') ?? 'all');
-  const [tags, setTags] = React.useState(searchParams.get('tags') ?? '');
-  const [author, setAuthor] = React.useState(searchParams.get('author') ?? '');
-  const [collection, setCollection] = React.useState(searchParams.get('collection') ?? 'prompts');
+  const getParam = (key: string) => searchParams?.get(key) ?? null;
+
+  const [q, setQ] = React.useState(getParam('q') ?? '');
+  const [category, setCategory] = React.useState(getParam('category') ?? 'all');
+  const [tags, setTags] = React.useState(getParam('tags') ?? '');
+  const [author, setAuthor] = React.useState(getParam('author') ?? '');
+  const [collection, setCollection] = React.useState(getParam('collection') ?? 'prompts');
   const [minRating, setMinRating] = React.useState<number | ''>(() => {
-    const m = searchParams.get('minRating');
+    const m = getParam('minRating');
     const n = m ? Number(m) : NaN;
     return isNaN(n) ? '' : n;
   });
-  const [dateFrom, setDateFrom] = React.useState(searchParams.get('dateFrom') ?? '');
-  const [dateTo, setDateTo] = React.useState(searchParams.get('dateTo') ?? '');
-  const [sort, setSort] = React.useState(searchParams.get('sort') ?? 'relevance');
+  const [dateFrom, setDateFrom] = React.useState(getParam('dateFrom') ?? '');
+  const [dateTo, setDateTo] = React.useState(getParam('dateTo') ?? '');
+  const [sort, setSort] = React.useState(getParam('sort') ?? 'relevance');
   const [limit, setLimit] = React.useState<number>(() => {
-    const l = searchParams.get('limit');
+    const l = getParam('limit');
     const n = l ? Number(l) : 20;
     return isNaN(n) ? 20 : Math.min(Math.max(n, 1), 100);
   });

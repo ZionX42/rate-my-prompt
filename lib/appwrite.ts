@@ -2,10 +2,12 @@
 // Uses environment variables: NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID
 // Server-side operations requiring API key should use a separate server-only module (not yet implemented here)
 
-import { Client, Account, ID } from 'appwrite';
+import { Client, Account, ID, Storage } from 'appwrite';
 
 // Guard against SSR import issues (Next.js) by lazy initializing
 let _account: Account | null = null;
+let _client: Client | null = null;
+let _storage: Storage | null = null;
 
 export function missingAppwriteEnvVars(): string[] {
   const missing: string[] = [];
@@ -18,16 +20,21 @@ export function missingAppwriteEnvVars(): string[] {
   return missing;
 }
 
-function getAccount(): Account {
-  if (_account) return _account;
+function getClient(): Client {
+  if (_client) return _client;
   const missing = missingAppwriteEnvVars();
   if (missing.length > 0) {
     throw new Error(`Appwrite env vars missing: ${missing.join(', ')}`);
   }
   const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string;
   const project = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string;
-  const client = new Client().setEndpoint(endpoint).setProject(project);
-  _account = new Account(client);
+  _client = new Client().setEndpoint(endpoint).setProject(project);
+  return _client;
+}
+
+function getAccount(): Account {
+  if (_account) return _account;
+  _account = new Account(getClient());
   return _account;
 }
 
@@ -78,3 +85,13 @@ export function appwriteEnvReady(): boolean {
 }
 
 export type AppwriteAuthProvider = 'local' | 'appwrite';
+
+export function appwriteBrowserClient(): Client {
+  return getClient();
+}
+
+export function appwriteStorage(): Storage {
+  if (_storage) return _storage;
+  _storage = new Storage(getClient());
+  return _storage;
+}

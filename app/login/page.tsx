@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import AuthForm from '@/components/auth/AuthForm';
 import { useAuthModal } from '@/components/auth/AuthModalProvider';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { open } = useAuthModal();
   const searchParams = useSearchParams();
-  const showInlineForm = searchParams.get('form') === '1';
+  const showInlineForm = searchParams?.get('form') === '1';
 
   useEffect(() => {
     open('login');
@@ -48,5 +48,26 @@ export default function LoginPage() {
         </div>
       )}
     </section>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <section className="mx-auto flex w-full max-w-4xl flex-col items-center gap-8 px-4 py-16 sm:px-6 lg:px-8">
+          <header className="text-center">
+            <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+              Log in to Prompt Hub
+            </h1>
+            <p className="mt-2 text-base text-neutral-600 dark:text-neutral-400">
+              Preparing the login experience…
+            </p>
+          </header>
+        </section>
+      }
+    >
+      <LoginPageContent />
+    </Suspense>
   );
 }
