@@ -19,6 +19,8 @@ const customJestConfig = {
     'components/**/*.{js,jsx,ts,tsx}',
     'hooks/**/*.{js,jsx,ts,tsx}',
     'lib/**/*.{js,jsx,ts,tsx}',
+    'test/**/*.{js,jsx,ts,tsx}',
+    'scripts/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!<rootDir>/out/**',
@@ -50,7 +52,11 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/$1',
     // Stub ESM-only fetch polyfill used by node-appwrite to a CJS-friendly mock
     '^node-fetch-native-with-agent$': '<rootDir>/__mocks__/node-fetch-native-with-agent.js',
+    // Mock jose library to avoid ESM issues
+    '^jose$': '<rootDir>/__mocks__/jose.js',
   },
+  // Transform ESM modules that need to be compiled
+  transformIgnorePatterns: ['node_modules/(?!(jose|@panva)/)'],
   // Add test timeout for slow tests
   testTimeout: 10000,
   // Force exit to prevent hanging
