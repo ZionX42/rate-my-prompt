@@ -18,13 +18,13 @@ export class SignJWT {
     return this;
   }
 
-  async sign(secret) {
+  async sign(_secret) {
     // Return a mock JWT token
     return 'mock.jwt.token';
   }
 }
 
-export async function jwtVerify(token, secret) {
+export async function jwtVerify(token, _secret) {
   if (token === 'mock.jwt.token' || token === 'valid-token') {
     return {
       payload: {

@@ -14,7 +14,7 @@ describe('StarRating Component', () => {
   it('shows correct number of filled stars for value', () => {
     render(<StarRating value={3} readOnly />);
     const stars = screen.getAllByRole('button');
-    
+
     // Check that first 3 stars have filled color
     expect(stars[0].querySelector('svg')).toHaveClass('fill-yellow-400');
     expect(stars[1].querySelector('svg')).toHaveClass('fill-yellow-400');
@@ -26,20 +26,20 @@ describe('StarRating Component', () => {
   it('calls onChange when star is clicked', () => {
     const handleChange = jest.fn();
     render(<StarRating onChange={handleChange} />);
-    
+
     const fourthStar = screen.getAllByRole('button')[3];
     fireEvent.click(fourthStar);
-    
+
     expect(handleChange).toHaveBeenCalledWith(4);
   });
 
   it('does not call onChange when readOnly', () => {
     const handleChange = jest.fn();
     render(<StarRating readOnly onChange={handleChange} />);
-    
+
     const firstStar = screen.getAllByRole('button')[0];
     fireEvent.click(firstStar);
-    
+
     expect(handleChange).not.toHaveBeenCalled();
   });
 
@@ -67,7 +67,7 @@ describe('RatingSubmission Component', () => {
 
   it('renders rating form', () => {
     render(<RatingSubmission promptId="test-prompt" userId="test-user" />);
-    
+
     expect(screen.getByText('Your Rating')).toBeInTheDocument();
     expect(screen.getByLabelText('Comment (Optional)')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /submit rating/i })).toBeInTheDocument();
@@ -75,16 +75,16 @@ describe('RatingSubmission Component', () => {
 
   it('shows error when no rating selected', async () => {
     render(<RatingSubmission promptId="test-prompt" userId="test-user" />);
-    
+
     const submitButton = screen.getByRole('button', { name: /submit rating/i });
-    
+
     // Button should be disabled when no rating is selected
     expect(submitButton).toBeDisabled();
-    
+
     // Force the form submission event
     const form = submitButton.closest('form')!;
     fireEvent.submit(form);
-    
+
     expect(await screen.findByText('Please select a rating')).toBeInTheDocument();
   });
 
@@ -94,28 +94,22 @@ describe('RatingSubmission Component', () => {
       json: async () => ({ message: 'Rating submitted successfully!' }),
     };
     (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue(mockResponse as Response);
-    
+
     const handleSubmit = jest.fn();
-    render(
-      <RatingSubmission 
-        promptId="test-prompt" 
-        userId="test-user" 
-        onSubmit={handleSubmit}
-      />
-    );
-    
+    render(<RatingSubmission promptId="test-prompt" userId="test-user" onSubmit={handleSubmit} />);
+
     // Select rating
     const fourthStar = screen.getAllByRole('button')[3]; // 4 stars
     fireEvent.click(fourthStar);
-    
+
     // Add comment
     const commentField = screen.getByLabelText('Comment (Optional)');
     fireEvent.change(commentField, { target: { value: 'Great prompt!' } });
-    
+
     // Submit
     const submitButton = screen.getByRole('button', { name: /submit rating/i });
     fireEvent.click(submitButton);
-    
+
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith('/api/prompts/test-prompt/ratings', {
         method: 'POST',
@@ -127,7 +121,7 @@ describe('RatingSubmission Component', () => {
         }),
       });
     });
-    
+
     expect(await screen.findByText('Rating submitted successfully!')).toBeInTheDocument();
     expect(handleSubmit).toHaveBeenCalledWith({
       rating: 4,
@@ -141,39 +135,39 @@ describe('RatingSubmission Component', () => {
       json: async () => ({ error: 'Validation failed' }),
     };
     (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue(mockResponse as Response);
-    
+
     render(<RatingSubmission promptId="test-prompt" userId="test-user" />);
-    
+
     // Select rating
     const firstStar = screen.getAllByRole('button')[0];
     fireEvent.click(firstStar);
-    
+
     // Submit
     const submitButton = screen.getByRole('button', { name: /submit rating/i });
     fireEvent.click(submitButton);
-    
+
     expect(await screen.findByText('Validation failed')).toBeInTheDocument();
   });
 
   it('shows character count for comment', () => {
     render(<RatingSubmission promptId="test-prompt" userId="test-user" />);
-    
+
     const commentField = screen.getByLabelText('Comment (Optional)');
     fireEvent.change(commentField, { target: { value: 'Hello' } });
-    
+
     expect(screen.getByText('5/500 characters')).toBeInTheDocument();
   });
 
   it('shows existing rating and comment', () => {
     render(
-      <RatingSubmission 
-        promptId="test-prompt" 
+      <RatingSubmission
+        promptId="test-prompt"
         userId="test-user"
         existingRating={3}
         existingComment="Previously rated"
       />
     );
-    
+
     const commentField = screen.getByLabelText('Comment (Optional)') as HTMLTextAreaElement;
     expect(commentField.value).toBe('Previously rated');
     expect(screen.getByRole('button', { name: /update rating/i })).toBeInTheDocument();

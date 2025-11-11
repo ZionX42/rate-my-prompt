@@ -10,6 +10,7 @@ An AI-based solution designed to address specific user needs, built with Next.js
 - [Scripts](#scripts)
 - [Testing](#testing)
 - [Dependencies](#dependencies)
+- [Coding Conventions](#coding-conventions)
 - [Contribution](#contribution)
 
 ## Scripts
@@ -18,10 +19,11 @@ An AI-based solution designed to address specific user needs, built with Next.js
 - `npm run dev` – start development server
 - `npm run build` – build for production
 - `npm run appwrite:setup` – create Appwrite collections and indexes
+- `npm run e2e` – run end-to-end tests with Playwright
 
 ## Testing
 
-This project uses [Jest](https://jestjs.io/) for unit and integration testing and [Cypress](https://www.cypress.io/) for end-to-end testing.
+This project uses [Jest](https://jestjs.io/) for unit and integration testing and [Playwright](https://playwright.dev/) for end-to-end testing.
 
 ### Running Tests
 
@@ -33,9 +35,9 @@ This project uses [Jest](https://jestjs.io/) for unit and integration testing an
   ```bash
   npm run test:watch
   ```
-- **Run Cypress E2E tests:**
+- **Run Playwright E2E tests:**
   ```bash
-  npm run cypress:run
+  npm run e2e
   ```
 
 ### Coverage
@@ -65,12 +67,28 @@ The project is organized as follows:
 
 ```
 ai-project
+├── src
+│   ├── app         # Next.js App Router
+│   ├── components  # React components
+│   ├── hooks       # React hooks
+│   ├── lib         # Core application logic
+│   ├── styles      # Global styles
+│   └── types       # TypeScript types
 ├── ai
-│   ├── PRD.md          # Product Requirements Document
-│   ├── TASKS.md        # Task management document
-│   └── RULES.md        # Project rules and guidelines
-└── README.md           # Project documentation
+│   ├── PRD.md      # Product Requirements Document
+│   ├── TASKS.md    # Task management document
+│   └── RULES.md    # Project rules and guidelines
+└── README.md       # Project documentation
 ```
+
+## Coding Conventions
+
+This project adheres to the [Fission-AI OpenSpec](https://github.com/Fission-AI/OpenSpec). Key conventions include:
+
+- **Conventional Commits:** Commit messages should follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/).
+- **Code Style:** Code is formatted with [Prettier](https://prettier.io/).
+- **Linting:** [ESLint](https://eslint.org/) is used to enforce code quality.
+- **TypeScript:** The project follows best practices for TypeScript.
 
 ## Contribution
 
@@ -89,12 +107,12 @@ All API routes use a standardized JSON response contract:
 - Errors: Always `{ error: string, details?: any }`.
   - When validation fails with Zod-like errors, `details` is an array of issues and is also mirrored to `issues` for backward compatibility: `{ error: "Validation failed", details: Issue[], issues: Issue[] }`.
 
-Common helpers live in `lib/api/responses.ts`:
+Common helpers live in `src/lib/api/responses.ts`:
 
 - `ok(data)`, `created(data)`, `noContent()`
 - `badRequest(message, details?)`, `unauthorized(message, details?)`, `notFound(message, details?)`, `serviceUnavailable(message, details?)`, `internalError(err)`
 
-Middleware helpers in `lib/api/middleware.ts`:
+Middleware helpers in `src/lib/api/middleware.ts`:
 
 - `requireJson(req)`: For non-GET methods, enforces `Content-Type: application/json`. Returns a 400 response when violated, or `null` to continue. It's tolerant of mocked requests in tests.
 - `simpleRateLimit(req, limit, windowMs)`: Very light in-memory rate limiter (per IP). Returns a 400 with `Rate limit exceeded` if threshold is exceeded, otherwise `null`. Replace with a real store in production.

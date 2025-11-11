@@ -181,7 +181,7 @@ describe('Rating Model', () => {
       const stats = generateRatingStats([]);
       expect(stats.averageRating).toBe(0);
       expect(stats.totalRatings).toBe(0);
-      expect(Object.values(stats.ratingDistribution).every(count => count === 0)).toBe(true);
+      expect(Object.values(stats.ratingDistribution).every((count) => count === 0)).toBe(true);
     });
   });
 });

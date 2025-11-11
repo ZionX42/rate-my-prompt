@@ -136,7 +136,7 @@ Adding `preset: "ts-jest"` would conflict with Next.js's jest configuration, whi
 1. **jest.config.js** - Updated configuration
 2. **package.json** - Added ts-jest dependency
 3. **package-lock.json** - Dependency lock file updated
-4. ****mocks**/jose.js** - NEW: Mock for jose library
+4. \***\*mocks**/jose.js\*\* - NEW: Mock for jose library
 
 ## Remaining Test Failures (Unrelated to This Fix)
 

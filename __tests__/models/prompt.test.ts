@@ -11,7 +11,11 @@ describe('Prompt model validation', () => {
   });
 
   it('accepts valid input', () => {
-    const res = validateNewPrompt({ title: 'My Prompt', content: 'This is a valid prompt content', authorId: 'user_1' });
+    const res = validateNewPrompt({
+      title: 'My Prompt',
+      content: 'This is a valid prompt content',
+      authorId: 'user_1',
+    });
     expect(res.ok).toBe(true);
   });
 

@@ -91,7 +91,7 @@ Here are examples of common operations:
 
 ```typescript
 const user = await prisma.user.findUnique({
-  where: { email: "user@example.com" }
+  where: { email: 'user@example.com' },
 });
 ```
 
@@ -100,10 +100,10 @@ const user = await prisma.user.findUnique({
 ```typescript
 const newUser = await prisma.user.create({
   data: {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "USER"
-  }
+    name: 'John Doe',
+    email: 'john@example.com',
+    role: 'USER',
+  },
 });
 ```
 
@@ -112,7 +112,7 @@ const newUser = await prisma.user.create({
 ```typescript
 const userWithAccounts = await prisma.user.findUnique({
   where: { id: userId },
-  include: { accounts: true }
+  include: { accounts: true },
 });
 ```
 
