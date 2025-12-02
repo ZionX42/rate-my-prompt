@@ -27,7 +27,7 @@
     "security:check": "npm run audit:ci && npm run lint && npm run test:no-coverage"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.18.2",
+    "@modelcontextprotocol/sdk": "^1.24.0",
     "@prisma/client": "^6.15.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@sentry/nextjs": "^10.8.0",
